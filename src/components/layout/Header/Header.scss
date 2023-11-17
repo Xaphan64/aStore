@@ -26,8 +26,8 @@
       color: white;
       background-color: rgb(10, 10, 10);
       border: 1px solid #0082e6;
-      border-radius: 7.5px;
-      padding: 10px 10px;
+      border-radius: 20px;
+      padding: 10px 20px;
       width: 100%;
 
       &:focus {
@@ -41,6 +41,12 @@
       display: flex;
       gap: 10px;
       padding: 0 10px;
+
+      .dropdown-account {
+        background: #fff;
+        box-shadow: 0px 10px 30px 0px rgba(82, 63, 105, 0.05);
+        transition: all linear 0.3s;
+      }
     }
 
     button {

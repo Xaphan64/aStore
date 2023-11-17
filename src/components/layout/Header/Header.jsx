@@ -1,28 +1,20 @@
 // ASSETS
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import PhoneAndroidOutlinedIcon from "@mui/icons-material/PhoneAndroidOutlined";
-import TabletAndroidOutlinedIcon from "@mui/icons-material/TabletAndroidOutlined";
-import LaptopChromebookOutlinedIcon from "@mui/icons-material/LaptopChromebookOutlined";
-import TvIcon from "@mui/icons-material/Tv";
-import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
-import ImportContactsOutlinedIcon from "@mui/icons-material/ImportContactsOutlined";
-import LunchDiningOutlinedIcon from "@mui/icons-material/LunchDiningOutlined";
-import ExtensionIcon from "@mui/icons-material/Extension";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { profileIcon, favoriteIcon, cartIcon, dropdownIcon, phoneIcon, laptopIcon } from "../../assets/MUI-icons";
+import { tvIcon, gamingIcon, booksIcon, foodIcon, toysIcon, furnitureIcon } from "../../assets/MUI-icons";
 
 // STYLES
 import "./Header.scss";
 
 // LIBRARIES
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 // MISC
 
 // COMPONENTS
 import CustomInput from "../../atoms/CustomInput";
 import CustomButton from "../../atoms/CustomButton";
+import { DropdownAccount } from "./Dropdown";
 
 // CONFIGURATION
 const Header = () => {
@@ -33,10 +25,19 @@ const Header = () => {
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
   // STATE CONSTANTS
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
   // LIFE CYCLE
 
   // EVENT HANDLERS
+  const handlerMouseEnter = () => {
+    setIsDropdownVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDropdownVisible(false);
+  };
+
   return (
     <div className="header-container">
       <div className="header-row one">
@@ -47,65 +48,67 @@ const Header = () => {
         <CustomInput placeholder="Type here to search for something" />
 
         <div className="login-right-buttons">
-          <CustomButton>
-            <PersonOutlineOutlinedIcon />
+          <div onMouseEnter={handlerMouseEnter} onMouseLeave={handleMouseLeave}>
+            {profileIcon}
             <span>Account</span>
-            <ArrowDropDownIcon />
-          </CustomButton>
+            {dropdownIcon}
+
+            {isDropdownVisible && <DropdownAccount />}
+          </div>
 
           <CustomButton>
-            <FavoriteBorderOutlinedIcon />
+            {favoriteIcon}
             <span>Favorites</span>
-            <ArrowDropDownIcon />
+            {dropdownIcon}
           </CustomButton>
 
           <CustomButton>
-            <ShoppingCartOutlinedIcon />
+            {cartIcon}
             <span>Cart</span>
-            <ArrowDropDownIcon />
+            {dropdownIcon}
           </CustomButton>
         </div>
       </div>
 
       <div className="header-row two">
         <CustomButton>
-          <PhoneAndroidOutlinedIcon />
+          {phoneIcon}
           <span>Phones</span>
         </CustomButton>
 
         <CustomButton>
-          <TabletAndroidOutlinedIcon />
-          <span>Tablets</span>
+          {laptopIcon}
+          <span>Laptops & PC</span>
         </CustomButton>
 
         <CustomButton>
-          <LaptopChromebookOutlinedIcon />
-          <span>Laptops</span>
+          {tvIcon}
+          <span>TV & Monitors</span>
         </CustomButton>
 
         <CustomButton>
-          <TvIcon />
-          <span>TV</span>
-        </CustomButton>
-
-        <CustomButton>
-          <SportsEsportsOutlinedIcon />
+          {gamingIcon}
           <span>Gaming</span>
         </CustomButton>
 
         <CustomButton>
-          <ImportContactsOutlinedIcon />
+          {booksIcon}
           <span>Books</span>
         </CustomButton>
 
         <CustomButton>
-          <LunchDiningOutlinedIcon />
+          {foodIcon}
           <span>Food</span>
         </CustomButton>
 
         <CustomButton>
-          <ExtensionIcon />
+          {toysIcon}
           <span>Toys</span>
+        </CustomButton>
+
+        <CustomButton>
+          {furnitureIcon}
+          <span>Furniture</span>
         </CustomButton>
       </div>
     </div>

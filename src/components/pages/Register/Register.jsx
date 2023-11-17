@@ -1,5 +1,5 @@
 // ASSETS
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { warningIcon } from "../../assets/MUI-icons";
 
 // STYLES
 import "./Register.scss";
@@ -114,7 +114,7 @@ const Register = () => {
 
           {nameError && (
             <div className="register-error">
-              <InfoOutlinedIcon /> {nameError}
+              {warningIcon} {nameError}
             </div>
           )}
         </div>
@@ -125,9 +125,7 @@ const Register = () => {
 
           {emailError && (
             <div className="register-error">
-              <InfoOutlinedIcon />
-
-              {emailError}
+              {warningIcon} {emailError}
             </div>
           )}
         </div>
@@ -144,12 +142,10 @@ const Register = () => {
 
           {passError ? (
             <div className="register-error">
-              <InfoOutlinedIcon /> {passError}
+              {warningIcon} {passError}
             </div>
           ) : (
-            <div className="register-text">
-              <InfoOutlinedIcon /> Passwords must be at least 8 characters
-            </div>
+            <div className="register-text">{warningIcon} Passwords must be at least 8 characters</div>
           )}
         </div>
 
@@ -164,7 +160,7 @@ const Register = () => {
 
           {confPassError && (
             <div className="register-error">
-              <InfoOutlinedIcon /> {confPassError}
+              {warningIcon} {confPassError}
             </div>
           )}
         </div>

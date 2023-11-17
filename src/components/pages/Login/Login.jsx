@@ -1,6 +1,5 @@
 // ASSETS
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import GoogleIcon from "@mui/icons-material/Google";
+import { warningIcon, googleIcon } from "../../assets/MUI-icons";
 
 // STYLES
 import "./Login.scss";
@@ -81,7 +80,7 @@ const Login = () => {
           <CustomInput type="text" name="email" value={inputValues.email} onChange={handleInputChange} />
           {emailError && (
             <div className="login-error">
-              <InfoOutlinedIcon /> {emailError}
+              {warningIcon} {emailError}
             </div>
           )}
         </div>
@@ -92,7 +91,7 @@ const Login = () => {
 
           {passwordError && (
             <div className="login-error">
-              <InfoOutlinedIcon /> {passwordError}
+              {warningIcon} {passwordError}
             </div>
           )}
         </div>
@@ -114,7 +113,7 @@ const Login = () => {
           </div>
 
           <CustomButton type="button" onClick={signInWithGoogle}>
-            <GoogleIcon />
+            {googleIcon}
 
             <span>Login with Google</span>
           </CustomButton>
