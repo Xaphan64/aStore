@@ -14,7 +14,8 @@ import { useState } from "react";
 // COMPONENTS
 import CustomInput from "../../atoms/CustomInput";
 import CustomButton from "../../atoms/CustomButton";
-import { DropdownAccount } from "./Dropdown";
+import DropdownAccount from "./Dropdown";
+import CustomDropdown from "../../atoms/CustomDropdown";
 
 // CONFIGURATION
 const Header = () => {
@@ -24,18 +25,23 @@ const Header = () => {
 
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
+
   // STATE CONSTANTS
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
+  const optionsAccount = [
+    { value: "Hello usename" },
+    { value: "My orders" },
+    { value: "My favorites" },
+    { value: "Add producs" },
+    { value: "Logout" },
+  ];
   // LIFE CYCLE
 
   // EVENT HANDLERS
-  const handlerMouseEnter = () => {
-    setIsDropdownVisible(true);
-  };
 
-  const handleMouseLeave = () => {
-    setIsDropdownVisible(false);
+  const handleDropdown = () => {
+    setIsDropdownVisible(!isDropdownVisible);
   };
 
   return (
@@ -45,25 +51,24 @@ const Header = () => {
           aStore
         </h1>
 
-        <CustomInput placeholder="Type here to search for something" />
+        <CustomInput type="text" name="search" placeholder="Type here to search for something" />
 
         <div className="login-right-buttons">
-          <div onMouseEnter={handlerMouseEnter} onMouseLeave={handleMouseLeave}>
-            {profileIcon}
-            <span>Account</span>
-            {dropdownIcon}
+          <CustomButton type="button" onClick={handleDropdown}>
+            <div className="left-icon">{profileIcon}</div>
+            <span>Account {dropdownIcon}</span>
 
             {isDropdownVisible && <DropdownAccount />}
-          </div>
+          </CustomButton>
 
-          <CustomButton>
-            {favoriteIcon}
+          <CustomButton type="button">
+            <div className="left-icon">{favoriteIcon}</div>
             <span>Favorites</span>
             {dropdownIcon}
           </CustomButton>
 
-          <CustomButton>
-            {cartIcon}
+          <CustomButton type="button">
+            <div className="left-icon">{cartIcon}</div>
             <span>Cart</span>
             {dropdownIcon}
           </CustomButton>
@@ -71,42 +76,42 @@ const Header = () => {
       </div>
 
       <div className="header-row two">
-        <CustomButton>
+        <CustomButton type="button">
           {phoneIcon}
           <span>Phones</span>
         </CustomButton>
 
-        <CustomButton>
+        <CustomButton type="button">
           {laptopIcon}
-          <span>Laptops & PC</span>
+          <span>Laptops</span>
         </CustomButton>
 
-        <CustomButton>
+        <CustomButton type="button">
           {tvIcon}
-          <span>TV & Monitors</span>
+          <span>TV</span>
         </CustomButton>
 
-        <CustomButton>
+        <CustomButton type="button">
           {gamingIcon}
           <span>Gaming</span>
         </CustomButton>
 
-        <CustomButton>
+        <CustomButton type="button">
           {booksIcon}
           <span>Books</span>
         </CustomButton>
 
-        <CustomButton>
+        <CustomButton type="button">
           {foodIcon}
           <span>Food</span>
         </CustomButton>
 
-        <CustomButton>
+        <CustomButton type="button">
           {toysIcon}
           <span>Toys</span>
         </CustomButton>
 
-        <CustomButton>
+        <CustomButton type="button">
           {furnitureIcon}
           <span>Furniture</span>
         </CustomButton>

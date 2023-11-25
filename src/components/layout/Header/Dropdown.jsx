@@ -4,50 +4,55 @@
 
 // LIBRARIES
 import { useNavigate } from "react-router-dom";
+import { dropdownUpIcon } from "../../assets/MUI-icons";
 
 // MISC
 
 // COMPONENTS
 
 // CONFIGURATION
+const DropdownAccount = () => {
+  // PROPERTIES
 
-// PROPERTIES
+  // API REQUESTS
 
-// API REQUESTS
+  // LIBRARY CONSTANTS
+  const account = localStorage.getItem("Username");
+  const navigate = useNavigate();
 
-// LIBRARY CONSTANTS
-const account = localStorage.getItem("Username");
-// const navigate = useNavigate();
+  // STATE CONSTANTS
 
-// STATE CONSTANTS
+  // LIFE CYCLE
 
-// LIFE CYCLE
+  // EVENT HANDLERS
+  const handleLogout = () => {
+    sessionStorage.removeItem("token");
+  };
 
-// EVENT HANDLERS
-export const DropdownAccount = () => {
   return (
     <div className="dropdown-account">
-      <span>Hello, {account}</span>
+      <div className="dropdown-icon">{dropdownUpIcon}</div>
 
-      <ul>
-        <li
-        // onClick={() => navigate("/orders")}
-        >
-          My Orders
-        </li>
-        <li
-        // onClick={() => navigate("/favorites")}
-        >
-          My Favorites
-        </li>
-        <li
-        // onClick={() => navigate("/add-products")}
-        >
-          Add Products
-        </li>
-      </ul>
+      <div className="dropdown-options">
+        <span className="dropdown-title">Hello, {account}</span>
 
-      <span>Logout</span>
+        <div className="dropdown-redirects">
+          <span className="dropdown-buttons" onClick={() => navigate("/orders")}>
+            My Orders
+          </span>
+          <span className="dropdown-buttons" onClick={() => navigate("/favorites")}>
+            My Favorites
+          </span>
+          <span className="dropdown-buttons" onClick={() => navigate("/add-products")}>
+            Add Products
+          </span>
+        </div>
+
+        <span onClick={handleLogout} className="dropdown-logout">
+          Logout
+        </span>
+      </div>
     </div>
   );
 };
+export default DropdownAccount;

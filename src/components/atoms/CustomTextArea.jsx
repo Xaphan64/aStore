@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 // COMPONENTS
 
 // CONFIGURATION
-const CustomInput = (props) => {
+const CustomTextArea = (props) => {
   // PROPERTIES
 
   // API REQUESTS
@@ -23,28 +23,25 @@ const CustomInput = (props) => {
 
   // EVENT HANDLERS
   return (
-    <input
+    <textarea
       type={props.type}
       name={props.name}
       placeholder={props.placeholder}
       onChange={props.onChange}
       defaultValue={props.defaultValue}
       value={props.value}
-      maxLength={props.maxLength}
-      minLength={props.minLength}
       required={props.required}
     />
   );
 };
 
-CustomInput.propTypes = {
+CustomTextArea.propTypes = {
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string,
+  placeholder: PropTypes.any,
   onChange: PropTypes.func,
   value: PropTypes.string,
-  maxLength: PropTypes.number,
-  minLength: PropTypes.number,
+  defaultValue: PropTypes.string,
 };
 
-export default CustomInput;
+export default CustomTextArea;

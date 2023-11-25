@@ -55,6 +55,7 @@ const Login = () => {
       inputValues.password === localStorage.getItem("Password", inputValues.password)
     ) {
       navigate("/");
+      sessionStorage.setItem("token", nanoid());
     } else console.log("login failed");
   };
 

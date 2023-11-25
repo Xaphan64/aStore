@@ -1,0 +1,20 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "pName": "Laptop HP",
+      "pDescription": "HP's description",
+      "pImage": "Image not available yet",
+      "pType": "Laptops",
+      "price": 2999
+    },
+    {
+      "id": 2,
+      "pName": "Samsung A41",
+      "pDescription": "Samsung phone's description",
+      "pImage": "Image not available yet",
+      "pType": "Phones",
+      "price": 899
+    }
+  ]
+}

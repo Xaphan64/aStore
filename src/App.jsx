@@ -15,6 +15,7 @@ import Layout from "./components/layout/Layout/Layout";
 import Orders from "./components/pages/Orders/Orders";
 import Favorites from "./components/pages/Favorites/Favorites";
 import AddProducts from "./components/pages/AddProducts/AddProducts";
+import ProductDetails from "./components/pages/ProductDetails/ProductDetails";
 
 // CONFIGURATION
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
           <Route path="/orders" element={<Orders />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/add-products" element={<AddProducts />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
         </Route>
       </Routes>
     </Router>

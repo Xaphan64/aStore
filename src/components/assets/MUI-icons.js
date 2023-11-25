@@ -18,6 +18,9 @@ import ExtensionIcon from "@mui/icons-material/Extension";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import WeekendIcon from "@mui/icons-material/Weekend";
 
+//dropdown
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+
 //register export
 export const warningIcon = <InfoOutlinedIcon />;
 
@@ -37,3 +40,6 @@ export const booksIcon = <ImportContactsOutlinedIcon />;
 export const foodIcon = <LunchDiningOutlinedIcon />;
 export const toysIcon = <ExtensionIcon />;
 export const furnitureIcon = <WeekendIcon />;
+
+//dropdown export
+export const dropdownUpIcon = <ArrowDropUpIcon />;

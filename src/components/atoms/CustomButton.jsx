@@ -3,6 +3,7 @@
 // STYLES
 
 // LIBRARIES
+import PropTypes from "prop-types";
 
 // MISC
 
@@ -26,6 +27,12 @@ const CustomButton = (props) => {
       {props.name} {props.children}
     </button>
   );
+};
+
+CustomButton.propTypes = {
+  type: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default CustomButton;

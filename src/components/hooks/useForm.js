@@ -18,9 +18,26 @@ export const useForm = (initialState = {}) => {
     setInputValues(newValues);
   };
 
+  const handleImageChange = ({ target }) => {
+    const file = target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setInputValues({
+          ...inputValues,
+          [target.name]: reader.result,
+        });
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
   return {
     inputValues,
     handleInputChange,
+    handleImageChange,
     resetForm,
     setForm,
   };
