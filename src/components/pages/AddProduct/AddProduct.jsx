@@ -1,0 +1,86 @@
+// ASSETS
+
+// STYLES
+
+// LIBRARIES
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+// MISC
+import { useForm } from "../../hooks/useForm";
+import { productType } from "../../config/productOptions";
+
+// COMPONENTS
+import CustomButton from "../../atoms/CustomButton";
+import CustomTextArea from "../../atoms/CustomTextArea";
+import CustomInput from "../../atoms/CustomInput";
+import CustomDropdown from "../../atoms/CustomDropdown";
+
+// CONFIGURATION
+const AddProduct = () => {
+  // PROPERTIES
+
+  // API REQUESTS
+
+  // LIBRARY CONSTANTS
+  const navigate = useNavigate();
+
+  // STATE CONSTANTS
+  const { inputValues, handleInputChange, handleImageChange } = useForm({
+    name: "",
+    description: "",
+    image: "",
+    type: "",
+    price: "",
+  });
+
+  // LIFE CYCLE
+
+  // EVENT HANDLERS
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    axios.post("http://localhost:8000/products", inputValues).then((response) => {
+      console.log("product added sucesfully", response);
+      navigate("/");
+    });
+  };
+
+  return (
+    <div className="add-edit-products-container">
+      <h1>Add a new product</h1>
+
+      <form onSubmit={handleSubmit}>
+        <div>
+          <span>Product name:</span>
+          <CustomInput type="text" name="name" value={inputValues.name} onChange={handleInputChange} />
+        </div>
+
+        <div>
+          <span>Product description:</span>
+          <CustomTextArea type="text" name="description" value={inputValues.description} onChange={handleInputChange} />
+        </div>
+
+        <div>
+          <span>Product image:</span>
+          <CustomInput type="file" name="image" onChange={handleImageChange} />
+        </div>
+
+        <div>
+          <span>Product type:</span>
+          <CustomDropdown name="type" value={inputValues.type} onChange={handleInputChange} options={productType} />
+        </div>
+
+        <div>
+          <span>Product price:</span>
+          <CustomInput type="text" name="price" value={inputValues.price} onChange={handleInputChange} />
+        </div>
+
+        <CustomButton type="submit" name="Add product" />
+      </form>
+    </div>
+  );
+};
+
+export default AddProduct;
