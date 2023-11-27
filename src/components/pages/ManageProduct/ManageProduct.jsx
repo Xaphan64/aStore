@@ -1,14 +1,16 @@
 // ASSETS
-import Placeholder from "./../../assets/Placeholder.png";
+
 // STYLES
 
 // LIBRARIES
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 // MISC
 import { useForm } from "../../hooks/useForm";
 import { productType } from "../../config/productOptions";
+import { useFetch } from "../../hooks/useFetch";
 
 // COMPONENTS
 import CustomButton from "../../atoms/CustomButton";
@@ -17,16 +19,20 @@ import CustomInput from "../../atoms/CustomInput";
 import CustomDropdown from "../../atoms/CustomDropdown";
 
 // CONFIGURATION
-const AddProduct = () => {
+const ManageProduct = () => {
   // PROPERTIES
 
   // API REQUESTS
 
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
+  const { id } = useParams();
 
+  const { data: product } = useFetch(`http://localhost:8000/products/${id}`);
   // STATE CONSTANTS
+  const [editMode, setEditMode] = useState(false);
   const { inputValues, handleInputChange, handleImageChange } = useForm({
+    id: id,
     name: "",
     description: "",
     image: "",
@@ -37,22 +43,37 @@ const AddProduct = () => {
   // LIFE CYCLE
 
   // EVENT HANDLERS
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
+  const addProduct = () => {
     axios.post("http://localhost:8000/products", inputValues).then((response) => {
       console.log("product added sucesfully", response);
       navigate("/");
+
+      //   navigate("/product/add-product");
+      //   navigate("/product/"+ id);
+
+      setEditMode(false);
+      console.log("add product function ran");
     });
   };
 
-  // const handleUploadImage = (imageUrl) => {
-  //   setSelectedImage(imageUrl);
-  // };
+  const editProduct = () => {
+    axios.put(`http://localhost:8000/products/${id}`, inputValues).then((response) => {
+      console.log("product edited sucesfully", response);
+      navigate(`/product/${product.id}`);
+      setEditMode(true);
+      console.log("edit product function ran");
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    editMode ? editProduct() : addProduct();
+  };
 
   return (
     <div className="manage-product-container">
-      <h1>Add a new product</h1>
+      <h1>{editMode ? "Edit" : "Add a new"} product</h1>
 
       <form onSubmit={handleSubmit}>
         <div>
@@ -67,12 +88,6 @@ const AddProduct = () => {
 
         <div>
           <span>Product image:</span>
-          {inputValues.image ? (
-            <img src={inputValues.image} alt="Selected" style={{ width: 500, height: 500 }} />
-          ) : (
-            <img src={Placeholder} alt="Placeholder" style={{ width: 500, height: 500 }} />
-          )}
-
           <CustomInput type="file" name="image" onChange={handleImageChange} />
         </div>
 
@@ -86,10 +101,10 @@ const AddProduct = () => {
           <CustomInput type="text" name="price" value={inputValues.price} onChange={handleInputChange} />
         </div>
 
-        <CustomButton type="submit" name="Add product" />
+        <CustomButton type="submit" name={editMode ? "Edit product" : "Add product"} />
       </form>
     </div>
   );
 };
 
-export default AddProduct;
+export default ManageProduct;

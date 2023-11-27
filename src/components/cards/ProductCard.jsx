@@ -4,6 +4,7 @@
 
 // LIBRARIES
 import { useNavigate } from "react-router-dom";
+import CustomButton from "../atoms/CustomButton";
 
 // MISC
 
@@ -23,21 +24,27 @@ const ProductCard = (props) => {
   // LIFE CYCLE
 
   // EVENT HANDLERS
+  const handleFavorite = () => {
+    console.log("favorite clicked");
+  };
+
   return (
     <div className="product-card">
-      <div>
-        <button>Favorite</button>
-        <img src={product.image} alt="N/a" style={{ width: 20, height: 20 }} />
-      </div>
+      <div onClick={() => navigate(`/product/${product.id}`)}>
+        <div>
+          <CustomButton type="button" onClick={handleFavorite}>
+            Favorite
+          </CustomButton>
+          <img src={product.image} alt="N/a" style={{ width: 20, height: 20 }} />
+        </div>
 
-      <span>{product.name}</span>
+        <span>{product.name}</span>
+      </div>
 
       <div>
         <span>{product.price}</span>
-        <button>Add Card</button>
+        <CustomButton type="button">Add Card</CustomButton>
       </div>
-
-      <button onClick={() => navigate(`/edit-product/${product.id}`)}>Edit Product</button>
     </div>
   );
 };

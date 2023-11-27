@@ -14,6 +14,7 @@ import CustomButton from "../../atoms/CustomButton";
 import CustomInput from "../../atoms/CustomInput";
 import CustomTextArea from "../../atoms/CustomTextArea";
 import { useEffect } from "react";
+import { useFetch } from "../../hooks/useFetch";
 
 // CONFIGURATION
 const EditProduct = () => {
@@ -24,6 +25,8 @@ const EditProduct = () => {
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const { data: product } = useFetch(`http://localhost:8000/products/${id}`);
 
   // STATE CONSTANTS
   const { inputValues, setForm, handleInputChange, handleImageChange } = useForm({
@@ -37,7 +40,7 @@ const EditProduct = () => {
   // LIFE CYCLE
   useEffect(() => {
     axios
-      .get("http://localhost:8000/products/" + id)
+      .get(`http://localhost:8000/products/${id}`)
       .then((response) => setForm(response.data))
       .catch((error) => console.log(error));
 
@@ -48,9 +51,9 @@ const EditProduct = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios.put("http://localhost:8000/products/" + id, inputValues).then((response) => {
+    axios.put(`http://localhost:8000/products/${id}`, inputValues).then((response) => {
       console.log("product edited sucesfully", response);
-      navigate("/");
+      navigate(`/product/${product.id}`);
     });
   };
 
@@ -71,6 +74,7 @@ const EditProduct = () => {
 
         <div>
           <span>Product image:</span>
+          <img src={inputValues.image} alt="Selected" style={{ width: 500, height: 500 }} />
           <CustomInput type="file" name="image" onChange={handleImageChange} />
         </div>
 

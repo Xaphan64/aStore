@@ -44,6 +44,7 @@ const DropdownAccount = () => {
             My Favorites
           </span>
           <span className="dropdown-buttons" onClick={() => navigate("/add-product")}>
+            {/* <span className="dropdown-buttons" onClick={() => navigate("/manage-product/")}> */}
             Add Product
           </span>
         </div>

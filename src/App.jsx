@@ -17,6 +17,7 @@ import Favorites from "./components/pages/Favorites/Favorites";
 import ProductDetails from "./components/pages/ProductDetails/ProductDetails";
 import AddProduct from "./components/pages/AddProduct/AddProduct";
 import EditProduct from "./components/pages/EditProduct/EditProduct";
+import ManageProduct from "./components/pages/ManageProduct/ManageProduct";
 
 // CONFIGURATION
 const App = () => {
@@ -43,6 +44,7 @@ const App = () => {
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/add-product" element={<AddProduct />} />
           <Route path="/edit-product/:id" element={<EditProduct />} />
+          <Route path="/manage-product/:id" element={<ManageProduct />} />
           <Route path="/product/:id" element={<ProductDetails />} />
         </Route>
       </Routes>

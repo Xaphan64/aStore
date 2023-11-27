@@ -64,7 +64,7 @@ const Login = () => {
 
     console.log(result);
     navigate("/");
-    localStorage.setItem("token", nanoid());
+    sessionStorage.setItem("token", nanoid());
   };
 
   return (
