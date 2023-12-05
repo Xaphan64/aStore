@@ -4,14 +4,9 @@ import Placeholder from "./../../assets/Placeholder.png";
 // STYLES
 
 // LIBRARIES
-<<<<<<< Updated upstream
-import { useParams } from "react-router-dom";
-import { Fragment } from "react";
-=======
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
->>>>>>> Stashed changes
 
 // MISC
 import { useFetch } from "../../hooks/useFetch";
@@ -19,13 +14,10 @@ import { useForm } from "../../hooks/useForm";
 import { productType } from "../../config/productOptions";
 
 // COMPONENTS
-<<<<<<< Updated upstream
-=======
 import CustomButton from "../../atoms/CustomButton";
 import CustomInput from "../../atoms/CustomInput";
 import CustomTextArea from "../../atoms/CustomTextArea";
 import CustomDropdown from "../../atoms/CustomDropdown";
->>>>>>> Stashed changes
 
 // CONFIGURATION
 const ProductDetails = () => {
@@ -35,11 +27,8 @@ const ProductDetails = () => {
 
   // LIBRARY CONSTANTS
   const { id } = useParams();
-<<<<<<< Updated upstream
-=======
   const navigate = useNavigate();
   const location = useLocation();
->>>>>>> Stashed changes
 
   // STATE CONSTANTS
   const [isPending, setIsPending] = useState(false);
@@ -97,8 +86,6 @@ const ProductDetails = () => {
   }, [currentMode]);
 
   // EVENT HANDLERS
-<<<<<<< Updated upstream
-=======
   const handleSetMode = (mode) => {
     setCurrentMode(mode);
     localStorage.setItem("currentMode", mode);
@@ -145,21 +132,10 @@ const ProductDetails = () => {
 
   console.log("currentMode in ProductDetails :>> ", currentMode);
 
->>>>>>> Stashed changes
   return (
     <div>
       {isLoading && <div>Loading...</div>}
       {error && <div>{error}</div>}
-<<<<<<< Updated upstream
-      {product && (
-        <Fragment>
-          <h2>{product.pName}</h2>
-
-          <img src={product.pImage} alt="img not available" style={{ width: 200, height: 200 }} />
-          <span>{product.pDescription}</span>
-          <span>{product.price} RON</span>
-        </Fragment>
-=======
 
       {!isLoading && !error && (
         <div>
@@ -285,7 +261,6 @@ const ProductDetails = () => {
             </div>
           )}
         </div>
->>>>>>> Stashed changes
       )}
     </div>
   );
