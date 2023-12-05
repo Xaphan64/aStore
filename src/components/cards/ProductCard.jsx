@@ -26,23 +26,6 @@ const ProductCard = (props) => {
 
   // EVENT HANDLERS
   return (
-<<<<<<< Updated upstream
-    <div className="product-card-container" style={{ display: "flex", flexDirection: "column" }}>
-      {products?.map((product, index) => (
-        <Fragment key={`${index}-${product?.id}`}>
-          <Link
-            to={`/product/${product.id}`}
-            style={{ textDecoration: "none", display: "flex", flexDirection: "column" }}
-          >
-            <span>{product.pName}</span>
-            {/* <span>{product.pDescription}</span> */}
-            <img src={product.pImage} alt="N/a" style={{ width: 20, height: 20 }} />
-            <span>{product.price} RON</span>
-          </Link>
-          <CustomButton type="button" name="Delete product" onClick={() => deleteProduct(product.id)} />
-        </Fragment>
-      ))}
-=======
     <div className="product-card">
       <div onClick={() => navigate(`/product/${product.id}`)}>
         <div>
@@ -59,7 +42,6 @@ const ProductCard = (props) => {
         <span>{product.price} RON</span>
         <CustomButton type="button">Add Card</CustomButton>
       </div>
->>>>>>> Stashed changes
     </div>
   );
 };

@@ -16,12 +16,9 @@ import Orders from "./components/pages/Orders/Orders";
 import Favorites from "./components/pages/Favorites/Favorites";
 import AddProducts from "./components/pages/AddProducts/AddProducts";
 import ProductDetails from "./components/pages/ProductDetails/ProductDetails";
-<<<<<<< Updated upstream
-=======
 import AddProduct from "./components/pages/AddProduct/AddProduct";
 import EditProduct from "./components/pages/EditProduct/EditProduct";
 import ErrorPage from "./components/config/errorPage";
->>>>>>> Stashed changes
 
 // CONFIGURATION
 const App = () => {
@@ -46,12 +43,8 @@ const App = () => {
           <Route path="/" element={<MainPage />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/favorites" element={<Favorites />} />
-<<<<<<< Updated upstream
-          <Route path="/add-products" element={<AddProducts />} />
-=======
           <Route path="/add-product" element={<AddProduct />} />
           <Route path="/edit-product/:id" element={<EditProduct />} />
->>>>>>> Stashed changes
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>

@@ -31,9 +31,6 @@ const MainPage = () => {
   // EVENT HANDLERS
   return (
     <div className="main-page-container">
-<<<<<<< Updated upstream
-      <h1>Main Page</h1>
-=======
       <div className="ads-container">
         <h1>Three carousel ads will be here with timer to change the ad</h1>
       </div>
@@ -116,7 +113,6 @@ const MainPage = () => {
           </div>
         </div>
       )}
->>>>>>> Stashed changes
     </div>
   );
 };
