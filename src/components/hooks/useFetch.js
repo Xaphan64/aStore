@@ -17,7 +17,12 @@ export const useFetch = (url) => {
   // API REQUESTS
 
   // LIBRARY CONSTANTS
+<<<<<<< Updated upstream
   const [data, setData] = useState(null);
+=======
+
+  const [data, setData] = useState([]);
+>>>>>>> Stashed changes
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -26,9 +31,22 @@ export const useFetch = (url) => {
   // LIFE CYCLE
 
   useEffect(() => {
+<<<<<<< Updated upstream
     const fetchData = async () => {
       try {
         const response = await axios.get(url);
+=======
+    const currentPage = window.location.pathname.split("/")[window.location.pathname.split("/").length - 1];
+
+    if (currentPage === "add-product") {
+      setIsLoading(false);
+      return;
+    }
+
+    axios
+      .get(url)
+      .then((response) => {
+>>>>>>> Stashed changes
         setData(response.data);
         setIsLoading(false);
         setError(null);
@@ -47,5 +65,6 @@ export const useFetch = (url) => {
     setData,
     isLoading,
     error,
+    setData,
   };
 };

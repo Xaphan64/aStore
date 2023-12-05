@@ -23,7 +23,13 @@ const CustomButton = (props) => {
 
   // EVENT HANDLERS
   return (
-    <button type={props.type} name={props.name} onClick={props.onClick} className={props.className}>
+    <button
+      type={props.type}
+      name={props.name}
+      onClick={props.onClick}
+      className={props.className}
+      disabled={props.disabled}
+    >
       {props.name} {props.children}
     </button>
   );
