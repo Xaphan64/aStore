@@ -43,77 +43,93 @@ const MainPage = () => {
 
       {!isLoading && !error && (
         <div className="main-page-categories">
-          <div className="main-page-category">
-            <h2 className="main-page-category-title">Phones</h2>
-            {phones?.map((product, index) => (
-              <div className="main-page-category-map" key={`phones-${index}-${product?.id}`}>
-                <ProductCard product={product} />
-              </div>
-            ))}
-          </div>
+          {phones.length > 0 && (
+            <div className="main-page-category">
+              <h2 className="main-page-category-title">Phones</h2>
+              {phones?.map((product, index) => (
+                <div className="main-page-category-map" key={`phones-${index}-${product?.id}`}>
+                  <ProductCard product={product} />
+                </div>
+              ))}
+            </div>
+          )}
 
-          <div className="main-page-categories">
-            <h2 className="main-page-category-title">Laptops</h2>
-            {laptops?.map((product, index) => (
-              <div className="main-page-category-map" key={`laptops-${index}-${product?.id}`}>
-                <ProductCard product={product} />
-              </div>
-            ))}
-          </div>
+          {laptops.length > 0 && (
+            <div className="main-page-category">
+              <h2 className="main-page-category-title">Laptops</h2>
+              {laptops?.map((product, index) => (
+                <div className="main-page-category-map" key={`laptops-${index}-${product?.id}`}>
+                  <ProductCard product={product} />
+                </div>
+              ))}
+            </div>
+          )}
 
-          <div className="main-page-categories">
-            <h2 className="main-page-category-title">TV</h2>
-            {tv?.map((product, index) => (
-              <div className="main-page-category-map" key={`tv-${index}-${product?.id}`}>
-                <ProductCard product={product} />
-              </div>
-            ))}
-          </div>
+          {tv.length > 0 && (
+            <div className="main-page-category">
+              <h2 className="main-page-category-title">TV</h2>
+              {tv?.map((product, index) => (
+                <div className="main-page-category-map" key={`tv-${index}-${product?.id}`}>
+                  <ProductCard product={product} />
+                </div>
+              ))}
+            </div>
+          )}
 
-          <div className="main-page-categories">
-            <h2 className="main-page-category-title">Gaming</h2>
-            {gaming?.map((product, index) => (
-              <div className="main-page-category-map" key={`gaming-${index}-${product?.id}`}>
-                <ProductCard product={product} />
-              </div>
-            ))}
-          </div>
+          {gaming.length > 0 && (
+            <div className="main-page-category">
+              <h2 className="main-page-category-title">Gaming</h2>
+              {gaming?.map((product, index) => (
+                <div className="main-page-category-map" key={`gaming-${index}-${product?.id}`}>
+                  <ProductCard product={product} />
+                </div>
+              ))}
+            </div>
+          )}
 
-          <div className="main-page-categories">
-            <h2 className="main-page-category-title">Books</h2>
-            {books?.map((product, index) => (
-              <div className="main-page-category-map" key={`books-${index}-${product?.id}`}>
-                <ProductCard product={product} />
-              </div>
-            ))}
-          </div>
+          {books.length > 0 && (
+            <div className="main-page-category">
+              <h2 className="main-page-category-title">Books</h2>
+              {books?.map((product, index) => (
+                <div className="main-page-category-map" key={`books-${index}-${product?.id}`}>
+                  <ProductCard product={product} />
+                </div>
+              ))}
+            </div>
+          )}
 
-          <div className="main-page-categories">
-            <h2 className="main-page-category-title">Food</h2>
-            {food?.map((product, index) => (
-              <div className="main-page-category-map" key={`food-${index}-${product?.id}`}>
-                <ProductCard product={product} />
-              </div>
-            ))}
-          </div>
+          {food.length > 0 && (
+            <div className="main-page-category">
+              <h2 className="main-page-category-title">Food</h2>
+              {food?.map((product, index) => (
+                <div className="main-page-category-map" key={`food-${index}-${product?.id}`}>
+                  <ProductCard product={product} />
+                </div>
+              ))}
+            </div>
+          )}
 
-          <div className="main-page-categories">
-            <h2 className="main-page-category-title">Toys</h2>
-            {toys?.map((product, index) => (
-              <div className="main-page-category-map" key={`toys-${index}-${product?.id}`}>
-                <ProductCard product={product} />
-              </div>
-            ))}
-          </div>
+          {toys.length > 0 && (
+            <div className="main-page-category">
+              <h2 className="main-page-category-title">Toys</h2>
+              {toys?.map((product, index) => (
+                <div className="main-page-category-map" key={`toys-${index}-${product?.id}`}>
+                  <ProductCard product={product} />
+                </div>
+              ))}
+            </div>
+          )}
 
-          <div className="main-page-categories">
-            <h2 className="main-page-category-title">Furniture</h2>
-            {furniture?.map((product, index) => (
-              <div className="main-page-category-map" key={`furniture-${index}-${product?.id}`}>
-                <ProductCard product={product} />
-              </div>
-            ))}
-          </div>
+          {furniture.length > 0 && (
+            <div className="main-page-category">
+              <h2 className="main-page-category-title">Furniture</h2>
+              {furniture?.map((product, index) => (
+                <div className="main-page-category-map" key={`furniture-${index}-${product?.id}`}>
+                  <ProductCard product={product} />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>
