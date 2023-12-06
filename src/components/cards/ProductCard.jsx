@@ -3,28 +3,31 @@
 // STYLES
 
 // LIBRARIES
-import { Fragment } from "react";
 import propTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 // MISC
 
 // COMPONENTS
 import CustomButton from "../atoms/CustomButton";
-import { Link } from "react-router-dom";
 
 // CONFIGURATION
 const ProductCard = (props) => {
   // PROPERTIES
-  const { deleteProduct, products } = props;
+  const { product } = props;
   // API REQUESTS
 
   // LIBRARY CONSTANTS
-
+  const navigate = useNavigate();
   // STATE CONSTANTS
 
   // LIFE CYCLE
 
   // EVENT HANDLERS
+  const handleFavorite = () => {
+    console.log("favorite clicked");
+  };
+
   return (
     <div className="product-card">
       <div onClick={() => navigate(`/product/${product.id}`)}>

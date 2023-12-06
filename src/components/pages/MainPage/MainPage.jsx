@@ -5,14 +5,17 @@
 // LIBRARIES
 
 // MISC
+import { useFetch } from "../../hooks/useFetch";
 
 // COMPONENTS
+import ProductCard from "../../cards/ProductCard";
 
 // CONFIGURATION
 const MainPage = () => {
   // PROPERTIES
 
   // API REQUESTS
+  const { data: products, isLoading, error } = useFetch(`http://localhost:8000/products/`);
 
   // LIBRARY CONSTANTS
   const phones = products?.filter((product) => product.type === "Phones");
