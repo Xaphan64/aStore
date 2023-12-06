@@ -26,33 +26,47 @@ export const useFetch = (url) => {
 
   // LIFE CYCLE
 
+  // useEffect(() => {
+  //   const currentPage = window.location.pathname.split("/")[window.location.pathname.split("/").length - 1];
+
+  //   if (currentPage === "add-product") {
+  //     setIsLoading(false);
+  //     return;
+  //   }
+
+  //   axios
+  //     .get(url)
+  //     .then((response) => {
+  //       setData(response.data);
+  //       setIsLoading(false);
+  //       setError(null);
+  //     } catch (error) {
+  //       setError(error.message);
+  //       setIsLoading(false);
+  //     }
+  //   })
+  //   fetchData();
+  // }, [url]);
+
   useEffect(() => {
-    const currentPage = window.location.pathname.split("/")[window.location.pathname.split("/").length - 1];
-
-    if (currentPage === "add-product") {
-      setIsLoading(false);
-      return;
-    }
-
     axios
       .get(url)
       .then((response) => {
         setData(response.data);
         setIsLoading(false);
-        setError(null);
-      } catch (error) {
+        setError(false);
+      })
+      .catch((error) => {
+        console.log(error);
         setError(error.message);
         setIsLoading(false);
-      }
-    })
-    fetchData();
+      });
   }, [url]);
 
   // EVENT HANDLERS
 
   return {
     data,
-    setData,
     isLoading,
     error,
     setData,

@@ -106,14 +106,14 @@ const AddProducts = () => {
     // addProduct(inputValues);
     // resetForm();
 
-    const product = {};
+    // const product = {};
 
-    fetch("http://localhost:8000/products"),
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(product),
-      };
+    // fetch("http://localhost:8000/products"),
+    //   {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(product),
+    //   };
   };
 
   return (
