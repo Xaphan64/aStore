@@ -57,7 +57,7 @@ const AddProduct = () => {
   // };
 
   return (
-    <div className="manage-product-container">
+    <div className="add-product-container">
       <h1>Add a new product</h1>
 
       <form onSubmit={handleSubmit}>

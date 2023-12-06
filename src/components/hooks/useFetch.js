@@ -49,6 +49,15 @@ export const useFetch = (url) => {
   // }, [url]);
 
   useEffect(() => {
+    //delete this later
+    const currentPage = window.location.pathname.split("/")[window.location.pathname.split("/").length - 1];
+
+    if (currentPage === "add-product") {
+      setIsLoading(false);
+      return;
+    }
+
+    //dont delete this
     axios
       .get(url)
       .then((response) => {

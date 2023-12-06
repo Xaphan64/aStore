@@ -14,7 +14,6 @@ import Register from "./components/pages/Register/Register";
 import Layout from "./components/layout/Layout/Layout";
 import Orders from "./components/pages/Orders/Orders";
 import Favorites from "./components/pages/Favorites/Favorites";
-import AddProducts from "./components/pages/AddProducts/AddProducts";
 import ProductDetails from "./components/pages/ProductDetails/ProductDetails";
 import AddProduct from "./components/pages/AddProduct/AddProduct";
 import EditProduct from "./components/pages/EditProduct/EditProduct";
