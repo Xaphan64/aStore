@@ -14,8 +14,10 @@ import Register from "./components/pages/Register/Register";
 import Layout from "./components/layout/Layout/Layout";
 import Orders from "./components/pages/Orders/Orders";
 import Favorites from "./components/pages/Favorites/Favorites";
-import AddProducts from "./components/pages/AddProducts/AddProducts";
 import ProductDetails from "./components/pages/ProductDetails/ProductDetails";
+import AddProduct from "./components/pages/AddProduct/AddProduct";
+import EditProduct from "./components/pages/EditProduct/EditProduct";
+import ManageProduct from "./components/pages/ManageProduct/ManageProduct";
 
 // CONFIGURATION
 const App = () => {
@@ -40,7 +42,9 @@ const App = () => {
           <Route path="/" element={<MainPage />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/favorites" element={<Favorites />} />
-          <Route path="/add-products" element={<AddProducts />} />
+          <Route path="/add-product" element={<AddProduct />} />
+          <Route path="/edit-product/:id" element={<EditProduct />} />
+          <Route path="/manage-product/:id" element={<ManageProduct />} />
           <Route path="/product/:id" element={<ProductDetails />} />
         </Route>
       </Routes>

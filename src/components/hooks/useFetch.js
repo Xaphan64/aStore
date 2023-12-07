@@ -17,27 +17,26 @@ export const useFetch = (url) => {
   // API REQUESTS
 
   // LIBRARY CONSTANTS
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   // STATE CONSTANTS
 
   // LIFE CYCLE
-
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(url);
+    axios
+      .get(url)
+      .then((response) => {
         setData(response.data);
         setIsLoading(false);
-        setError(null);
-      } catch (error) {
+        setError(false);
+      })
+      .catch((error) => {
+        console.log(error);
         setError(error.message);
         setIsLoading(false);
-      }
-    };
-    fetchData();
+      });
   }, [url]);
 
   // EVENT HANDLERS
