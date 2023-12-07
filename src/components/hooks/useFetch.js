@@ -25,39 +25,7 @@ export const useFetch = (url) => {
   // STATE CONSTANTS
 
   // LIFE CYCLE
-
-  // useEffect(() => {
-  //   const currentPage = window.location.pathname.split("/")[window.location.pathname.split("/").length - 1];
-
-  //   if (currentPage === "add-product") {
-  //     setIsLoading(false);
-  //     return;
-  //   }
-
-  //   axios
-  //     .get(url)
-  //     .then((response) => {
-  //       setData(response.data);
-  //       setIsLoading(false);
-  //       setError(null);
-  //     } catch (error) {
-  //       setError(error.message);
-  //       setIsLoading(false);
-  //     }
-  //   })
-  //   fetchData();
-  // }, [url]);
-
   useEffect(() => {
-    //delete this later
-    const currentPage = window.location.pathname.split("/")[window.location.pathname.split("/").length - 1];
-
-    if (currentPage === "add-product") {
-      setIsLoading(false);
-      return;
-    }
-
-    //dont delete this
     axios
       .get(url)
       .then((response) => {
