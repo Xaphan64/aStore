@@ -24,7 +24,6 @@ export const useFetch = (url) => {
   // STATE CONSTANTS
 
   // LIFE CYCLE
-
   useEffect(() => {
     axios
       .get(url)

@@ -46,12 +46,8 @@ const AddProduct = () => {
     });
   };
 
-  // const handleUploadImage = (imageUrl) => {
-  //   setSelectedImage(imageUrl);
-  // };
-
   return (
-    <div className="manage-product-container">
+    <div className="add-product-container">
       <h1>Add a new product</h1>
 
       <form onSubmit={handleSubmit}>

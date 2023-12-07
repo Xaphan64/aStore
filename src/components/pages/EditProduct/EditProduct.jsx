@@ -58,7 +58,7 @@ const EditProduct = () => {
   };
 
   return (
-    <div className="add-edit-products-container">
+    <div className="edit-products-container">
       <h1>Edit product</h1>
 
       <form onSubmit={handleSubmit}>
