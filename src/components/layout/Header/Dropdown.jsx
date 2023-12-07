@@ -29,13 +29,6 @@ const DropdownAccount = () => {
     sessionStorage.removeItem("token");
   };
 
-  const handleCreateProduct = () => {
-    localStorage.setItem("currentMode", "createMode");
-    navigate("/product/add-product");
-
-    TODO: console.log("currentMode in Dropdown :>> ", localStorage.setItem("currentMode", "createMode"));
-  };
-
   return (
     <div className="dropdown-account">
       <div className="dropdown-icon">{dropdownUpIcon}</div>
@@ -52,7 +45,7 @@ const DropdownAccount = () => {
             My Favorites
           </span>
 
-          <span className="dropdown-buttons" onClick={handleCreateProduct}>
+          <span className="dropdown-buttons" onClick={() => navigate("/add-product")}>
             Add Product
           </span>
         </div>
