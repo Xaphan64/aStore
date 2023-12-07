@@ -43,6 +43,7 @@ export const useFetch = (url) => {
 
   return {
     data,
+    setData,
     isLoading,
     error,
   };

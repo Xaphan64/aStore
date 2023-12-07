@@ -37,12 +37,21 @@ const ProductDetails = () => {
   });
 
   // LIFE CYCLE
-  const { data: product, isLoading, error } = useFetch(`http://localhost:8000/products/${id}`);
+  const { data: product, isLoading, error, setData } = useFetch(`http://localhost:8000/products/${id}`);
 
   useEffect(() => {
     axios
       .get(`http://localhost:8000/products/${id}`)
       .then((response) => setForm(response.data))
+      .catch((error) => console.log(error));
+
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/products/${id}`)
+      .then((response) => setData(response.data))
       .catch((error) => console.log(error));
 
     // eslint-disable-next-line
@@ -107,6 +116,7 @@ const ProductDetails = () => {
                 </div>
 
                 <CustomButton type="submit" name="Edit product" />
+                <CustomButton type="button" name="Cancel" onClick={() => setEditMode(false)} />
               </form>
             </div>
           ) : (
