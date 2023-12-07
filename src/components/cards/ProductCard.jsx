@@ -35,7 +35,7 @@ const ProductCard = (props) => {
           <CustomButton type="button" onClick={handleFavorite}>
             Favorite
           </CustomButton>
-          <img src={product.image} alt="N/a" style={{ width: 20, height: 20 }} />
+          <img src={product.image} alt="N/a" style={{ width: 50, height: 50 }} />
         </div>
 
         <span>{product.name}</span>
