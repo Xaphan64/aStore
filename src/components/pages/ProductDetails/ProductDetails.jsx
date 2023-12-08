@@ -16,6 +16,7 @@ import { useForm } from "../../hooks/useForm";
 import CustomButton from "../../atoms/CustomButton";
 import CustomInput from "../../atoms/CustomInput";
 import CustomTextArea from "../../atoms/CustomTextArea";
+import ConfirmationModal from "./ConfirmationModal/ConfirmationModal";
 
 // CONFIGURATION
 const ProductDetails = () => {
@@ -30,6 +31,7 @@ const ProductDetails = () => {
   // STATE CONSTANTS
   const [editMode, setEditMode] = useState(false);
   const [isPending, setIsPending] = useState(false);
+  const [modal, setModal] = useState(false);
   const [nameError, setNameError] = useState("");
   const [priceError, setPriceError] = useState("");
   const [descError, setDescError] = useState("");
@@ -110,20 +112,20 @@ const ProductDetails = () => {
       axios.put(`http://localhost:8000/products/${id}`, inputValues).then((response) => {
         console.log("product edited sucesfully", response);
         navigate(`/product/${product.id}`);
+        setIsPending(false);
         setEditMode(false);
       });
     }
   };
 
   const handleDelete = (id) => {
-    const confirm = window.confirm("Would you like to delete this product?");
+    setIsPending(true);
 
-    if (confirm) {
-      axios.delete("http://localhost:8000/products/" + id).then((response) => {
-        console.log("Product deleted", response);
-        navigate("/");
-      });
-    }
+    axios.delete(`http://localhost:8000/products/${id}`).then((response) => {
+      console.log("Product deleted", response);
+      navigate("/");
+      setIsPending(false);
+    });
   };
   return (
     <div>
@@ -201,13 +203,21 @@ const ProductDetails = () => {
                   <CustomButton type="button">Add to Favorites</CustomButton>
                 </div>
               </div>
-              <CustomButton type="button" onClick={() => setEditMode(true)}>
-                Edit Product
-              </CustomButton>
-              <CustomButton type="button" onClick={() => handleDelete(product.id)}>
-                Delete Product
-              </CustomButton>
-              <span>{product.description}</span>{" "}
+
+              <CustomButton type="button" name="Edit Product" onClick={() => setEditMode(true)} />
+
+              <CustomButton type="button" name="Delete Product" onClick={() => setModal(true)} />
+
+              <span>{product.description}</span>
+
+              {modal && (
+                <ConfirmationModal
+                  handleDelete={handleDelete}
+                  setModal={setModal}
+                  product={product}
+                  isPending={isPending}
+                />
+              )}
             </div>
           )}
         </div>

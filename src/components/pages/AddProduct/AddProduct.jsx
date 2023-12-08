@@ -6,7 +6,7 @@ import { warningIcon } from "../../assets/MUI-icons";
 
 // LIBRARIES
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import axios from "axios";
 
 // MISC
@@ -151,11 +151,11 @@ const AddProduct = () => {
         {isPending ? (
           <CustomButton disabled type="button" name="Adding..." />
         ) : (
-          <div>
+          <Fragment>
             <CustomButton type="submit" name="Add product" />
 
             <CustomButton type="button" name="Cancel" onClick={() => navigate("/")} />
-          </div>
+          </Fragment>
         )}
       </form>
     </div>
