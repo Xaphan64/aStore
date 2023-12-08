@@ -15,10 +15,12 @@ import CustomButton from "../atoms/CustomButton";
 const ProductCard = (props) => {
   // PROPERTIES
   const { product } = props;
+
   // API REQUESTS
 
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
+
   // STATE CONSTANTS
 
   // LIFE CYCLE
@@ -50,8 +52,7 @@ const ProductCard = (props) => {
 };
 
 ProductCard.propsTypes = {
-  deleteProduct: propTypes.func.isRequired,
-  products: propTypes.array,
+  product: propTypes.array,
 };
 
 export default ProductCard;
