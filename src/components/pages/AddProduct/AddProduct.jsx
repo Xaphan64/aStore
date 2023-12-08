@@ -1,10 +1,12 @@
 // ASSETS
 import Placeholder from "./../../assets/Placeholder.png";
+import { warningIcon } from "../../assets/MUI-icons";
 
 // STYLES
 
 // LIBRARIES
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import axios from "axios";
 
 // MISC
@@ -16,7 +18,6 @@ import CustomButton from "../../atoms/CustomButton";
 import CustomTextArea from "../../atoms/CustomTextArea";
 import CustomInput from "../../atoms/CustomInput";
 import CustomDropdown from "../../atoms/CustomDropdown";
-import { useState } from "react";
 
 // CONFIGURATION
 const AddProduct = () => {
@@ -29,6 +30,9 @@ const AddProduct = () => {
 
   // STATE CONSTANTS
   const [isPending, setIsPending] = useState(false);
+  const [nameError, setNameError] = useState("");
+  const [priceError, setPriceError] = useState("");
+  const [descError, setDescError] = useState("");
   const { inputValues, handleInputChange, handleImageChange } = useForm({
     name: "",
     description: "",
@@ -43,18 +47,52 @@ const AddProduct = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    setIsPending(true);
+    //if name is empty throw error
+    if (inputValues.name.trim() === "") {
+      setNameError("Enter the product name");
+    } else {
+      setNameError("");
+    }
 
-    axios.post("http://localhost:8000/products", inputValues).then((response) => {
-      console.log("product added sucesfully", response);
+    const priceRegex = /^\d+$/;
+
+    //if price is empty or is not a number throw error
+    if (inputValues.price.trim() === "") {
+      setPriceError("Select the product price");
+    } else if (!priceRegex.test(inputValues.price)) {
+      setPriceError("The price must be a number");
+    } else {
+      setPriceError("");
+    }
+
+    //if description is empty throw error
+    if (inputValues.description.trim() === "") {
+      setDescError("Enter a product description");
+    } else {
+      setDescError("");
+    }
+
+    //for not having a grayed out button when errors are displayed
+    if (
+      inputValues.name === "" ||
+      inputValues.price === "" ||
+      inputValues.description === "" ||
+      !priceRegex.test(inputValues.price)
+    ) {
       setIsPending(false);
-      navigate("/");
-    });
-  };
+    } else {
+      setIsPending(true);
+    }
 
-  // const handleUploadImage = (imageUrl) => {
-  //   setSelectedImage(imageUrl);
-  // };
+    //if conditions are met add the product
+    if (inputValues.name.trim() !== "" && priceRegex.test(inputValues.price) && inputValues.description.trim() !== "") {
+      axios.post("http://localhost:8000/products", inputValues).then((response) => {
+        console.log("product added sucesfully", response);
+        setIsPending(false);
+        navigate("/");
+      });
+    }
+  };
 
   return (
     <div className="add-product-container">
@@ -64,11 +102,12 @@ const AddProduct = () => {
         <div>
           <span>Product name:</span>
           <CustomInput type="text" name="name" value={inputValues.name} onChange={handleInputChange} />
-        </div>
 
-        <div>
-          <span>Product description:</span>
-          <CustomTextArea type="text" name="description" value={inputValues.description} onChange={handleInputChange} />
+          {nameError && (
+            <div>
+              {warningIcon} {nameError}
+            </div>
+          )}
         </div>
 
         <div>
@@ -79,7 +118,7 @@ const AddProduct = () => {
             <img src={Placeholder} alt="Placeholder" style={{ width: 500, height: 500 }} />
           )}
 
-          <CustomInput type="file" name="image" onChange={handleImageChange} />
+          <CustomInput type="file" name="image" onChange={handleImageChange} required />
         </div>
 
         <div>
@@ -90,12 +129,33 @@ const AddProduct = () => {
         <div>
           <span>Product price:</span>
           <CustomInput type="text" name="price" value={inputValues.price} onChange={handleInputChange} />
+
+          {priceError && (
+            <div>
+              {warningIcon} {priceError}
+            </div>
+          )}
+        </div>
+
+        <div>
+          <span>Product description:</span>
+          <CustomTextArea type="text" name="description" value={inputValues.description} onChange={handleInputChange} />
+
+          {descError && (
+            <div>
+              {warningIcon} {descError}
+            </div>
+          )}
         </div>
 
         {isPending ? (
           <CustomButton disabled type="button" name="Adding..." />
         ) : (
-          <CustomButton type="submit" name="Add product" />
+          <div>
+            <CustomButton type="submit" name="Add product" />
+
+            <CustomButton type="button" name="Cancel" onClick={() => navigate("/")} />
+          </div>
         )}
       </form>
     </div>

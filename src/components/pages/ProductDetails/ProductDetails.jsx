@@ -1,4 +1,5 @@
 // ASSETS
+import { warningIcon } from "../../assets/MUI-icons";
 
 // STYLES
 
@@ -28,6 +29,10 @@ const ProductDetails = () => {
 
   // STATE CONSTANTS
   const [editMode, setEditMode] = useState(false);
+  const [isPending, setIsPending] = useState(false);
+  const [nameError, setNameError] = useState("");
+  const [priceError, setPriceError] = useState("");
+  const [descError, setDescError] = useState("");
   const { inputValues, setForm, handleInputChange, handleImageChange } = useForm({
     id: id,
     name: "",
@@ -39,6 +44,7 @@ const ProductDetails = () => {
   // LIFE CYCLE
   const { data: product, isLoading, error, setData } = useFetch(`http://localhost:8000/products/${id}`);
 
+  //useEffect to get the input data when pressing the edit
   useEffect(() => {
     axios
       .get(`http://localhost:8000/products/${id}`)
@@ -48,6 +54,7 @@ const ProductDetails = () => {
     // eslint-disable-next-line
   }, []);
 
+  //useEffect for not having to refresh the page after edit
   useEffect(() => {
     axios
       .get(`http://localhost:8000/products/${id}`)
@@ -61,11 +68,51 @@ const ProductDetails = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios.put(`http://localhost:8000/products/${id}`, inputValues).then((response) => {
-      console.log("product edited sucesfully", response);
-      navigate(`/product/${product.id}`);
-      setEditMode(false);
-    });
+    //if name is empty throw error
+    if (inputValues.name.trim() === "") {
+      setNameError("Enter the product name");
+    } else {
+      setNameError("");
+    }
+
+    const priceRegex = /^\d+$/;
+
+    //if price is empty or is not a number throw error
+    if (inputValues.price.trim() === "") {
+      setPriceError("Select the product price");
+    } else if (!priceRegex.test(inputValues.price)) {
+      setPriceError("The price must be a number");
+    } else {
+      setPriceError("");
+    }
+
+    //if description is empty throw error
+    if (inputValues.description.trim() === "") {
+      setDescError("Enter a product description");
+    } else {
+      setDescError("");
+    }
+
+    //for not having a grayed out button when errors are displayed
+    if (
+      inputValues.name === "" ||
+      inputValues.price === "" ||
+      inputValues.description === "" ||
+      !priceRegex.test(inputValues.price)
+    ) {
+      setIsPending(false);
+    } else {
+      setIsPending(true);
+    }
+
+    //if conditions are met edit the product
+    if (inputValues.name.trim() !== "" && priceRegex.test(inputValues.price) && inputValues.description.trim() !== "") {
+      axios.put(`http://localhost:8000/products/${id}`, inputValues).then((response) => {
+        console.log("product edited sucesfully", response);
+        navigate(`/product/${product.id}`);
+        setEditMode(false);
+      });
+    }
   };
 
   const handleDelete = (id) => {
@@ -92,16 +139,12 @@ const ProductDetails = () => {
                 <div>
                   <span>Product name:</span>
                   <CustomInput type="text" name="name" value={inputValues.name} onChange={handleInputChange} />
-                </div>
 
-                <div>
-                  <span>Product description:</span>
-                  <CustomTextArea
-                    type="text"
-                    name="description"
-                    value={inputValues.description}
-                    onChange={handleInputChange}
-                  />
+                  {nameError && (
+                    <div>
+                      {warningIcon} {nameError}
+                    </div>
+                  )}
                 </div>
 
                 <div>
@@ -113,10 +156,38 @@ const ProductDetails = () => {
                 <div>
                   <span>Product price:</span>
                   <CustomInput type="text" name="price" value={inputValues.price} onChange={handleInputChange} />
+
+                  {priceError && (
+                    <div>
+                      {warningIcon} {priceError}
+                    </div>
+                  )}
                 </div>
 
-                <CustomButton type="submit" name="Edit product" />
-                <CustomButton type="button" name="Cancel" onClick={() => setEditMode(false)} />
+                <div>
+                  <span>Product description:</span>
+                  <CustomTextArea
+                    type="text"
+                    name="description"
+                    value={inputValues.description}
+                    onChange={handleInputChange}
+                  />
+
+                  {descError && (
+                    <div>
+                      {warningIcon} {descError}
+                    </div>
+                  )}
+                </div>
+
+                {isPending ? (
+                  <CustomButton disabled type="button" name="Editing..." />
+                ) : (
+                  <div>
+                    <CustomButton type="submit" name="Edit product" />
+                    <CustomButton type="button" name="Cancel" onClick={() => setEditMode(false)} />
+                  </div>
+                )}
               </form>
             </div>
           ) : (
