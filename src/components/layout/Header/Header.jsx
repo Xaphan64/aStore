@@ -36,7 +36,7 @@ const Header = () => {
   };
 
   const handleCategory = (category) => {
-    navigate(`/categories?=${category}`);
+    navigate(`/categories?category=${category}`);
   };
 
   return (

@@ -3,12 +3,14 @@
 // STYLES
 
 // LIBRARIES
+import { useEffect } from "react";
 
 // MISC
-import ProductCard from "../../cards/ProductCard";
 import { useFetch } from "../../hooks/useFetch";
 
 // COMPONENTS
+import ProductCard from "../../cards/ProductCard";
+import { useLocation } from "react-router-dom";
 
 // CONFIGURATION
 const Categories = () => {
@@ -18,10 +20,44 @@ const Categories = () => {
   const { data: products, isLoading, error } = useFetch(`http://localhost:8000/products/`);
 
   // LIBRARY CONSTANTS
+  const location = useLocation();
+  const category = location.search;
+  // const category = window.location.search;
+
+  // const urlParams = new URLSearchParams(window.location.search);
+  // const category = urlParams.get("phones");
 
   // STATE CONSTANTS
+  // console.log(window.location.search);
+  // console.log(urlParams);
+  // console.log(category);
 
   // LIFE CYCLE
+
+  // const currentPage = window.location.pathname.split("/")[window.location.pathname.split("/").length - 1];
+
+  // if (currentPage === "add-product") {
+  //   setIsLoading(false);
+  //   return;
+  // }
+
+  // console.log(category);
+
+  const handleTest = () => {
+    if (category === "?category=phones") {
+      console.log("true");
+    } else {
+      console.log("false");
+    }
+  };
+
+  useEffect(() => {
+    if (category === "?category=phones") {
+      console.log("true");
+    } else {
+      console.log("false");
+    }
+  }, [category]);
 
   // EVENT HANDLERS
   return (
@@ -31,11 +67,16 @@ const Categories = () => {
 
       {!isLoading && !error && (
         <div>
-          {products?.map((product, index) => (
+          <div>
+            Test
+            <button onClick={handleTest}>test</button>
+          </div>
+
+          {/* {products?.map((product, index) => (
             <div key={`all-categories-${index}-${product.id}`}>
               <ProductCard product={product} />
             </div>
-          ))}
+          ))} */}
         </div>
       )}
     </div>
