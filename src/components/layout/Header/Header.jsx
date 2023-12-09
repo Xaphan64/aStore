@@ -15,7 +15,6 @@ import { useState } from "react";
 import CustomInput from "../../atoms/CustomInput";
 import CustomButton from "../../atoms/CustomButton";
 import DropdownAccount from "./Dropdown";
-import CustomDropdown from "../../atoms/CustomDropdown";
 
 // CONFIGURATION
 const Header = () => {
@@ -29,19 +28,15 @@ const Header = () => {
   // STATE CONSTANTS
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
-  const optionsAccount = [
-    { value: "Hello usename" },
-    { value: "My orders" },
-    { value: "My favorites" },
-    { value: "Add producs" },
-    { value: "Logout" },
-  ];
   // LIFE CYCLE
 
   // EVENT HANDLERS
-
   const handleDropdown = () => {
     setIsDropdownVisible(!isDropdownVisible);
+  };
+
+  const handleCategory = (category) => {
+    navigate(`/categories?=${category}`);
   };
 
   return (
@@ -76,42 +71,42 @@ const Header = () => {
       </div>
 
       <div className="header-row two">
-        <CustomButton type="button">
+        <CustomButton type="button" onClick={() => handleCategory("phones")}>
           {phoneIcon}
           <span>Phones</span>
         </CustomButton>
 
-        <CustomButton type="button">
+        <CustomButton type="button" onClick={() => handleCategory("laptops")}>
           {laptopIcon}
           <span>Laptops</span>
         </CustomButton>
 
-        <CustomButton type="button">
+        <CustomButton type="button" onClick={() => handleCategory("tv")}>
           {tvIcon}
           <span>TV</span>
         </CustomButton>
 
-        <CustomButton type="button">
+        <CustomButton type="button" onClick={() => handleCategory("gaming")}>
           {gamingIcon}
           <span>Gaming</span>
         </CustomButton>
 
-        <CustomButton type="button">
+        <CustomButton type="button" onClick={() => handleCategory("books")}>
           {booksIcon}
           <span>Books</span>
         </CustomButton>
 
-        <CustomButton type="button">
+        <CustomButton type="button" onClick={() => handleCategory("food")}>
           {foodIcon}
           <span>Food</span>
         </CustomButton>
 
-        <CustomButton type="button">
+        <CustomButton type="button" onClick={() => handleCategory("toys")}>
           {toysIcon}
           <span>Toys</span>
         </CustomButton>
 
-        <CustomButton type="button">
+        <CustomButton type="button" onClick={() => handleCategory("furniture")}>
           {furnitureIcon}
           <span>Furniture</span>
         </CustomButton>

@@ -5,6 +5,8 @@
 // LIBRARIES
 
 // MISC
+import ProductCard from "../../cards/ProductCard";
+import { useFetch } from "../../hooks/useFetch";
 
 // COMPONENTS
 
@@ -13,6 +15,7 @@ const Categories = () => {
   // PROPERTIES
 
   // API REQUESTS
+  const { data: products, isLoading, error } = useFetch(`http://localhost:8000/products/`);
 
   // LIBRARY CONSTANTS
 
@@ -23,7 +26,18 @@ const Categories = () => {
   // EVENT HANDLERS
   return (
     <div className="categories-container">
-      <h1>categories page</h1>
+      {error && <h2>{error}</h2>}
+      {isLoading && <h2>Loading data...</h2>}
+
+      {!isLoading && !error && (
+        <div>
+          {products?.map((product, index) => (
+            <div key={`all-categories-${index}-${product.id}`}>
+              <ProductCard product={product} />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
