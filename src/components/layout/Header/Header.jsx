@@ -24,6 +24,7 @@ const Header = () => {
 
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
+  const isMobile = window.matchMedia("(max-width: 750px")?.matches;
 
   // STATE CONSTANTS
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -41,33 +42,35 @@ const Header = () => {
 
   return (
     <div className="header-container">
-      <div className="header-row one">
-        <h1 className="login-logo" onClick={() => navigate("/")}>
-          aStore
-        </h1>
+      <div className="header-mobile">
+        <div className="header-row one">
+          <h1 className="login-logo" onClick={() => navigate("/")}>
+            aStore
+          </h1>
 
-        <CustomInput type="text" name="search" placeholder="Type here to search for something" />
+          {!isMobile && <CustomInput type="text" name="search" placeholder="Type here to search for something" />}
 
-        <div className="login-right-buttons">
-          <CustomButton type="button" onClick={handleDropdown}>
-            <div className="left-icon">{profileIcon}</div>
-            <span>Account {dropdownIcon}</span>
+          <div className="login-right-buttons">
+            <CustomButton type="button" onClick={handleDropdown}>
+              <div className="left-icon">{profileIcon}</div>
+              <div className="button-text">Account {dropdownIcon}</div>
 
-            {isDropdownVisible && <DropdownAccount />}
-          </CustomButton>
+              {isDropdownVisible && <DropdownAccount />}
+            </CustomButton>
 
-          <CustomButton type="button">
-            <div className="left-icon">{favoriteIcon}</div>
-            <span>Favorites</span>
-            {dropdownIcon}
-          </CustomButton>
+            <CustomButton type="button">
+              <div className="left-icon">{favoriteIcon}</div>
+              <div className="button-text">Favorites {dropdownIcon}</div>
+            </CustomButton>
 
-          <CustomButton type="button">
-            <div className="left-icon">{cartIcon}</div>
-            <span>Cart</span>
-            {dropdownIcon}
-          </CustomButton>
+            <CustomButton type="button">
+              <div className="left-icon">{cartIcon}</div>
+              <div className="button-text">Cart {dropdownIcon}</div>
+            </CustomButton>
+          </div>
         </div>
+
+        {isMobile && <CustomInput type="text" name="search" placeholder="Type here to search for something" />}
       </div>
 
       <div className="header-row two">

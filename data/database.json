@@ -1,4 +1,14 @@
 {
+  "categories": [
+    "phones",
+    "laptops",
+    "tv",
+    "gaming",
+    "books",
+    "food",
+    "toys",
+    "furniture"
+  ],
   "products": [
     {
       "name": "Sony TV",
