@@ -28,6 +28,7 @@ const Header = () => {
 
   // STATE CONSTANTS
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const [active, setActive] = useState(null);
 
   // LIFE CYCLE
 
@@ -37,6 +38,7 @@ const Header = () => {
   };
 
   const handleCategory = (category) => {
+    setActive(category);
     navigate(`/categories?category=${category}`);
   };
 
@@ -74,42 +76,74 @@ const Header = () => {
       </div>
 
       <div className="header-row two">
-        <CustomButton type="button" onClick={() => handleCategory("phones")}>
+        <CustomButton
+          type="button"
+          onClick={() => handleCategory("phones")}
+          className={active === "phones" ? "active-tab" : "inactive"}
+        >
           {phoneIcon}
           <span>Phones</span>
         </CustomButton>
 
-        <CustomButton type="button" onClick={() => handleCategory("laptops")}>
+        <CustomButton
+          type="button"
+          onClick={() => handleCategory("laptops")}
+          className={active === "laptops" ? "active-tab" : "inactive"}
+        >
           {laptopIcon}
           <span>Laptops</span>
         </CustomButton>
 
-        <CustomButton type="button" onClick={() => handleCategory("tv")}>
+        <CustomButton
+          type="button"
+          onClick={() => handleCategory("tv")}
+          className={active === "tv" ? "active-tab" : "inactive"}
+        >
           {tvIcon}
           <span>TV</span>
         </CustomButton>
 
-        <CustomButton type="button" onClick={() => handleCategory("gaming")}>
+        <CustomButton
+          type="button"
+          onClick={() => handleCategory("gaming")}
+          className={active === "gaming" ? "active-tab" : "inactive"}
+        >
           {gamingIcon}
           <span>Gaming</span>
         </CustomButton>
 
-        <CustomButton type="button" onClick={() => handleCategory("books")}>
+        <CustomButton
+          type="button"
+          onClick={() => handleCategory("books")}
+          className={active === "books" ? "active-tab" : "inactive"}
+        >
           {booksIcon}
           <span>Books</span>
         </CustomButton>
 
-        <CustomButton type="button" onClick={() => handleCategory("food")}>
+        <CustomButton
+          type="button"
+          onClick={() => handleCategory("food")}
+          className={active === "food" ? "active-tab" : "inactive"}
+        >
           {foodIcon}
           <span>Food</span>
         </CustomButton>
 
-        <CustomButton type="button" onClick={() => handleCategory("toys")}>
+        <CustomButton
+          type="button"
+          onClick={() => handleCategory("toys")}
+          className={active === "toys" ? "active-tab" : "inactive"}
+        >
           {toysIcon}
           <span>Toys</span>
         </CustomButton>
 
-        <CustomButton type="button" onClick={() => handleCategory("furniture")}>
+        <CustomButton
+          type="button"
+          onClick={() => handleCategory("furniture")}
+          className={active === "furniture" ? "active-tab" : "inactive"}
+        >
           {furnitureIcon}
           <span>Furniture</span>
         </CustomButton>

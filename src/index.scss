@@ -10,6 +10,12 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  background-color: black;
-  color: white;
+  background-color: #111111;
+  color: #fcfcfc;
 }
+
+$background-color: #111111;
+$secondary-black: #29292980;
+$primary-white: #fcfcfc; //text, border cards
+$primary-blue: #1942bb; //border, active
+$logo: linear-gradient(135deg, rgba(103, 23, 205, 1) 33%, rgba(41, 111, 249, 1) 67%);

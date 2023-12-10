@@ -74,52 +74,56 @@ const Login = () => {
       </h1>
 
       <form onSubmit={handleSubmit} className="login-form">
-        <h1>Sign in</h1>
+        <div className="login-inputs">
+          <h1>Sign in</h1>
 
-        <div className={emailError ? "login-fields red" : "login-fields"}>
-          <span>Email</span>
-          <CustomInput type="text" name="email" value={inputValues.email} onChange={handleInputChange} />
-          {emailError && (
-            <div className="login-error">
-              {warningIcon} {emailError}
-            </div>
-          )}
-        </div>
-
-        <div className={passwordError ? "login-fields red" : "login-fields"}>
-          <span>Password</span>
-          <CustomInput type="password" name="password" value={inputValues.password} onChange={handleInputChange} />
-
-          {passwordError && (
-            <div className="login-error">
-              {warningIcon} {passwordError}
-            </div>
-          )}
-        </div>
-
-        <CustomButton type="submit" name="Login" />
-
-        <div className="login-bottom-text">
-          <span>New to aStore? </span>
-
-          <Link to="/register" className="login-link">
-            Register
-          </Link>
-        </div>
-        <div className="login-footer">
-          <div className="login-break-container">
-            <div className="login-break" />
-            <span>OR</span>
-            <div className="login-break" />
+          <div className={emailError ? "login-fields red" : "login-fields"}>
+            <span>Email</span>
+            <CustomInput type="text" name="email" value={inputValues.email} onChange={handleInputChange} />
+            {emailError && (
+              <div className="login-error">
+                {warningIcon} {emailError}
+              </div>
+            )}
           </div>
 
-          <CustomButton type="button" onClick={signInWithGoogle}>
-            {googleIcon}
+          <div className={passwordError ? "login-fields red" : "login-fields"}>
+            <span>Password</span>
+            <CustomInput type="password" name="password" value={inputValues.password} onChange={handleInputChange} />
 
-            <span>Login with Google</span>
-          </CustomButton>
+            {passwordError && (
+              <div className="login-error">
+                {warningIcon} {passwordError}
+              </div>
+            )}
+          </div>
+        </div>
 
-          <span className="login-branding">This project is made by Alexandru-Daniel Sarbu</span>
+        <div className="login-inputs">
+          <CustomButton type="submit" name="Login" />
+
+          <div className="login-bottom-text">
+            <span>New to aStore? </span>
+
+            <Link to="/register" className="login-link">
+              Register
+            </Link>
+          </div>
+          <div className="login-footer">
+            <div className="login-break-container">
+              <div className="login-break" />
+              <span>OR</span>
+              <div className="login-break" />
+            </div>
+
+            <CustomButton type="button" onClick={signInWithGoogle}>
+              {googleIcon}
+
+              <span>Login with Google</span>
+            </CustomButton>
+
+            <span className="login-branding">Made by Alexandru-Daniel Sarbu</span>
+          </div>
         </div>
       </form>
     </div>

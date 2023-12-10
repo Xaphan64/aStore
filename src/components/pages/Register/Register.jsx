@@ -100,78 +100,82 @@ const Register = () => {
       </h1>
 
       <form onSubmit={handleSubmit} className="register-form">
-        <h1>Create account</h1>
+        <div className="register-inputs">
+          <h1>Create account</h1>
 
-        <div className={nameError ? "register-fields red" : "register-fields"}>
-          <span>Your name</span>
-          <CustomInput
-            type="text"
-            name="name"
-            value={inputValues.name}
-            onChange={handleInputChange}
-            placeholder="First and last name"
-          />
+          <div className={nameError ? "register-fields red" : "register-fields"}>
+            <span>Your name</span>
+            <CustomInput
+              type="text"
+              name="name"
+              value={inputValues.name}
+              onChange={handleInputChange}
+              placeholder="First and last name"
+            />
 
-          {nameError && (
-            <div className="register-error">
-              {warningIcon} {nameError}
-            </div>
-          )}
+            {nameError && (
+              <div className="register-error">
+                {warningIcon} {nameError}
+              </div>
+            )}
+          </div>
+
+          <div className={emailError ? "register-fields red" : "register-fields"}>
+            <span>Email</span>
+            <CustomInput type="text" name="email" value={inputValues.email} onChange={handleInputChange} />
+
+            {emailError && (
+              <div className="register-error">
+                {warningIcon} {emailError}
+              </div>
+            )}
+          </div>
+
+          <div className={passError ? "register-fields red" : "register-fields"}>
+            <span>Password</span>
+            <CustomInput
+              type="password"
+              name="password"
+              value={inputValues.password}
+              onChange={handleInputChange}
+              placeholder="At least 8 characters"
+            />
+
+            {passError ? (
+              <div className="register-error">
+                {warningIcon} {passError}
+              </div>
+            ) : (
+              <div className="register-text">{warningIcon} Passwords must be at least 8 characters</div>
+            )}
+          </div>
+
+          <div className={confPassError ? "register-fields red" : "register-fields"}>
+            <span>Re-enter password</span>
+            <CustomInput
+              type="password"
+              name="confirmPassword"
+              value={inputValues.confirmPassword}
+              onChange={handleInputChange}
+            />
+
+            {confPassError && (
+              <div className="register-error">
+                {warningIcon} {confPassError}
+              </div>
+            )}
+          </div>
         </div>
 
-        <div className={emailError ? "register-fields red" : "register-fields"}>
-          <span>Email</span>
-          <CustomInput type="text" name="email" value={inputValues.email} onChange={handleInputChange} />
+        <div className="register-inputs">
+          <CustomButton type="submit" name="Register" />
 
-          {emailError && (
-            <div className="register-error">
-              {warningIcon} {emailError}
-            </div>
-          )}
-        </div>
-
-        <div className={passError ? "register-fields red" : "register-fields"}>
-          <span>Password</span>
-          <CustomInput
-            type="password"
-            name="password"
-            value={inputValues.password}
-            onChange={handleInputChange}
-            placeholder="At least 8 characters"
-          />
-
-          {passError ? (
-            <div className="register-error">
-              {warningIcon} {passError}
-            </div>
-          ) : (
-            <div className="register-text">{warningIcon} Passwords must be at least 8 characters</div>
-          )}
-        </div>
-
-        <div className={confPassError ? "register-fields red" : "register-fields"}>
-          <span>Re-enter password</span>
-          <CustomInput
-            type="password"
-            name="confirmPassword"
-            value={inputValues.confirmPassword}
-            onChange={handleInputChange}
-          />
-
-          {confPassError && (
-            <div className="register-error">
-              {warningIcon} {confPassError}
-            </div>
-          )}
-        </div>
-
-        <CustomButton type="submit" name="Register" />
-
-        <div className="register-footer-text">
-          <span>Already have an account?</span>
-          <Link to="/login" className="register-link">
-            Sign in
-          </Link>
+          <div className="register-footer-text">
+            <span>Already have an account?</span>
+            <Link to="/login" className="register-link">
+              Sign in
+            </Link>
+          </div>
         </div>
       </form>
     </div>
