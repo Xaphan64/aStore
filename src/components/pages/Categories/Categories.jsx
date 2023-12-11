@@ -54,23 +54,44 @@ const Categories = () => {
 
   // console.log(category);
 
+  // useEffect(() => {
+  //   if (category === "?category=phones") {
+  //     setType("phones");
+  //   } else if (category === "?category=laptops") {
+  //     setType("laptops");
+  //   } else if (category === "?category=tv") {
+  //     setType("tv");
+  //   } else if (category === "?category=gaming") {
+  //     setType("gaming");
+  //   } else if (category === "?category=books") {
+  //     setType("books");
+  //   } else if (category === "?category=food") {
+  //     setType("food");
+  //   } else if (category === "?category=toys") {
+  //     setType("toys");
+  //   } else if (category === "?category=furniture") {
+  //     setType("furniture");
+  //   } else {
+  //     console.log("Error! There is no category selected");
+  //   }
+  // }, [category]);
+
   useEffect(() => {
-    if (category === "?category=phones") {
-      setType("phones");
-    } else if (category === "?category=laptops") {
-      setType("laptops");
-    } else if (category === "?category=tv") {
-      setType("tv");
-    } else if (category === "?category=gaming") {
-      setType("gaming");
-    } else if (category === "?category=books") {
-      setType("books");
-    } else if (category === "?category=food") {
-      setType("food");
-    } else if (category === "?category=toys") {
-      setType("toys");
-    } else if (category === "?category=furniture") {
-      setType("furniture");
+    const categoryMap = {
+      "?category=phones": "phones",
+      "?category=laptops": "laptops",
+      "?category=tv": "tv",
+      "?category=gaming": "gaming",
+      "?category=books": "books",
+      "?category=food": "food",
+      "?category=toys": "toys",
+      "?category=furniture": "furniture",
+    };
+
+    const categoryType = categoryMap[category];
+
+    if (categoryType) {
+      setType(categoryType);
     } else {
       console.log("Error! There is no category selected");
     }

@@ -83,7 +83,7 @@
         border-radius: 8px;
         position: absolute;
         top: 45px;
-        padding: 0 10px 10px 10px;
+        padding: 0 8px 8px 8px;
         cursor: default;
 
         .dropdown-icon {
@@ -95,30 +95,30 @@
         .dropdown-options {
           display: flex;
           flex-direction: column;
-          gap: 10px;
+          gap: 8px;
           margin-top: -5px;
           text-align: left;
           font-weight: bold;
         }
 
         .dropdown-title {
-          padding: 10px;
+          padding: 8px;
           // line-height: 30px;
         }
 
         .dropdown-redirects {
           display: flex;
           flex-direction: column;
-          gap: 10px;
+          gap: 8px;
           border-top: 1px solid $primary-white;
           border-bottom: 1px solid $primary-white;
-          padding: 10px 0;
+          padding: 8px 0;
           font-weight: normal;
 
           .dropdown-buttons {
             cursor: pointer;
-            padding: 10px;
-
+            padding: 8px;
+            box-sizing: border-box;
             &:hover {
               background-color: gray;
             }
@@ -128,7 +128,8 @@
         .dropdown-logout {
           cursor: pointer;
           font-weight: normal;
-          padding: 10px;
+          padding: 8px;
+          border-radius: 0 0 8px 8px;
 
           &:hover {
             background-color: gray;
