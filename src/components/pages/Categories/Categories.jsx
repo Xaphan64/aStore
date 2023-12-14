@@ -163,7 +163,7 @@ const Categories = () => {
                 ))}
               </div>
             ) : (
-              <h2>Currently, there are not products in this category available</h2>
+              <h2>Currently, there are not products available in this category.</h2>
             )}
           </div>
           {/* 

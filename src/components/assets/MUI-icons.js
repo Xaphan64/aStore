@@ -23,6 +23,7 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 
 //card icons
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 //register export
 export const warningIcon = <InfoOutlinedIcon />;
@@ -49,3 +50,4 @@ export const dropdownUpIcon = <ArrowDropUpIcon />;
 
 //card icons export
 export const favoriteAddedIcon = <FavoriteOutlinedIcon />;
+export const cartFilledIcon = <ShoppingCartIcon />;

@@ -11,7 +11,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 // COMPONENTS
 import CustomButton from "../atoms/CustomButton";
-import { cartIcon, favoriteIcon, favoriteAddedIcon } from "../assets/MUI-icons";
+import { cartFilledIcon, favoriteIcon, favoriteAddedIcon } from "../assets/MUI-icons";
 import { useState } from "react";
 
 // CONFIGURATION
@@ -26,7 +26,6 @@ const ProductCard = (props) => {
   const location = useLocation();
   const category = location.pathname.split("/")[location.pathname.split("/").length - 1];
 
-  console.log(location.pathname.split("/")[location.pathname.split("/").length - 1]);
   // STATE CONSTANTS
   const [addFavorite, setAddFavorite] = useState(false);
 
@@ -42,31 +41,43 @@ const ProductCard = (props) => {
     console.log("add to cart clicked");
   };
 
+  const priceFormat = (number) => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  };
+
   return (
     <div className="product-card">
       <div className="product-card-body">
-        <div>
+        <div className="product-card-image">
           <img
             onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: category } })}
             src={product.image}
             alt="N/a"
-            style={{ width: 220, height: 220 }}
+            style={{ width: 230, height: 230 }}
           />
 
           <CustomButton type="button" onClick={handleFavorite}>
-            {addFavorite ? <div class>{favoriteAddedIcon}</div> : <div>{favoriteIcon}</div>}
+            {addFavorite ? (
+              <div className="favorite-button added">{favoriteAddedIcon}</div>
+            ) : (
+              <div className="favorite-button">{favoriteIcon}</div>
+            )}
           </CustomButton>
         </div>
 
-        <span onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: category } })}>
+        <span
+          className="product-card-title"
+          onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: category } })}
+        >
           {product.name}
         </span>
       </div>
 
       <div className="product-card-footer">
-        <span>{product.price} RON</span>
+        <span className="product-card-price">{priceFormat(product.price)} Lei</span>
         <CustomButton type="button" onClick={handleAddCart}>
-          {cartIcon}
+          <div>{cartFilledIcon}</div>
+          <span>Add to cart</span>
         </CustomButton>
       </div>
     </div>
