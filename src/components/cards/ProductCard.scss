@@ -1,0 +1,19 @@
+@import "../../index.scss";
+
+.product-card {
+  border: 1px solid red;
+  width: 250px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8px;
+  border-radius: 8px;
+
+  .product-card-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

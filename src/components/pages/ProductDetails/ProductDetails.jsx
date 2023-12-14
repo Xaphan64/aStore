@@ -4,7 +4,7 @@ import { warningIcon } from "../../assets/MUI-icons";
 // STYLES
 
 // LIBRARIES
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Fragment, useEffect, useState } from "react";
 import axios from "axios";
 
@@ -27,6 +27,7 @@ const ProductDetails = () => {
   // LIBRARY CONSTANTS
   const { id } = useParams();
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   // STATE CONSTANTS
   const [editMode, setEditMode] = useState(false);
@@ -41,15 +42,21 @@ const ProductDetails = () => {
     description: "",
     image: "",
     price: "",
+    // favorite: false,
   });
 
   // LIFE CYCLE
-  const { data: product, isLoading, error, setData } = useFetch(`http://localhost:8000/products/${id}`);
+  const {
+    data: product,
+    isLoading,
+    error,
+    setData,
+  } = useFetch(`http://localhost:8000/${state?.currentCategory}/${id}`);
 
   //useEffect to get the input data when pressing the edit
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/products/${id}`)
+      .get(`http://localhost:8000/${state?.currentCategory}/${id}`)
       .then((response) => setForm(response.data))
       .catch((error) => console.log(error));
 
@@ -59,7 +66,7 @@ const ProductDetails = () => {
   //useEffect for not having to refresh the page after edit
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/products/${id}`)
+      .get(`http://localhost:8000/${state?.currentCategory}/${id}`)
       .then((response) => setData(response.data))
       .catch((error) => console.log(error));
 
@@ -109,9 +116,9 @@ const ProductDetails = () => {
 
     //if conditions are met edit the product
     if (inputValues.name.trim() !== "" && priceRegex.test(inputValues.price) && inputValues.description.trim() !== "") {
-      axios.put(`http://localhost:8000/products/${id}`, inputValues).then((response) => {
+      axios.put(`http://localhost:8000/${state?.currentCategory}/${id}`, inputValues).then((response) => {
         console.log("product edited sucesfully", response);
-        navigate(`/product/${product.id}`);
+        // navigate(`/product/${product.id}`);
         setIsPending(false);
         setEditMode(false);
       });
@@ -121,12 +128,21 @@ const ProductDetails = () => {
   const handleDelete = (id) => {
     setIsPending(true);
 
-    axios.delete(`http://localhost:8000/products/${id}`).then((response) => {
+    axios.delete(`http://localhost:8000/${state?.currentCategory}/${id}`).then((response) => {
       console.log("Product deleted", response);
       navigate("/");
       setIsPending(false);
     });
   };
+
+  const handleFavorite = () => {
+    // if (inputValues.favorite === false) {
+    //   setForm((inputValues.favorite = true));
+    // }
+  };
+
+  // console.log(inputValues.favorite);
+
   return (
     <div>
       {isLoading && <div>Loading...</div>}
@@ -201,7 +217,9 @@ const ProductDetails = () => {
                 <div>
                   <span>{product.price} RON</span>
                   <CustomButton type="button">Add to Cart</CustomButton>
-                  <CustomButton type="button">Add to Favorites</CustomButton>
+                  <CustomButton type="button" onClick={handleFavorite}>
+                    Add to Favorites
+                  </CustomButton>
                 </div>
               </div>
 

@@ -16,21 +16,22 @@ import { useLocation } from "react-router-dom";
 const Categories = () => {
   // PROPERTIES
 
-  // API REQUESTS
-  const { data: products, isLoading, error } = useFetch(`http://localhost:8000/products/`);
-
   // LIBRARY CONSTANTS
   const location = useLocation();
-  const category = location.search;
+  const category = location.pathname.split("/")[location.pathname.split("/").length - 1];
 
-  const phones = products?.filter((product) => product.type === "Phones");
-  const laptops = products?.filter((product) => product.type === "Laptops");
-  const tv = products?.filter((product) => product.type === "TV");
-  const gaming = products?.filter((product) => product.type === "Gaming");
-  const books = products?.filter((product) => product.type === "Books");
-  const food = products?.filter((product) => product.type === "Food");
-  const toys = products?.filter((product) => product.type === "Toys");
-  const furniture = products?.filter((product) => product.type === "Furniture");
+  // API REQUESTS
+  const { data: products, isLoading, error } = useFetch(`http://localhost:8000/${category}`);
+  // const { data: categories } = useFetch("http://localhost:8000/categories");
+
+  // const phones = products?.filter((product) => product.type === "Phones");
+  // const laptops = products?.filter((product) => product.type === "Laptops");
+  // const tv = products?.filter((product) => product.type === "TV");
+  // const gaming = products?.filter((product) => product.type === "Gaming");
+  // const books = products?.filter((product) => product.type === "Books");
+  // const food = products?.filter((product) => product.type === "Food");
+  // const toys = products?.filter((product) => product.type === "Toys");
+  // const furniture = products?.filter((product) => product.type === "Furniture");
 
   // const category = window.location.search;
 
@@ -41,7 +42,8 @@ const Categories = () => {
   // console.log(window.location.search);
   // console.log(urlParams);
   // console.log(category);
-  const [type, setType] = useState("");
+  // const [type, setType] = useState("");
+  // const [currentCategory, setCurrentCategory] = useState("");
 
   // LIFE CYCLE
 
@@ -76,28 +78,65 @@ const Categories = () => {
   //   }
   // }, [category]);
 
-  useEffect(() => {
-    const categoryMap = {
-      "?category=phones": "phones",
-      "?category=laptops": "laptops",
-      "?category=tv": "tv",
-      "?category=gaming": "gaming",
-      "?category=books": "books",
-      "?category=food": "food",
-      "?category=toys": "toys",
-      "?category=furniture": "furniture",
-    };
+  // console.log(categories);
 
-    const categoryType = categoryMap[category];
+  // useEffect(() => {
+  //   const categories = ["phones", "laptops", "tv", "gaming", "books", "food", "toys", "furniture"];
 
-    if (categoryType) {
-      setType(categoryType);
-    } else {
-      console.log("Error! There is no category selected");
-    }
-  }, [category]);
+  //   const categoryMap = {};
+  //   categories.forEach((category) => {
+  //     categoryMap[`?category=${category}`] = category;
+  //   });
+
+  //   console.log(categoryMap);
+
+  //   if (categoryMap) {
+  //     setType(categoryMap);
+  //   } else {
+  //     console.log("error");
+  //   }
+  // }, [category]);
+
+  // useEffect(() => {
+
+  // }, [currentCategory]);
+
+  // useEffect(() => {
+  //   const categoryMap = {
+  //     "?category=phones": "phones",
+  //     "?category=laptops": "laptops",
+  //     "?category=tv": "tv",
+  //     "?category=gaming": "gaming",
+  //     "?category=books": "books",
+  //     "?category=food": "food",
+  //     "?category=toys": "toys",
+  //     "?category=furniture": "furniture",
+  //   };
+
+  //   // const categoryMap = {
+  //   //   [`?category=${categories}`]: { categories },
+  //   // };
+
+  //   // const categoryMap = categories.reduce((acc, category) => {
+  //   //   acc[`?category=${category}`] = category;
+  //   //   return acc;
+  //   // });
+
+  //   console.log(categoryMap);
+
+  //   const categoryType = categoryMap[category];
+
+  //   console.log(categoryType);
+
+  //   if (categoryType) {
+  //     setType(categoryType);
+  //   } else {
+  //     console.log("Error! There is no category selected");
+  //   }
+  // }, [category]);
 
   // EVENT HANDLERS
+
   return (
     <div className="categories-container">
       {error && <h2>{error}</h2>}
@@ -105,6 +144,29 @@ const Categories = () => {
 
       {!isLoading && !error && (
         <div>
+          {/* <div>
+            {categories.map((category, index) => (
+              <div key={index}>{category}</div>
+            ))}
+          </div> */}
+
+          <div className="category-tab">
+            {products.length > 0 ? (
+              <div>
+                <h2 className="category-title" style={{ textTransform: "capitalize" }}>
+                  {category}
+                </h2>
+                {products?.map((product, index) => (
+                  <div key={`categories-${index}-${product.id}`}>
+                    <ProductCard product={product} />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <h2>Currently, there are not products in this category available</h2>
+            )}
+          </div>
+          {/* 
           {type === "phones" && (
             <div className="category-tab">
               <h2 className="category-title">Phones</h2>
@@ -191,7 +253,7 @@ const Categories = () => {
                 </div>
               ))}
             </div>
-          )}
+          )} */}
         </div>
       )}
     </div>

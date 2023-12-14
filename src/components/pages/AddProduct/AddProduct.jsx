@@ -39,6 +39,9 @@ const AddProduct = () => {
     image: "",
     type: "",
     price: "",
+    favorite: false,
+    cart: false,
+    ordered: false,
   });
 
   // LIFE CYCLE
@@ -86,7 +89,7 @@ const AddProduct = () => {
 
     //if conditions are met add the product
     if (inputValues.name.trim() !== "" && priceRegex.test(inputValues.price) && inputValues.description.trim() !== "") {
-      axios.post("http://localhost:8000/products", inputValues).then((response) => {
+      axios.post(`http://localhost:8000/${inputValues.type}`, inputValues).then((response) => {
         console.log("product added sucesfully", response);
         setIsPending(false);
         navigate("/");
