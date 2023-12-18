@@ -3,10 +3,11 @@ import Placeholder from "./../../assets/Placeholder.png";
 import { warningIcon } from "../../assets/MUI-icons";
 
 // STYLES
+import "./Product.scss";
 
 // LIBRARIES
 import { useNavigate } from "react-router-dom";
-import { Fragment, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import axios from "axios";
 
 // MISC
@@ -27,12 +28,18 @@ const AddProduct = () => {
 
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
+
+  const handleImageClick = () => {
+    fileInputRef.current.click();
+  };
 
   // STATE CONSTANTS
   const [isPending, setIsPending] = useState(false);
   const [nameError, setNameError] = useState("");
   const [priceError, setPriceError] = useState("");
   const [descError, setDescError] = useState("");
+  const [imageError, setImageError] = useState("");
   const { inputValues, handleInputChange, handleImageChange } = useForm({
     name: "",
     description: "",
@@ -61,11 +68,18 @@ const AddProduct = () => {
 
     //if price is empty or is not a number throw error
     if (inputValues.price.trim() === "") {
-      setPriceError("Select the product price");
+      setPriceError("Select the product's price");
     } else if (!priceRegex.test(inputValues.price)) {
       setPriceError("The price must be a number");
     } else {
       setPriceError("");
+    }
+
+    //if image empty throw error
+    if (inputValues.image.trim() === "") {
+      setImageError("You did not select the product image");
+    } else {
+      setImageError("");
     }
 
     //if description is empty throw error
@@ -98,54 +112,80 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="add-product-container">
+    <div className="product-container">
       <h1>Add a new product</h1>
 
       <form onSubmit={handleSubmit}>
-        <div>
-          <span>Product name:</span>
-          <CustomInput type="text" name="name" value={inputValues.name} onChange={handleInputChange} />
+        <div className={nameError ? "product-fields red" : "product-fields"}>
+          <CustomInput
+            type="text"
+            name="name"
+            value={inputValues.name}
+            placeholder="Select the product name"
+            onChange={handleInputChange}
+          />
 
           {nameError && (
-            <div>
+            <div className="product-fields-error">
               {warningIcon} {nameError}
             </div>
           )}
         </div>
 
-        <div>
-          <span>Product image:</span>
+        <div className={imageError ? "product-fields red" : "product-fields"}>
+          <input
+            className="image-input"
+            type="file"
+            name="image"
+            onChange={handleImageChange}
+            style={{ display: "none" }}
+            ref={fileInputRef}
+          />
+
           {inputValues.image ? (
-            <img src={inputValues.image} alt="Selected" style={{ width: 500, height: 500 }} />
+            <img src={inputValues.image} alt="Selected" onClick={handleImageClick} />
           ) : (
-            <img src={Placeholder} alt="Placeholder" style={{ width: 500, height: 500 }} />
+            <img src={Placeholder} alt="Placeholder" onClick={handleImageClick} />
           )}
 
-          <CustomInput type="file" name="image" onChange={handleImageChange} required />
+          {imageError && (
+            <div className="product-fields-error">
+              {warningIcon} {imageError}
+            </div>
+          )}
         </div>
 
-        <div>
-          <span>Product type:</span>
+        <div className="product-fields">
           <CustomDropdown name="type" value={inputValues.type} onChange={handleInputChange} options={productType} />
         </div>
 
-        <div>
-          <span>Product price:</span>
-          <CustomInput type="text" name="price" value={inputValues.price} onChange={handleInputChange} />
+        <div className={priceError ? "product-fields red" : "product-fields"}>
+          <CustomInput
+            type="text"
+            name="price"
+            value={inputValues.price}
+            placeholder="Set the price of the product"
+            onChange={handleInputChange}
+          />
 
           {priceError && (
-            <div>
+            <div className="product-fields-error">
               {warningIcon} {priceError}
             </div>
           )}
         </div>
 
-        <div>
-          <span>Product description:</span>
-          <CustomTextArea type="text" name="description" value={inputValues.description} onChange={handleInputChange} />
+        <div className={descError ? "product-fields red" : "product-fields"}>
+          <CustomTextArea
+            type="text"
+            name="description"
+            value={inputValues.description}
+            placeholder="Enter the full product description, specifications and details"
+            onChange={handleInputChange}
+          />
 
           {descError && (
-            <div>
+            <div className="product-fields-error">
               {warningIcon} {descError}
             </div>
           )}
@@ -157,7 +197,7 @@ const AddProduct = () => {
           <Fragment>
             <CustomButton type="submit" name="Add product" />
 
-            <CustomButton type="button" name="Cancel" onClick={() => navigate("/")} />
+            <CustomButton type="button" name="Cancel" className="button-red" onClick={() => navigate("/")} />
           </Fragment>
         )}
       </form>

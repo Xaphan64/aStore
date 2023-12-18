@@ -6,7 +6,7 @@ import { tvIcon, gamingIcon, booksIcon, foodIcon, toysIcon, furnitureIcon } from
 import "./Header.scss";
 
 // LIBRARIES
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 // MISC
@@ -25,6 +25,7 @@ const Header = () => {
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
   const location = useLocation();
+  const { id } = useParams();
   const isMobile = window.matchMedia("(max-width: 750px")?.matches;
 
   // STATE CONSTANTS
@@ -33,9 +34,17 @@ const Header = () => {
 
   // LIFE CYCLE
   useEffect(() => {
-    if (location.pathname === "/") {
+    if (
+      location.pathname === "/" ||
+      location.pathname === "/add-product" ||
+      location.pathname === "/orders" ||
+      location.pathname === "/favorites" ||
+      location.pathname === `/product/${id}`
+    ) {
       setActive(false);
     }
+
+    // eslint-disable-next-line
   }, [location]);
 
   // EVENT HANDLERS

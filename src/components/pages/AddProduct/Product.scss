@@ -1,0 +1,137 @@
+@import "../../../index.scss";
+
+.product-container {
+  padding: 16px;
+  color: $primary-white;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  h1 {
+    font-weight: normal;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+
+    .product-fields {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+
+      img {
+        width: 500px;
+        height: 500px;
+        border-radius: 16px;
+        cursor: pointer;
+      }
+
+      input,
+      textarea,
+      select {
+        width: 60%;
+        background-color: $background-color;
+        color: $primary-white;
+        border: 1px solid $primary-blue;
+        height: 40px;
+        font-size: 16px;
+        padding-left: 16px;
+        border-radius: 8px;
+        display: flex;
+        align-self: center;
+
+        &:focus {
+          background-color: #003138;
+          outline: none;
+          border: 1px solid rgb(60, 206, 255);
+        }
+      }
+
+      textarea {
+        height: 250px;
+        padding: 8px;
+        resize: vertical;
+      }
+
+      .product-fields-error {
+        color: red;
+        font-size: 16px;
+        font-style: italic;
+        display: flex;
+        gap: 2.5px;
+
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      &.red {
+        input,
+        textarea {
+          border: none;
+          outline: 1px ridge red;
+
+          &:focus {
+            background-color: $background-color;
+          }
+        }
+      }
+    }
+
+    button {
+      width: 60%;
+      height: 40px;
+      border-radius: 8px;
+      background-color: $primary-blue;
+      border: none;
+      color: $primary-white;
+      font-size: 16px;
+      cursor: pointer;
+
+      &:disabled {
+        background-color: gray;
+      }
+    }
+  }
+
+  .button-red {
+    background-color: red;
+  }
+
+  @media screen and (min-width: 0px) and (max-width: 900px) {
+    h1 {
+      font-size: 24px;
+    }
+    form {
+      .product-fields {
+        input,
+        textarea,
+        select {
+          width: 100%;
+        }
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+
+  @media screen and (min-width: 0px) and (max-width: 500px) {
+    form {
+      .product-fields {
+        img {
+          width: 300px;
+          height: 300px;
+        }
+      }
+    }
+  }
+}

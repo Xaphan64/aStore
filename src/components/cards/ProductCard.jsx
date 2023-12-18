@@ -53,7 +53,6 @@ const ProductCard = (props) => {
             onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: category } })}
             src={product.image}
             alt="N/a"
-            style={{ width: 230, height: 230 }}
           />
 
           <CustomButton type="button" onClick={handleFavorite}>
