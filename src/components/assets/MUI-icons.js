@@ -25,6 +25,10 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
+//product details
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 //register export
 export const warningIcon = <InfoOutlinedIcon />;
 
@@ -51,3 +55,7 @@ export const dropdownUpIcon = <ArrowDropUpIcon />;
 //card icons export
 export const favoriteAddedIcon = <FavoriteOutlinedIcon />;
 export const cartFilledIcon = <ShoppingCartIcon />;
+
+//product details export
+export const editIcon = <EditIcon />;
+export const deleteIcon = <DeleteIcon />;

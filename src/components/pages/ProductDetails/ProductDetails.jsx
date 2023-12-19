@@ -1,11 +1,13 @@
 // ASSETS
-import { warningIcon } from "../../assets/MUI-icons";
+import { warningIcon, cartFilledIcon, favoriteIcon, favoriteAddedIcon } from "../../assets/MUI-icons";
+import { editIcon, deleteIcon } from "../../assets/MUI-icons";
 
 // STYLES
+import "../AddProduct/Product.scss";
 
 // LIBRARIES
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 // MISC
@@ -28,6 +30,7 @@ const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { state } = useLocation();
+  const fileInput = useRef(null);
 
   // STATE CONSTANTS
   const [editMode, setEditMode] = useState(false);
@@ -36,6 +39,7 @@ const ProductDetails = () => {
   const [nameError, setNameError] = useState("");
   const [priceError, setPriceError] = useState("");
   const [descError, setDescError] = useState("");
+  const [addFavorite, setAddFavorite] = useState(false);
   const { inputValues, setForm, handleInputChange, handleImageChange } = useForm({
     id: id,
     name: "",
@@ -74,6 +78,15 @@ const ProductDetails = () => {
   }, [editMode]);
 
   // EVENT HANDLERS
+  const handleFavorite = () => {
+    console.log("favorite clicked");
+    setAddFavorite(!addFavorite);
+  };
+
+  const handleImageClick = () => {
+    fileInput.current.click();
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -135,64 +148,73 @@ const ProductDetails = () => {
     });
   };
 
-  const handleFavorite = () => {
-    // if (inputValues.favorite === false) {
-    //   setForm((inputValues.favorite = true));
-    // }
-  };
-
-  // console.log(inputValues.favorite);
-
   return (
-    <div>
-      {isLoading && <div>Loading...</div>}
-      {error && <div>{error}</div>}
+    <Fragment>
+      {isLoading && <div className="api-error">Loading...</div>}
+      {error && <div className="api-error">{error}</div>}
       {!isLoading && !error && (
-        <div>
+        <Fragment>
           {editMode ? (
-            <div className="edit-products-container">
+            <div className="product-container">
               <h1>Edit product</h1>
 
               <form onSubmit={handleSubmit}>
-                <div>
-                  <span>Product name:</span>
-                  <CustomInput type="text" name="name" value={inputValues.name} onChange={handleInputChange} />
+                <div className={nameError ? "product-fields red" : "product-fields"}>
+                  <CustomInput
+                    type="text"
+                    name="name"
+                    placeholder="Product name"
+                    value={inputValues.name}
+                    onChange={handleInputChange}
+                  />
 
                   {nameError && (
-                    <div>
+                    <div className="product-fields-error">
                       {warningIcon} {nameError}
                     </div>
                   )}
                 </div>
 
-                <div>
-                  <span>Product image:</span>
-                  <img src={inputValues.image} alt="Selected" style={{ width: 500, height: 500 }} />
-                  <CustomInput type="file" name="image" onChange={handleImageChange} />
+                <div className="product-fields">
+                  <span>Click on the image if you want to change it</span>
+                  <img src={inputValues.image} alt="Selected" onClick={handleImageClick} />
+                  <input
+                    className="image-input"
+                    type="file"
+                    name="image"
+                    onChange={handleImageChange}
+                    style={{ display: "none" }}
+                    ref={fileInput}
+                  />
                 </div>
 
-                <div>
-                  <span>Product price:</span>
-                  <CustomInput type="text" name="price" value={inputValues.price} onChange={handleInputChange} />
+                <div className={priceError ? "product-fields red" : "product-fields"}>
+                  <CustomInput
+                    type="text"
+                    name="price"
+                    placeholder="Product price"
+                    value={inputValues.price}
+                    onChange={handleInputChange}
+                  />
 
                   {priceError && (
-                    <div>
+                    <div className="product-fields-error">
                       {warningIcon} {priceError}
                     </div>
                   )}
                 </div>
 
-                <div>
-                  <span>Product description:</span>
+                <div className={descError ? "product-fields red" : "product-fields"}>
                   <CustomTextArea
                     type="text"
                     name="description"
+                    placeholder="Product details"
                     value={inputValues.description}
                     onChange={handleInputChange}
                   />
 
                   {descError && (
-                    <div>
+                    <div className="product-fields-error">
                       {warningIcon} {descError}
                     </div>
                   )}
@@ -204,30 +226,58 @@ const ProductDetails = () => {
                   <Fragment>
                     <CustomButton type="submit" name="Edit product" />
 
-                    <CustomButton type="button" name="Cancel" onClick={() => setEditMode(false)} />
+                    <CustomButton
+                      type="button"
+                      name="Cancel"
+                      className="button-red"
+                      onClick={() => setEditMode(false)}
+                    />
                   </Fragment>
                 )}
               </form>
             </div>
           ) : (
-            <div>
-              <h2>{product.name}</h2>
-              <div>
-                <img src={product.image} alt="img not available" style={{ width: 500, height: 500 }} />
-                <div>
-                  <span>{product.price} RON</span>
-                  <CustomButton type="button">Add to Cart</CustomButton>
-                  <CustomButton type="button" onClick={handleFavorite}>
-                    Add to Favorites
-                  </CustomButton>
+            <div className="product-details-container">
+              <div className="product-details-items">
+                <h2>{product.name}</h2>
+                <div className="product-details-body">
+                  <img src={product.image} alt="img not available" />
+                  <div className="product-details-buttons">
+                    <span className="product-details-price">{product.price} Lei</span>
+
+                    <CustomButton type="button">
+                      <div>{cartFilledIcon}</div>
+                      <span>Add to cart</span>
+                    </CustomButton>
+
+                    {addFavorite ? (
+                      <CustomButton type="button" className="button-favorites added" onClick={handleFavorite}>
+                        <div>{favoriteAddedIcon}</div>
+                        <span>Added to favorites</span>
+                      </CustomButton>
+                    ) : (
+                      <CustomButton type="button" className="button-favorites" onClick={handleFavorite}>
+                        <div>{favoriteIcon}</div>
+                        <span>Add to favorites</span>
+                      </CustomButton>
+                    )}
+
+                    <CustomButton type="button" onClick={() => setEditMode(true)}>
+                      <div>{editIcon}</div>
+                      <span>Edit Product</span>
+                    </CustomButton>
+
+                    <CustomButton type="button" className="button-red" onClick={() => setModal(true)}>
+                      <div>{deleteIcon}</div>
+                      <span>Delete Product</span>
+                    </CustomButton>
+                  </div>
+                </div>
+                <div className="product-details-description">
+                  <h3>Description:</h3>
+                  <span>{product.description}</span>
                 </div>
               </div>
-
-              <CustomButton type="button" name="Edit Product" onClick={() => setEditMode(true)} />
-
-              <CustomButton type="button" name="Delete Product" onClick={() => setModal(true)} />
-
-              <span>{product.description}</span>
 
               {modal && (
                 <ConfirmationModal
@@ -239,9 +289,9 @@ const ProductDetails = () => {
               )}
             </div>
           )}
-        </div>
+        </Fragment>
       )}
-    </div>
+    </Fragment>
   );
 };
 

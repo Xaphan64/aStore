@@ -28,10 +28,10 @@ const AddProduct = () => {
 
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
-  const fileInputRef = useRef(null);
+  const fileInput = useRef(null);
 
   const handleImageClick = () => {
-    fileInputRef.current.click();
+    fileInput.current.click();
   };
 
   // STATE CONSTANTS
@@ -139,7 +139,7 @@ const AddProduct = () => {
             name="image"
             onChange={handleImageChange}
             style={{ display: "none" }}
-            ref={fileInputRef}
+            ref={fileInput}
           />
 
           {inputValues.image ? (
