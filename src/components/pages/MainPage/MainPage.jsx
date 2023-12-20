@@ -1,15 +1,20 @@
 // ASSETS
+import beachImage from "../../assets/carousel/beachImage.jpg";
+import forestImage from "../../assets/carousel/forestImage.jpg";
+import mountainImage from "../../assets/carousel/mountainImage.jpg";
 
 // STYLES
+import "./MainPage.scss";
 
 // LIBRARIES
-import { useLocation, useParams } from "react-router-dom";
+// import { useLocation, useParams } from "react-router-dom";
 
 // MISC
 import { useFetch } from "../../hooks/useFetch";
 
 // COMPONENTS
 import ProductCard from "../../cards/ProductCard";
+import ImageSlider from "./AdsContainer";
 
 // CONFIGURATION
 const MainPage = () => {
@@ -18,6 +23,11 @@ const MainPage = () => {
   // LIBRARY CONSTANTS
   // const { id } = useParams();
   // const { state } = useLocation();
+  const slides = [
+    { url: beachImage, title: "Beach" },
+    { url: forestImage, title: "Forest" },
+    { url: mountainImage, title: "Mountain" },
+  ];
 
   // API REQUESTS
   const { data: phones, isLoading, error } = useFetch(`http://localhost:8000/phones`);
@@ -31,15 +41,6 @@ const MainPage = () => {
 
   // const { data: products, isLoading, error } = useFetch(`http://localhost:8000/${state?.currentCategory}/${id}`);
 
-  // const phones = products?.filter((product) => product.type === "Phones");
-  // const laptops = products?.filter((product) => product.type === "Laptops");
-  // const tv = products?.filter((product) => product.type === "TV");
-  // const gaming = products?.filter((product) => product.type === "Gaming");
-  // const books = products?.filter((product) => product.type === "Books");
-  // const food = products?.filter((product) => product.type === "Food");
-  // const toys = products?.filter((product) => product.type === "Toys");
-  // const furniture = products?.filter((product) => product.type === "Furniture");
-
   // STATE CONSTANTS
 
   // LIFE CYCLE
@@ -48,7 +49,7 @@ const MainPage = () => {
   return (
     <div className="main-page-container">
       <div className="ads-container">
-        <h1>Three carousel ads will be here with timer to change the ad</h1>
+        <ImageSlider slides={slides} />
       </div>
 
       {error && <h2>{error}</h2>}
@@ -56,23 +57,6 @@ const MainPage = () => {
 
       {!isLoading && !error && (
         <div className="main-page-categories">
-          {/* {phones?.map((product, index) => (
-            <div key={index}>
-              <ProductCard product={product} />
-            </div>
-          ))}
-
-          {laptops?.map((product, index) => (
-            <div key={index}>
-              <ProductCard product={product} />
-            </div>
-          ))}
-          {tv?.map((product, index) => (
-            <div key={index}>
-              <ProductCard product={product} />
-            </div>
-          ))} */}
-
           {phones.length > 0 && (
             <div className="main-page-category">
               <h2 className="main-page-category-title">Phones</h2>

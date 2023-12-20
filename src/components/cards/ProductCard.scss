@@ -1,7 +1,7 @@
 @import "../../index.scss";
 
 .product-card {
-  border: 1px solid $primary-white;
+  border: 1px solid $primary-blue;
   background-color: $secondary-black;
   width: 250px;
   display: flex;
@@ -46,11 +46,6 @@
           cursor: pointer;
 
           &:hover {
-            color: $primary-blue;
-            transition: 0.1s;
-          }
-
-          &:focus {
             color: $primary-blue;
           }
         }
@@ -98,10 +93,6 @@
       cursor: pointer;
       color: $primary-white;
       border-radius: 8px;
-
-      &:hover {
-        background-color: #0c2e96;
-      }
 
       div {
         padding: 4px;
