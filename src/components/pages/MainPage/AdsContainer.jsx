@@ -69,15 +69,15 @@ const ImageSlider = ({ slides }) => {
 
           {currentSlide === 1 && (
             <span>
-              This project is made in React JS using API and Axios library. <br />
-              Please note that this is not a real site and the products and prices are fictional.
+              This project is made in React JS using API and Axios library. Please note that this is not a real site and
+              the products and prices are fictional.
             </span>
           )}
 
           {currentSlide === 2 && (
             <span>
-              In this project you can create, add, delete edit a product only if you are an admin. <br />
-              If you are a normal user you can add to favorites, add to card and buy one or multiple products.
+              In this project you can create, add, delete edit a product only if you are an admin. If you are a normal
+              user you can add to favorites, add to card and buy one or multiple products.
             </span>
           )}
         </span>

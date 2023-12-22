@@ -2,12 +2,14 @@
 import beachImage from "../../assets/carousel/beachImage.jpg";
 import forestImage from "../../assets/carousel/forestImage.jpg";
 import mountainImage from "../../assets/carousel/mountainImage.jpg";
+import { leftArrowIcon, rightArrowIcon } from "../../assets/MUI-icons";
 
 // STYLES
 import "./MainPage.scss";
 
 // LIBRARIES
-// import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import { useRef, useState } from "react";
 
 // MISC
 import { useFetch } from "../../hooks/useFetch";
@@ -23,11 +25,13 @@ const MainPage = () => {
   // LIBRARY CONSTANTS
   // const { id } = useParams();
   // const { state } = useLocation();
+  const location = useLocation();
   const slides = [
     { url: beachImage, title: "Beach" },
     { url: forestImage, title: "Forest" },
     { url: mountainImage, title: "Mountain" },
   ];
+  let scroll = useRef(null);
 
   // API REQUESTS
   const { data: phones, isLoading, error } = useFetch(`http://localhost:8000/phones`);
@@ -39,13 +43,38 @@ const MainPage = () => {
   const { data: toys } = useFetch(`http://localhost:8000/toys`);
   const { data: furniture } = useFetch(`http://localhost:8000/furniture`);
 
-  // const { data: products, isLoading, error } = useFetch(`http://localhost:8000/${state?.currentCategory}/${id}`);
+  // const { data: products } = useFetch(`http://localhost:8000/${state?.currentCategory}/${id}`);
 
   // STATE CONSTANTS
+  const [scrollStart, setScrollStart] = useState(0);
+  const [scrollEnd, setScrollEnd] = useState(false);
 
-  // LIFE CYCLE
+  const slide = (shift) => {
+    scroll.current.scrollBy({
+      left: shift,
+      behavior: "smooth",
+    });
 
-  // EVENT HANDLERS
+    scroll.current.scrollLeft += shift;
+    setScrollStart(scrollStart + shift);
+    if (Math.floor(scroll.current.scrollWidth - scroll.current.scrollLeft) <= scroll.current.offsetWidth) {
+      setScrollEnd(true);
+    } else {
+      setScrollEnd(false);
+    }
+  };
+
+  const scrollCheck = () => {
+    setScrollStart(scroll.current.scrollLeft);
+    if (Math.floor(scroll.current.scrollWidth - scroll.current.scrollLeft) <= scroll.current.offsetWidth) {
+      setScrollEnd(true);
+    } else {
+      setScrollEnd(false);
+    }
+  };
+
+  console.log(location.pathname.split("/product"));
+
   return (
     <div className="main-page-container">
       <div className="ads-container">
@@ -56,15 +85,62 @@ const MainPage = () => {
       {isLoading && <h2>Loading data...</h2>}
 
       {!isLoading && !error && (
-        <div className="main-page-categories">
+        <div className="main-page-categories-container">
           {phones.length > 0 && (
-            <div className="main-page-category">
+            <div className="main-page-category-container">
               <h2 className="main-page-category-title">Phones</h2>
-              {phones?.map((product, index) => (
-                <div className="main-page-category-map" key={`phones-${index}-${product?.id}`}>
-                  <ProductCard product={product} />
+              <div className="main-page-category-body">
+                <div
+                  onClick={() => slide(-100)}
+                  className={`left-arrow-left ${scrollStart < 1 ? "is-disabled-hide" : ""}`}
+                >
+                  {leftArrowIcon}
                 </div>
-              ))}
+
+                <div className="main-page-category" ref={scroll} onScroll={scrollCheck}>
+                  {phones?.map((product, index) => (
+                    <div className="main-page-category-map" key={`phones-${index}-${product?.id}`}>
+                      <ProductCard product={product} />
+                    </div>
+                  ))}
+                </div>
+
+                <div
+                  onClick={() => slide(+100)}
+                  className={`right-arrow-right ${!scrollEnd ? "" : "is-disabled-hide"}`}
+                >
+                  {rightArrowIcon}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {laptops.length > 0 && (
+            <div className="main-page-category-container">
+              <h2 className="main-page-category-title">Laptops</h2>
+              <div className="main-page-category-body">
+                <div
+                  onClick={() => slide(-100)}
+                  className={`left-arrow-left ${scrollStart < 1 ? "is-disabled-hide" : ""}`}
+                >
+                  {leftArrowIcon}
+                </div>
+
+                <div className="main-page-category" ref={scroll} onScroll={scrollCheck}>
+                  {laptops?.map((product, index) => (
+                    <div className="main-page-category-map" key={`laptops-${index}-${product?.id}`}>
+                      <ProductCard product={product} />
+                    </div>
+                  ))}
+                </div>
+
+                <div
+                  onClick={() => slide(+100)}
+                  className={`right-arrow-right ${!scrollEnd ? "" : "is-disabled-hide"}`}
+                >
+                  {rightArrowIcon}
+                </div>
+              </div>
             </div>
           )}
 
