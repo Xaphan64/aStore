@@ -94,7 +94,8 @@ const AddProduct = () => {
       inputValues.name === "" ||
       inputValues.price === "" ||
       inputValues.description === "" ||
-      !priceRegex.test(inputValues.price)
+      !priceRegex.test(inputValues.price) ||
+      inputValues.image.trim() === ""
     ) {
       setIsPending(false);
     } else {
@@ -102,7 +103,12 @@ const AddProduct = () => {
     }
 
     //if conditions are met add the product
-    if (inputValues.name.trim() !== "" && priceRegex.test(inputValues.price) && inputValues.description.trim() !== "") {
+    if (
+      inputValues.name.trim() !== "" &&
+      priceRegex.test(inputValues.price) &&
+      inputValues.description.trim() !== "" &&
+      inputValues.image.trim() !== ""
+    ) {
       axios.post(`http://localhost:8000/${inputValues.type}`, inputValues).then((response) => {
         console.log("product added sucesfully", response);
         setIsPending(false);

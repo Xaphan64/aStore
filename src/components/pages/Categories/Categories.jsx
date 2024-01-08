@@ -1,16 +1,18 @@
 // ASSETS
 
 // STYLES
+import "./Categories.scss";
 
 // LIBRARIES
 // import { useEffect, useState } from "react";
+import { Fragment } from "react";
+import { useLocation } from "react-router-dom";
 
 // MISC
 import { useFetch } from "../../hooks/useFetch";
 
 // COMPONENTS
 import ProductCard from "../../cards/ProductCard";
-import { useLocation } from "react-router-dom";
 
 // CONFIGURATION
 const Categories = () => {
@@ -139,33 +141,32 @@ const Categories = () => {
 
   return (
     <div className="categories-container">
-      {error && <h2>{error}</h2>}
-      {isLoading && <h2>Loading data...</h2>}
+      {error && <h2 className="error-message">{error}</h2>}
+      {isLoading && <h2 className="error-message">Loading data...</h2>}
 
       {!isLoading && !error && (
-        <div>
+        <Fragment>
           {/* <div>
             {categories.map((category, index) => (
               <div key={index}>{category}</div>
             ))}
           </div> */}
 
-          <div className="category-tab">
-            {products.length > 0 ? (
-              <div>
-                <h2 className="category-title" style={{ textTransform: "capitalize" }}>
-                  {category}
-                </h2>
+          {products.length > 0 ? (
+            <div className="categories-map">
+              <h2 className="category-title">{category}</h2>
+              <div className="category-card">
                 {products?.map((product, index) => (
-                  <div key={`categories-${index}-${product.id}`}>
+                  <Fragment key={`categories-${index}-${product.id}`}>
                     <ProductCard product={product} />
-                  </div>
+                  </Fragment>
                 ))}
               </div>
-            ) : (
-              <h2>Currently, there are not products available in this category.</h2>
-            )}
-          </div>
+            </div>
+          ) : (
+            <h2 className="error-message">Currently, there are not products available in this category.</h2>
+          )}
+
           {/* 
           {type === "phones" && (
             <div className="category-tab">
@@ -254,7 +255,7 @@ const Categories = () => {
               ))}
             </div>
           )} */}
-        </div>
+        </Fragment>
       )}
     </div>
   );

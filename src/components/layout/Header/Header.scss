@@ -139,6 +139,35 @@
             transition: 0.5s;
           }
         }
+
+        .dropdown-not-logged {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+
+          button {
+            padding: 4px;
+            border-radius: 8px;
+            background-color: $primary-blue;
+            border: none;
+            color: $primary-white;
+            font-size: 16px;
+            cursor: pointer;
+          }
+
+          .dropdown-not-logged-register {
+            display: flex;
+            gap: 3px;
+
+            .link {
+              color: #59b7ff;
+
+              &:hover {
+                color: #ff9443;
+              }
+            }
+          }
+        }
       }
     }
 

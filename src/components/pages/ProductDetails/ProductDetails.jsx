@@ -148,6 +148,10 @@ const ProductDetails = () => {
     });
   };
 
+  const priceFormat = (number) => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  };
+
   return (
     <Fragment>
       {isLoading && <div className="api-error">Loading...</div>}
@@ -243,7 +247,7 @@ const ProductDetails = () => {
                 <div className="product-details-body">
                   <img src={product.image} alt="img not available" />
                   <div className="product-details-buttons">
-                    <span className="product-details-price">{product.price} Lei</span>
+                    <span className="product-details-price">{priceFormat(product.price)} Lei</span>
 
                     <CustomButton type="button">
                       <div>{cartFilledIcon}</div>
