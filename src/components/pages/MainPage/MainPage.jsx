@@ -8,7 +8,7 @@ import { leftArrowIcon, rightArrowIcon } from "../../assets/MUI-icons";
 import "./MainPage.scss";
 
 // LIBRARIES
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import { useRef, useState } from "react";
 
 // MISC
@@ -25,7 +25,7 @@ const MainPage = () => {
   // LIBRARY CONSTANTS
   // const { id } = useParams();
   // const { state } = useLocation();
-  const location = useLocation();
+  // const location = useLocation();
   const slides = [
     { url: beachImage, title: "Beach" },
     { url: forestImage, title: "Forest" },

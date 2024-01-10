@@ -78,9 +78,66 @@ const ProductDetails = () => {
   }, [editMode]);
 
   // EVENT HANDLERS
-  const handleFavorite = () => {
-    console.log("favorite clicked");
+  const handleAddFavorite = () => {
     setAddFavorite(!addFavorite);
+
+    const addedToFavorite = {
+      ...inputValues,
+      favorite: true,
+    };
+
+    axios
+      .put(`http://localhost:8000/${state?.currentCategory}/${id}`, addedToFavorite)
+      .then((response) => {
+        console.log("Added to favorite", response);
+      })
+      .catch((error) => {
+        console.error("Error, could not add to favorite", error);
+      });
+
+    console.log("Add to favorite clicked");
+  };
+
+  const handleRemoveFavorite = () => {
+    setAddFavorite(!addFavorite);
+
+    const removeFromFavorite = {
+      ...inputValues,
+      favorite: false,
+    };
+
+    axios
+      .put(`http://localhost:8000/${state?.currentCategory}/${id}`, removeFromFavorite)
+      .then((response) => {
+        console.log("Removed from favorite", response);
+      })
+      .catch((error) => {
+        console.error("Error, could not remove from favorite", error);
+      });
+
+    console.log("Remove from favorite clicked");
+  };
+
+  const handleFavorite = () => {
+    setAddFavorite(!addFavorite);
+
+    const updatedFavorite = {
+      ...inputValues,
+      favorite: !addFavorite,
+    };
+
+    axios
+      .put(`http://localhost:8000/${state?.currentCategory}/${id}`, updatedFavorite)
+      .then((response) => {
+        if (addFavorite) {
+          console.log("Removed from favorites", response);
+        } else {
+          console.log("Added to favorites", response);
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating favorite status", error);
+      });
   };
 
   const handleImageClick = () => {
