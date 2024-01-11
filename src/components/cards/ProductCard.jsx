@@ -1,4 +1,5 @@
 // ASSETS
+import { cartFilledIcon, favoriteIcon, favoriteAddedIcon } from "../assets/MUI-icons";
 
 // STYLES
 import "./ProductCard.scss";
@@ -6,13 +7,12 @@ import "./ProductCard.scss";
 // LIBRARIES
 import propTypes from "prop-types";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 // MISC
 
 // COMPONENTS
 import CustomButton from "../atoms/CustomButton";
-import { cartFilledIcon, favoriteIcon, favoriteAddedIcon } from "../assets/MUI-icons";
-import { useState } from "react";
 
 // CONFIGURATION
 const ProductCard = (props) => {
