@@ -8,19 +8,27 @@ import "./Favorites.scss";
 import { useFetch } from "../../hooks/useFetch";
 
 // COMPONENTS
-import FavoriteCard from "../../cards/FavoriteCard";
 import { Fragment } from "react";
+import FavoriteFilter from "./FavoriteFilter";
 
 // CONFIGURATION
 const Favorites = () => {
   // PROPERTIES
 
   // API REQUESTS
-  const { data: phones, isLoading, error } = useFetch(`http://localhost:8000/phones`);
-
+  const { isLoading, error } = useFetch(`http://localhost:8000`);
   // LIBRARY CONSTANTS
-  const phonesFavorite = phones.filter((product) => product.favorite === true);
 
+  const products = [
+    { type: "phones" },
+    { type: "laptops" },
+    { type: "tv" },
+    { type: "gaming" },
+    { type: "books" },
+    { type: "food" },
+    { type: "toys" },
+    { type: "furniture" },
+  ];
   // STATE CONSTANTS
 
   // LIFE CYCLE
@@ -33,19 +41,13 @@ const Favorites = () => {
 
       {!isLoading && !error && (
         <Fragment>
-          {phones.length > 0 && (
-            <Fragment>
-              <h2 className="favorite-title">My favorites</h2>
+          <h2 className="favorite-title">My favorites</h2>
 
-              <div className="favorite-category">
-                {phonesFavorite.map((product, index) => (
-                  <div className="favorite-map" key={`phones-${index}-${product?.id}`}>
-                    <FavoriteCard product={product} />
-                  </div>
-                ))}
-              </div>
-            </Fragment>
-          )}
+          <div className="favorite-category">
+            {products?.map((product, index) => (
+              <FavoriteFilter type={product.type} key={`category-${index}-${product?.id}`} />
+            ))}
+          </div>
         </Fragment>
       )}
     </div>

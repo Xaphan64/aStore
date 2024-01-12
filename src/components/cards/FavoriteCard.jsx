@@ -6,23 +6,24 @@ import "./FavoriteCard.scss";
 
 // LIBRARIES
 import axios from "axios";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 // MISC
 
 // COMPONENTS
 import CustomButton from "../atoms/CustomButton";
-import { useLocation, useParams } from "react-router-dom";
 
 // CONFIGURATION
 const FavoriteCard = (props) => {
   // PROPERTIES
-  const { product } = props;
+  const { product, type } = props;
 
   // API REQUESTS
 
   // LIBRARY CONSTANTS
   const { id } = useParams();
   const { state } = useLocation();
+  const navigate = useNavigate();
 
   // STATE CONSTANTS
 
@@ -58,7 +59,11 @@ const FavoriteCard = (props) => {
   return (
     <div className="favorite-card">
       <div className="favorite-card-left">
-        <img src={product.image} alt="N/a" />
+        <img
+          onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: type } })}
+          src={product.image}
+          alt="N/a"
+        />
 
         <span className="favorite-card-title">{product.name}</span>
       </div>

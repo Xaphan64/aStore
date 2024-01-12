@@ -26,15 +26,6 @@ const MainPage = () => {
     { url: mountainImage, title: "Mountain" },
   ];
 
-  // API REQUESTS
-  const { isLoading, error } = useFetch(`http://localhost:8000`);
-
-  // STATE CONSTANTS
-
-  // LIFE CYCLE
-
-  // EVENT HANDLERS
-
   const products = [
     { type: "phones" },
     { type: "laptops" },
@@ -46,6 +37,14 @@ const MainPage = () => {
     { type: "furniture" },
   ];
 
+  // API REQUESTS
+  const { isLoading, error } = useFetch(`http://localhost:8000`);
+
+  // STATE CONSTANTS
+
+  // LIFE CYCLE
+
+  // EVENT HANDLERS
   return (
     <div className="main-page-container">
       <div className="ads-container">
@@ -57,7 +56,7 @@ const MainPage = () => {
 
       {!isLoading && !error && (
         <div className="main-page-categories-container">
-          {products.map((product, index) => (
+          {products?.map((product, index) => (
             <CustomScroll type={product.type} key={`category-${index}-${product?.id}`} />
           ))}
         </div>
