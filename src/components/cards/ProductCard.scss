@@ -1,0 +1,108 @@
+@import "../../index.scss";
+
+.product-card {
+  border: 1px solid $primary-blue;
+  background-color: $secondary-black;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8px;
+  border-radius: 8px;
+  gap: 16px;
+
+  .product-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .product-card-image {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+
+      img {
+        border-radius: 8px;
+        height: 230px;
+        width: 230px;
+        cursor: pointer;
+      }
+
+      button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        border: none;
+        background-color: transparent;
+
+        svg {
+          color: $primary-white;
+          background-color: $background-color;
+          border-radius: 16px;
+          padding: 4px;
+          width: 32px;
+          height: 32px;
+          cursor: pointer;
+
+          &:hover {
+            color: $primary-blue;
+          }
+        }
+
+        .favorite-button {
+          &.added {
+            svg {
+              color: red;
+            }
+          }
+        }
+      }
+    }
+
+    .product-card-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-height: 20px;
+      height: 40px;
+      cursor: pointer;
+    }
+  }
+
+  .product-card-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 8px;
+
+    .product-card-price {
+      color: red;
+      font-weight: bold;
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-right: 62.5px;
+      border: none;
+      background-color: $primary-blue;
+      cursor: pointer;
+      color: $primary-white;
+      border-radius: 8px;
+
+      div {
+        padding: 4px;
+        background-color: red;
+        border-radius: 8px 0 16px 8px;
+      }
+
+      span {
+        font-size: 16px;
+      }
+    }
+  }
+}

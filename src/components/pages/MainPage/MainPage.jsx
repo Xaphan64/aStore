@@ -1,43 +1,67 @@
 // ASSETS
+import beachImage from "../../assets/carousel/beachImage.jpg";
+import forestImage from "../../assets/carousel/forestImage.jpg";
+import mountainImage from "../../assets/carousel/mountainImage.jpg";
 
 // STYLES
+import "./MainPage.scss";
 
 // LIBRARIES
-import { Fragment } from "react";
 
 // MISC
 import { useFetch } from "../../hooks/useFetch";
 
 // COMPONENTS
-import ProductCard from "../../cards/ProductCard";
+import ImageSlider from "./AdsContainer";
+import CustomScroll from "./CustomScroll";
 
 // CONFIGURATION
 const MainPage = () => {
   // PROPERTIES
 
-  // API REQUESTS
-  const { data: products, isLoading, error } = useFetch("http://localhost:8000/products");
-
   // LIBRARY CONSTANTS
+  const slides = [
+    { url: beachImage, title: "Beach" },
+    { url: forestImage, title: "Forest" },
+    { url: mountainImage, title: "Mountain" },
+  ];
+
+  // API REQUESTS
+  const { isLoading, error } = useFetch(`http://localhost:8000`);
 
   // STATE CONSTANTS
 
   // LIFE CYCLE
 
   // EVENT HANDLERS
+
+  const products = [
+    { type: "phones" },
+    { type: "laptops" },
+    { type: "tv" },
+    { type: "gaming" },
+    { type: "books" },
+    { type: "food" },
+    { type: "toys" },
+    { type: "furniture" },
+  ];
+
   return (
     <div className="main-page-container">
-      <h1>Three carousel ads will be here with timer to change the ad</h1>
+      <div className="ads-container">
+        <ImageSlider slides={slides} />
+      </div>
 
-      {error && <h2>{error}</h2>}
+      {error && <h2 className="error-message">{error}</h2>}
+      {isLoading && <h2 className="error-message">Loading data...</h2>}
 
-      {isLoading && <h2>Loading data...</h2>}
-
-      {products?.map((product, index) => (
-        <Fragment key={`${index}-${product?.id}`}>
-          <ProductCard product={product} />
-        </Fragment>
-      ))}
+      {!isLoading && !error && (
+        <div className="main-page-categories-container">
+          {products.map((product, index) => (
+            <CustomScroll type={product.type} key={`category-${index}-${product?.id}`} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

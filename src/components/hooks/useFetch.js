@@ -17,6 +17,7 @@ export const useFetch = (url) => {
   // API REQUESTS
 
   // LIBRARY CONSTANTS
+
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -43,8 +44,8 @@ export const useFetch = (url) => {
 
   return {
     data,
-    setData,
     isLoading,
     error,
+    setData,
   };
 };

@@ -21,6 +21,20 @@ import WeekendIcon from "@mui/icons-material/Weekend";
 //dropdown
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 
+//card
+import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+
+//product details
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+
+//main page
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import CircleIcon from "@mui/icons-material/Circle";
+import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
+
 //register export
 export const warningIcon = <InfoOutlinedIcon />;
 
@@ -43,3 +57,17 @@ export const furnitureIcon = <WeekendIcon />;
 
 //dropdown export
 export const dropdownUpIcon = <ArrowDropUpIcon />;
+
+//card export
+export const favoriteAddedIcon = <FavoriteOutlinedIcon />;
+export const cartFilledIcon = <ShoppingCartIcon />;
+
+//product details export
+export const editIcon = <EditIcon />;
+export const deleteIcon = <DeleteIcon />;
+
+//main page export
+export const leftArrowIcon = <ChevronLeftIcon />;
+export const rightArrowIcon = <ChevronRightIcon />;
+export const circleIcon = <CircleIcon />;
+export const circleEmptyIcon = <CircleOutlinedIcon />;

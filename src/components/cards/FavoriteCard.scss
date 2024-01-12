@@ -1,0 +1,77 @@
+@import "../../index.scss";
+
+.favorite-card {
+  display: flex;
+  padding: 16px;
+  border-bottom: 1px solid $primary-white;
+  justify-content: space-between;
+
+  .favorite-card-left {
+    display: flex;
+    gap: 16px;
+
+    img {
+      width: 180px;
+      height: 180px;
+    }
+  }
+
+  .favorite-card-right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-left: 1px solid $primary-white;
+    padding-left: 16px;
+
+    .favorite-card-price {
+      color: red;
+      font-weight: bold;
+      font-size: 18px;
+      align-self: flex-end;
+    }
+
+    .favorite-card-add-button {
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: none;
+        background-color: $primary-blue;
+        cursor: pointer;
+        color: $primary-white;
+        border-radius: 8px;
+        gap: 8px;
+
+        div {
+          padding: 4px;
+          background-color: red;
+          border-radius: 8px 0 16px 8px;
+        }
+
+        span {
+          font-size: 16px;
+          padding-right: 8px;
+        }
+      }
+    }
+
+    .favorite-card-remove-button {
+      display: flex;
+      align-self: flex-end;
+
+      button {
+        background-color: $background-color;
+        color: $primary-blue;
+        display: flex;
+        align-items: center;
+        border: none;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+          color: #59b7ff;
+        }
+      }
+    }
+  }
+}

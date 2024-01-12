@@ -1,9 +1,13 @@
 // ASSETS
 import Placeholder from "./../../assets/Placeholder.png";
+import { warningIcon } from "../../assets/MUI-icons";
+
 // STYLES
+import "./Product.scss";
 
 // LIBRARIES
 import { useNavigate } from "react-router-dom";
+import { Fragment, useRef, useState } from "react";
 import axios from "axios";
 
 // MISC
@@ -24,14 +28,27 @@ const AddProduct = () => {
 
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
+  const fileInput = useRef(null);
+
+  const handleImageClick = () => {
+    fileInput.current.click();
+  };
 
   // STATE CONSTANTS
+  const [isPending, setIsPending] = useState(false);
+  const [nameError, setNameError] = useState("");
+  const [priceError, setPriceError] = useState("");
+  const [descError, setDescError] = useState("");
+  const [imageError, setImageError] = useState("");
   const { inputValues, handleInputChange, handleImageChange } = useForm({
     name: "",
     description: "",
     image: "",
     type: "",
     price: "",
+    favorite: false,
+    cart: false,
+    ordered: false,
   });
 
   // LIFE CYCLE
@@ -40,49 +57,155 @@ const AddProduct = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios.post("http://localhost:8000/products", inputValues).then((response) => {
-      console.log("product added sucesfully", response);
-      navigate("/");
-    });
+    //if name is empty throw error
+    if (inputValues.name.trim() === "") {
+      setNameError("Enter the product name");
+    } else {
+      setNameError("");
+    }
+
+    const priceRegex = /^\d+$/;
+
+    //if price is empty or is not a number throw error
+    if (inputValues.price.trim() === "") {
+      setPriceError("Select the product's price");
+    } else if (!priceRegex.test(inputValues.price)) {
+      setPriceError("The price must be a number");
+    } else {
+      setPriceError("");
+    }
+
+    //if image empty throw error
+    if (inputValues.image.trim() === "") {
+      setImageError("You did not select the product image");
+    } else {
+      setImageError("");
+    }
+
+    //if description is empty throw error
+    if (inputValues.description.trim() === "") {
+      setDescError("Enter a product description");
+    } else {
+      setDescError("");
+    }
+
+    //for not having a grayed out button when errors are displayed
+    if (
+      inputValues.name === "" ||
+      inputValues.price === "" ||
+      inputValues.description === "" ||
+      !priceRegex.test(inputValues.price) ||
+      inputValues.image.trim() === ""
+    ) {
+      setIsPending(false);
+    } else {
+      setIsPending(true);
+    }
+
+    //if conditions are met add the product
+    if (
+      inputValues.name.trim() !== "" &&
+      priceRegex.test(inputValues.price) &&
+      inputValues.description.trim() !== "" &&
+      inputValues.image.trim() !== ""
+    ) {
+      axios.post(`http://localhost:8000/${inputValues.type}`, inputValues).then((response) => {
+        console.log("product added sucesfully", response);
+        setIsPending(false);
+        navigate("/");
+      });
+    }
   };
 
   return (
-    <div className="add-product-container">
+    <div className="product-container">
       <h1>Add a new product</h1>
 
       <form onSubmit={handleSubmit}>
-        <div>
-          <span>Product name:</span>
-          <CustomInput type="text" name="name" value={inputValues.name} onChange={handleInputChange} />
+        <div className={nameError ? "product-fields red" : "product-fields"}>
+          <CustomInput
+            type="text"
+            name="name"
+            value={inputValues.name}
+            placeholder="Select the product name"
+            onChange={handleInputChange}
+          />
+
+          {nameError && (
+            <div className="product-fields-error">
+              {warningIcon} {nameError}
+            </div>
+          )}
         </div>
 
-        <div>
-          <span>Product description:</span>
-          <CustomTextArea type="text" name="description" value={inputValues.description} onChange={handleInputChange} />
-        </div>
+        <div className={imageError ? "product-fields red" : "product-fields"}>
+          <input
+            className="image-input"
+            type="file"
+            name="image"
+            onChange={handleImageChange}
+            style={{ display: "none" }}
+            ref={fileInput}
+          />
 
-        <div>
-          <span>Product image:</span>
           {inputValues.image ? (
-            <img src={inputValues.image} alt="Selected" style={{ width: 500, height: 500 }} />
+            <img src={inputValues.image} alt="Selected" onClick={handleImageClick} />
           ) : (
-            <img src={Placeholder} alt="Placeholder" style={{ width: 500, height: 500 }} />
+            <img src={Placeholder} alt="Placeholder" onClick={handleImageClick} />
           )}
 
-          <CustomInput type="file" name="image" onChange={handleImageChange} />
+          {imageError && (
+            <div className="product-fields-error">
+              {warningIcon} {imageError}
+            </div>
+          )}
         </div>
 
-        <div>
-          <span>Product type:</span>
+        <div className="product-fields">
           <CustomDropdown name="type" value={inputValues.type} onChange={handleInputChange} options={productType} />
         </div>
 
-        <div>
-          <span>Product price:</span>
-          <CustomInput type="text" name="price" value={inputValues.price} onChange={handleInputChange} />
+        <div className={priceError ? "product-fields red" : "product-fields"}>
+          <CustomInput
+            type="text"
+            name="price"
+            value={inputValues.price}
+            placeholder="Set the price of the product"
+            onChange={handleInputChange}
+          />
+
+          {priceError && (
+            <div className="product-fields-error">
+              {warningIcon} {priceError}
+            </div>
+          )}
         </div>
 
-        <CustomButton type="submit" name="Add product" />
+        <div className={descError ? "product-fields red" : "product-fields"}>
+          <CustomTextArea
+            type="text"
+            name="description"
+            value={inputValues.description}
+            placeholder="Enter the full product description, specifications and details"
+            onChange={handleInputChange}
+          />
+
+          {descError && (
+            <div className="product-fields-error">
+              {warningIcon} {descError}
+            </div>
+          )}
+        </div>
+
+        {isPending ? (
+          <CustomButton disabled type="button" name="Adding..." />
+        ) : (
+          <Fragment>
+            <CustomButton type="submit" name="Add product" />
+
+            <CustomButton type="button" name="Cancel" className="button-red" onClick={() => navigate("/")} />
+          </Fragment>
+        )}
       </form>
     </div>
   );

@@ -31,6 +31,8 @@ const CustomTextArea = (props) => {
       defaultValue={props.defaultValue}
       value={props.value}
       required={props.required}
+      rows={props.rows}
+      cols={props.cols}
     />
   );
 };
@@ -42,6 +44,8 @@ CustomTextArea.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.string,
   defaultValue: PropTypes.string,
+  rows: PropTypes.number,
+  cols: PropTypes.number,
 };
 
 export default CustomTextArea;
