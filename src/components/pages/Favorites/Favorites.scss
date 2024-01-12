@@ -5,6 +5,11 @@
   flex-direction: column;
   padding: 0 16px 16px 16px;
 
+  .error-message {
+    text-align: center;
+    font-size: 32px;
+  }
+
   .favorite-title {
     border-bottom: 1px solid $primary-white;
     padding-bottom: 8px;

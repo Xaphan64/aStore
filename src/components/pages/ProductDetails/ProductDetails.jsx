@@ -61,7 +61,10 @@ const ProductDetails = () => {
   useEffect(() => {
     axios
       .get(`http://localhost:8000/${state?.currentCategory}/${id}`)
-      .then((response) => setForm(response.data))
+      .then((response) => {
+        setForm(response.data);
+        setAddFavorite(response.data.favorite);
+      })
       .catch((error) => console.log(error));
 
     // eslint-disable-next-line
@@ -78,58 +81,19 @@ const ProductDetails = () => {
   }, [editMode]);
 
   // EVENT HANDLERS
-  const handleAddFavorite = () => {
-    setAddFavorite(!addFavorite);
 
-    const addedToFavorite = {
-      ...inputValues,
-      favorite: true,
-    };
-
-    axios
-      .put(`http://localhost:8000/${state?.currentCategory}/${id}`, addedToFavorite)
-      .then((response) => {
-        console.log("Added to favorite", response);
-      })
-      .catch((error) => {
-        console.error("Error, could not add to favorite", error);
-      });
-
-    console.log("Add to favorite clicked");
-  };
-
-  const handleRemoveFavorite = () => {
-    setAddFavorite(!addFavorite);
-
-    const removeFromFavorite = {
-      ...inputValues,
-      favorite: false,
-    };
-
-    axios
-      .put(`http://localhost:8000/${state?.currentCategory}/${id}`, removeFromFavorite)
-      .then((response) => {
-        console.log("Removed from favorite", response);
-      })
-      .catch((error) => {
-        console.error("Error, could not remove from favorite", error);
-      });
-
-    console.log("Remove from favorite clicked");
-  };
-
-  const handleFavorite = () => {
-    setAddFavorite(!addFavorite);
+  const handleFavorite = (favStatus) => {
+    setAddFavorite(favStatus);
 
     const updatedFavorite = {
       ...inputValues,
-      favorite: !addFavorite,
+      favorite: favStatus,
     };
 
     axios
       .put(`http://localhost:8000/${state?.currentCategory}/${id}`, updatedFavorite)
       .then((response) => {
-        if (addFavorite) {
+        if (favStatus) {
           console.log("Removed from favorites", response);
         } else {
           console.log("Added to favorites", response);
@@ -312,12 +276,16 @@ const ProductDetails = () => {
                     </CustomButton>
 
                     {addFavorite ? (
-                      <CustomButton type="button" className="button-favorites added" onClick={handleFavorite}>
+                      <CustomButton
+                        type="button"
+                        className="button-favorites added"
+                        onClick={() => handleFavorite(false)}
+                      >
                         <div>{favoriteAddedIcon}</div>
                         <span>Added to favorites</span>
                       </CustomButton>
                     ) : (
-                      <CustomButton type="button" className="button-favorites" onClick={handleFavorite}>
+                      <CustomButton type="button" className="button-favorites" onClick={() => handleFavorite(true)}>
                         <div>{favoriteIcon}</div>
                         <span>Add to favorites</span>
                       </CustomButton>

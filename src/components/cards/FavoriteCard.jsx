@@ -1,14 +1,17 @@
 // ASSETS
 import { cartFilledIcon, deleteIcon } from "../assets/MUI-icons";
-import CustomButton from "../atoms/CustomButton";
 
 // STYLES
 import "./FavoriteCard.scss";
+
 // LIBRARIES
+import axios from "axios";
 
 // MISC
 
 // COMPONENTS
+import CustomButton from "../atoms/CustomButton";
+import { useLocation, useParams } from "react-router-dom";
 
 // CONFIGURATION
 const FavoriteCard = (props) => {
@@ -18,6 +21,8 @@ const FavoriteCard = (props) => {
   // API REQUESTS
 
   // LIBRARY CONSTANTS
+  const { id } = useParams();
+  const { state } = useLocation();
 
   // STATE CONSTANTS
 
@@ -32,8 +37,22 @@ const FavoriteCard = (props) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   };
 
-  const handleRemoveFavorites = () => {
-    console.log("removed from favorites clicked");
+  const handleRemoveFavorite = () => {
+    const removeFromFavorite = {
+      ...product,
+      favorite: false,
+    };
+
+    axios
+      .put(`http://localhost:8000/${state?.currentCategory}/${id}`, removeFromFavorite)
+      .then((response) => {
+        console.log("Removed from favorite", response);
+      })
+      .catch((error) => {
+        console.error("Error, could not remove from favorite", error);
+      });
+
+    console.log("Remove from favorite clicked");
   };
 
   return (
@@ -54,7 +73,7 @@ const FavoriteCard = (props) => {
         </div>
 
         <div className="favorite-card-remove-button">
-          <CustomButton type="button" onClick={handleRemoveFavorites}>
+          <CustomButton type="button" onClick={handleRemoveFavorite}>
             <div>{deleteIcon}</div>
             <span>Remove</span>
           </CustomButton>

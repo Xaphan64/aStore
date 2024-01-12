@@ -12,9 +12,12 @@
       position: relative;
       margin: 0 auto;
       width: clamp(350px, 80%, 1800px);
-      //   height: clamp(250px, 60vh, 600px);
-      //   height: 250px;
+      // height: clamp(250px, 60vh, 600px);
       height: 600px;
+
+      @media screen and (min-width: 0px) and (max-width: 500px) {
+        height: 250px;
+      }
 
       .ads-slide {
         width: 100%;
@@ -101,6 +104,7 @@
 
       .main-page-category-title {
         padding-left: 40px;
+        text-transform: capitalize;
       }
 
       .main-page-category-body {

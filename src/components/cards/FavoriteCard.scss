@@ -20,6 +20,8 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    border-left: 1px solid $primary-white;
+    padding-left: 16px;
 
     .favorite-card-price {
       color: red;

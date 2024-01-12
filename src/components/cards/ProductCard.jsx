@@ -17,7 +17,7 @@ import CustomButton from "../atoms/CustomButton";
 // CONFIGURATION
 const ProductCard = (props) => {
   // PROPERTIES
-  const { product } = props;
+  const { product, type } = props;
 
   // API REQUESTS
 
@@ -50,7 +50,7 @@ const ProductCard = (props) => {
       <div className="product-card-body">
         <div className="product-card-image">
           <img
-            onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: category } })}
+            onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: category || type } })}
             src={product.image}
             alt="N/a"
           />
@@ -66,7 +66,7 @@ const ProductCard = (props) => {
 
         <span
           className="product-card-title"
-          onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: category } })}
+          onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: category || type } })}
         >
           {product.name}
         </span>
