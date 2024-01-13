@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import CustomButton from "../atoms/CustomButton";
 
 // CONFIGURATION
-const FavoriteCard = (props) => {
+const CartCard = (props) => {
   // PROPERTIES
   const { product, type } = props;
 
@@ -28,10 +28,11 @@ const FavoriteCard = (props) => {
   // LIFE CYCLE
 
   // EVENT HANDLERS
-  const handleAddCart = () => {
-    const addToCart = {
+  const handleMoveFavorite = () => {
+    const removeFromFavorite = {
       ...product,
-      cart: true,
+      cart: false,
+      favorite: true,
     };
 
     const productCategory = type || "";
@@ -39,15 +40,15 @@ const FavoriteCard = (props) => {
 
     if (productCategory && id) {
       axios
-        .put(`http://localhost:8000/${productCategory}/${id}`, addToCart)
+        .put(`http://localhost:8000/${productCategory}/${id}`, removeFromFavorite)
         .then((response) => {
-          console.log("Added to cart", response);
+          console.log("Moved to favorite", response);
         })
         .catch((error) => {
-          console.error("Error, could not add to cart", error);
+          console.error("Error, could not move to favorite", error);
         });
 
-      console.log("Add to cart clicked");
+      console.log("Move to favorite clicked");
     }
   };
 
@@ -55,10 +56,10 @@ const FavoriteCard = (props) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   };
 
-  const handleRemoveFavorite = () => {
+  const handleRemoveCart = () => {
     const removeFromFavorite = {
       ...product,
-      favorite: false,
+      cart: false,
     };
 
     const productCategory = type || "";
@@ -92,15 +93,15 @@ const FavoriteCard = (props) => {
       <div className="favorite-card-right">
         <span className="favorite-card-price">{priceFormat(product.price)} Lei</span>
 
-        <div className="favorite-card-add-button">
-          <CustomButton type="button" onClick={handleAddCart}>
+        <div className="favorite-card-remove-button">
+          <CustomButton type="button" onClick={handleMoveFavorite}>
             <div>{cartFilledIcon}</div>
-            <span>Add to cart</span>
+            <span>Move to Favorite</span>
           </CustomButton>
         </div>
 
         <div className="favorite-card-remove-button">
-          <CustomButton type="button" onClick={handleRemoveFavorite}>
+          <CustomButton type="button" onClick={handleRemoveCart}>
             <div>{deleteIcon}</div>
             <span>Remove</span>
           </CustomButton>
@@ -110,4 +111,4 @@ const FavoriteCard = (props) => {
   );
 };
 
-export default FavoriteCard;
+export default CartCard;

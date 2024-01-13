@@ -13,7 +13,7 @@ import { useFetch } from "../../hooks/useFetch";
 
 // COMPONENTS
 import ImageSlider from "./AdsContainer";
-import CustomScroll from "./CustomScroll";
+import MainPageCategories from "./MainPageCategories";
 
 // CONFIGURATION
 const MainPage = () => {
@@ -57,7 +57,7 @@ const MainPage = () => {
       {!isLoading && !error && (
         <div className="main-page-categories-container">
           {products?.map((product, index) => (
-            <CustomScroll type={product.type} key={`category-${index}-${product?.id}`} />
+            <MainPageCategories type={product.type} key={`category-${index}-${product?.id}`} />
           ))}
         </div>
       )}

@@ -18,5 +18,11 @@
   .favorite-category {
     display: flex;
     flex-direction: column;
+
+    .favorite-message {
+      font-size: 18px;
+      text-align: center;
+      padding: 16px;
+    }
   }
 }

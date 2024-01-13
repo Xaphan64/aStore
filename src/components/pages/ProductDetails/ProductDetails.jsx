@@ -46,7 +46,6 @@ const ProductDetails = () => {
     description: "",
     image: "",
     price: "",
-    // favorite: false,
   });
 
   // LIFE CYCLE

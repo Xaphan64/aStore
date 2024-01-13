@@ -1,23 +1,23 @@
 // ASSETS
 
 // STYLES
-import "./Favorites.scss";
+import "./../Favorites/Favorites.scss";
 
 // LIBRARIES
 import { Fragment } from "react";
 
 // MISC
 import { useFetch } from "../../hooks/useFetch";
+import CartFilter from "./CartFilter";
 
 // COMPONENTS
-import FavoriteFilter from "./FavoriteFilter";
 
 // CONFIGURATION
-const Favorites = () => {
+const Cart = () => {
   // PROPERTIES
 
   // API REQUESTS
-  const { isLoading, error } = useFetch(`http://localhost:8000`);
+  const { isLoading, error } = useFetch("http://localhost:8000");
 
   // LIBRARY CONSTANTS
   const products = [
@@ -30,6 +30,7 @@ const Favorites = () => {
     { type: "toys" },
     { type: "furniture" },
   ];
+
   // STATE CONSTANTS
 
   // LIFE CYCLE
@@ -38,15 +39,15 @@ const Favorites = () => {
   return (
     <div className="favorite-container">
       {error && <h2 className="error-message">{error}</h2>}
-      {isLoading && <h2 className="error-message">Loading favorites...</h2>}
+      {isLoading && <h2 className="error-message">Loading cart...</h2>}
 
       {!isLoading && !error && (
         <Fragment>
-          <h2 className="favorite-title">My favorites</h2>
+          <h1 className="favorite-title">My Cart</h1>
 
           <div className="favorite-category">
             {products?.map((product, index) => (
-              <FavoriteFilter type={product.type} key={`category-${index}-${product?.id}`} />
+              <CartFilter type={product.type} key={`category-${index}-${product.id}`} />
             ))}
           </div>
         </Fragment>
@@ -55,4 +56,4 @@ const Favorites = () => {
   );
 };
 
-export default Favorites;
+export default Cart;

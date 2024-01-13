@@ -6,8 +6,9 @@ import "./ProductCard.scss";
 
 // LIBRARIES
 import propTypes from "prop-types";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 // MISC
 
@@ -17,24 +18,61 @@ import CustomButton from "../atoms/CustomButton";
 // CONFIGURATION
 const ProductCard = (props) => {
   // PROPERTIES
-  const { product, type } = props;
+  const { product, type, category } = props;
 
   // API REQUESTS
 
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
-  const location = useLocation();
-  const category = location.pathname.split("/")[location.pathname.split("/").length - 1];
 
   // STATE CONSTANTS
   const [addFavorite, setAddFavorite] = useState(false);
 
   // LIFE CYCLE
+  useEffect(() => {
+    const productCategory = category || type;
+    const id = product.id || "";
+
+    axios
+      .get(`http://localhost:8000/${productCategory}/${id}`)
+      .then((response) => {
+        setAddFavorite(response.data.favorite);
+      })
+      .catch((error) => console.log(error));
+
+    // eslint-disable-next-line
+  }, []);
 
   // EVENT HANDLERS
-  const handleFavorite = () => {
-    console.log("favorite clicked");
-    setAddFavorite(!addFavorite);
+  const handleFavorite = (favStatus) => {
+    setAddFavorite(favStatus);
+
+    const updatedFavorite = {
+      ...product,
+      favorite: favStatus,
+    };
+
+    const productCategory = category || type || "";
+    const id = product.id || "";
+
+    console.log("id :>> ", id);
+
+    console.log("category :>> ", productCategory);
+
+    if (productCategory && id) {
+      axios
+        .put(`http://localhost:8000/${productCategory}/${id}`, updatedFavorite)
+        .then((response) => {
+          if (favStatus) {
+            console.log("Added to favorite", response);
+          } else {
+            console.log("Removed from favorite", response);
+          }
+        })
+        .catch((error) => {
+          console.error("Error updating favorite status", error);
+        });
+    }
   };
 
   const handleAddCart = () => {
@@ -55,11 +93,15 @@ const ProductCard = (props) => {
             alt="N/a"
           />
 
-          <CustomButton type="button" onClick={handleFavorite}>
+          <CustomButton type="button">
             {addFavorite ? (
-              <div className="favorite-button added">{favoriteAddedIcon}</div>
+              <div className="favorite-button added" onClick={() => handleFavorite(false)}>
+                {favoriteAddedIcon}
+              </div>
             ) : (
-              <div className="favorite-button">{favoriteIcon}</div>
+              <div className="favorite-button" onClick={() => handleFavorite(true)}>
+                {favoriteIcon}
+              </div>
             )}
           </CustomButton>
         </div>

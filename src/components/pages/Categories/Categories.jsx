@@ -4,7 +4,7 @@
 import "./Categories.scss";
 
 // LIBRARIES
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 // MISC
@@ -27,6 +27,9 @@ const Categories = () => {
   // STATE CONSTANTS
 
   // LIFE CYCLE
+  useEffect(() => {
+    console.log(category);
+  }, [category]);
 
   // EVENT HANDLERS
 
@@ -43,7 +46,7 @@ const Categories = () => {
               <div className="category-card">
                 {products?.map((product, index) => (
                   <Fragment key={`categories-${index}-${product.id}`}>
-                    <ProductCard product={product} />
+                    <ProductCard product={product} category={category} />
                   </Fragment>
                 ))}
               </div>

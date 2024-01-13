@@ -20,11 +20,10 @@ const FavoriteFilter = (props) => {
   const { data: products } = useFetch(`http://localhost:8000/${type}`);
 
   // LIBRARY CONSTANTS
-
-  // STATE CONSTANTS
   const productsFavorite = products.filter((product) => product.favorite === true);
 
-  console.log("productsFavorite.length :>> ", productsFavorite.length);
+  // STATE CONSTANTS
+
   // LIFE CYCLE
 
   // EVENT HANDLERS
@@ -39,7 +38,7 @@ const FavoriteFilter = (props) => {
           ))}
         </Fragment>
       ) : (
-        <div>No favorite products</div>
+        <div className="favorite-message">You haven't any product added to favorites</div>
       )}
     </Fragment>
   );

@@ -14,7 +14,7 @@ import ProductCard from "../../cards/ProductCard";
 
 // CONFIGURATION
 
-const CustomScroll = (props) => {
+const MainPageCategories = (props) => {
   // PROPERTIES
   const { type = "" } = props;
 
@@ -85,4 +85,4 @@ const CustomScroll = (props) => {
     </div>
   );
 };
-export default CustomScroll;
+export default MainPageCategories;

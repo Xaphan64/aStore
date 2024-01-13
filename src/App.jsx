@@ -18,6 +18,7 @@ import ProductDetails from "./components/pages/ProductDetails/ProductDetails";
 import AddProduct from "./components/pages/AddProduct/AddProduct";
 import ErrorPage from "./components/config/errorPage";
 import Categories from "./components/pages/Categories/Categories";
+import Cart from "./components/pages/Cart/Cart";
 
 // CONFIGURATION
 const App = () => {
@@ -42,6 +43,7 @@ const App = () => {
           <Route path="/" element={<MainPage />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/favorites" element={<Favorites />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/add-product" element={<AddProduct />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/categories/:id" element={<Categories />} />
