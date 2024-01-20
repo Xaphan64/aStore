@@ -20,7 +20,7 @@ const Favorites = () => {
   const { isLoading, error } = useFetch(`http://localhost:8000`);
 
   // LIBRARY CONSTANTS
-  const products = [
+  const category = [
     { type: "phones" },
     { type: "laptops" },
     { type: "tv" },
@@ -45,7 +45,7 @@ const Favorites = () => {
           <h2 className="favorite-title">My favorites</h2>
 
           <div className="favorite-category">
-            {products?.map((product, index) => (
+            {category?.map((product, index) => (
               <FavoriteFilter type={product.type} key={`category-${index}-${product?.id}`} />
             ))}
           </div>

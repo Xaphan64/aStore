@@ -31,6 +31,7 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const fileInput = useRef(null);
+  const admin = sessionStorage.getItem("adminToken");
 
   // STATE CONSTANTS
   const [editMode, setEditMode] = useState(false);
@@ -290,15 +291,19 @@ const ProductDetails = () => {
                       </CustomButton>
                     )}
 
-                    <CustomButton type="button" onClick={() => setEditMode(true)}>
-                      <div>{editIcon}</div>
-                      <span>Edit Product</span>
-                    </CustomButton>
+                    {admin && (
+                      <CustomButton type="button" onClick={() => setEditMode(true)}>
+                        <div>{editIcon}</div>
+                        <span>Edit Product</span>
+                      </CustomButton>
+                    )}
 
-                    <CustomButton type="button" className="button-red" onClick={() => setModal(true)}>
-                      <div>{deleteIcon}</div>
-                      <span>Delete Product</span>
-                    </CustomButton>
+                    {admin && (
+                      <CustomButton type="button" className="button-red" onClick={() => setModal(true)}>
+                        <div>{deleteIcon}</div>
+                        <span>Delete Product</span>
+                      </CustomButton>
+                    )}
                   </div>
                 </div>
                 <div className="product-details-description">

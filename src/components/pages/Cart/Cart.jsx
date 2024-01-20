@@ -34,11 +34,16 @@ const Cart = () => {
 
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
+
   const getProductsList = JSON.parse(localStorage?.getItem("cartProductsList"));
+
   const totalPrice = getProductsList?.reduce((accumulator, product) => accumulator + parseFloat(product.price), 0);
   const priceFormat = (number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   };
+
+  const user = sessionStorage.getItem("token");
+  const admin = sessionStorage.getItem("adminToken");
 
   // STATE CONSTANTS
 
@@ -69,7 +74,11 @@ const Cart = () => {
                   <span className="cart-price">{priceFormat(totalPrice)} Lei</span>
                 </div>
 
-                <CustomButton name="Next" type="button" onClick={() => navigate("/checkout")} />
+                <CustomButton
+                  name="Next"
+                  type="button"
+                  onClick={user || admin ? () => navigate("/checkout") : () => navigate("/login")}
+                />
               </div>
             )}
           </div>

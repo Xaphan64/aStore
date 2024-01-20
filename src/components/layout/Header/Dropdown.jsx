@@ -28,15 +28,17 @@ const DropdownAccount = () => {
   // EVENT HANDLERS
   const handleLogout = () => {
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("adminToken");
   };
 
   const user = sessionStorage.getItem("token");
+  const admin = sessionStorage.getItem("adminToken");
 
   return (
     <div className="dropdown-account">
       <div className="dropdown-icon">{dropdownUpIcon}</div>
 
-      {user ? (
+      {user || admin ? (
         <div className="dropdown-options">
           <span className="dropdown-title">Hello, {account}</span>
 
@@ -53,9 +55,11 @@ const DropdownAccount = () => {
               My Cart
             </span>
 
-            <span className="dropdown-buttons" onClick={() => navigate("/add-product")}>
-              Add Product
-            </span>
+            {admin && (
+              <span className="dropdown-buttons" onClick={() => navigate("/add-product")}>
+                Add Product
+              </span>
+            )}
           </div>
 
           <span onClick={handleLogout} className="dropdown-logout">

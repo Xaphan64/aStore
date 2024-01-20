@@ -37,7 +37,7 @@ const Login = () => {
   // LIFE CYCLE
 
   // EVENT HANDLERS
-  const handleSubmit = (event) => {
+  const handleSubmit = (event, isAdmin) => {
     event.preventDefault();
 
     //if email does not match with the one in localStorage show error
@@ -50,12 +50,14 @@ const Login = () => {
       setPasswordError("Wrong password");
     } else setPasswordError("");
 
+    //if both conditions are met login (navigate to main page & create a token)
     if (
       inputValues.email === localStorage.getItem("Email", inputValues.email) &&
       inputValues.password === localStorage.getItem("Password", inputValues.password)
     ) {
       navigate("/");
-      sessionStorage.setItem("token", nanoid());
+
+      isAdmin ? sessionStorage.setItem("adminToken", nanoid()) : sessionStorage.setItem("token", nanoid());
     } else console.log("login failed");
   };
 
@@ -73,7 +75,7 @@ const Login = () => {
         aStore
       </h1>
 
-      <form onSubmit={handleSubmit} className="login-form">
+      <form onSubmit={(event) => handleSubmit(event, false)} className="login-form">
         <div className="login-inputs">
           <h1>Sign in</h1>
 
@@ -101,6 +103,8 @@ const Login = () => {
 
         <div className="login-inputs">
           <CustomButton type="submit" name="Login" />
+
+          <CustomButton type="button" name="Login as Administrator" onClick={(event) => handleSubmit(event, true)} />
 
           <div className="login-bottom-text">
             <span>New to aStore? </span>

@@ -6,7 +6,7 @@ import { warningIcon } from "../../assets/MUI-icons";
 import "./Product.scss";
 
 // LIBRARIES
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Fragment, useRef, useState } from "react";
 import axios from "axios";
 
@@ -29,10 +29,10 @@ const AddProduct = () => {
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
   const fileInput = useRef(null);
-
   const handleImageClick = () => {
     fileInput.current.click();
   };
+  const admin = sessionStorage.getItem("adminToken");
 
   // STATE CONSTANTS
   const [isPending, setIsPending] = useState(false);
@@ -119,94 +119,105 @@ const AddProduct = () => {
 
   return (
     <div className="product-container">
-      <h1>Add a new product</h1>
+      {admin ? (
+        <Fragment>
+          <h1>Add a new product</h1>
 
-      <form onSubmit={handleSubmit}>
-        <div className={nameError ? "product-fields red" : "product-fields"}>
-          <CustomInput
-            type="text"
-            name="name"
-            value={inputValues.name}
-            placeholder="Select the product name"
-            onChange={handleInputChange}
-          />
+          <form onSubmit={handleSubmit}>
+            <div className={nameError ? "product-fields red" : "product-fields"}>
+              <CustomInput
+                type="text"
+                name="name"
+                value={inputValues.name}
+                placeholder="Select the product name"
+                onChange={handleInputChange}
+              />
 
-          {nameError && (
-            <div className="product-fields-error">
-              {warningIcon} {nameError}
+              {nameError && (
+                <div className="product-fields-error">
+                  {warningIcon} {nameError}
+                </div>
+              )}
             </div>
-          )}
-        </div>
 
-        <div className={imageError ? "product-fields red" : "product-fields"}>
-          <input
-            className="image-input"
-            type="file"
-            name="image"
-            onChange={handleImageChange}
-            style={{ display: "none" }}
-            ref={fileInput}
-          />
+            <div className={imageError ? "product-fields red" : "product-fields"}>
+              <input
+                className="image-input"
+                type="file"
+                name="image"
+                onChange={handleImageChange}
+                style={{ display: "none" }}
+                ref={fileInput}
+              />
 
-          {inputValues.image ? (
-            <img src={inputValues.image} alt="Selected" onClick={handleImageClick} />
-          ) : (
-            <img src={Placeholder} alt="Placeholder" onClick={handleImageClick} />
-          )}
+              {inputValues.image ? (
+                <img src={inputValues.image} alt="Selected" onClick={handleImageClick} />
+              ) : (
+                <img src={Placeholder} alt="Placeholder" onClick={handleImageClick} />
+              )}
 
-          {imageError && (
-            <div className="product-fields-error">
-              {warningIcon} {imageError}
+              {imageError && (
+                <div className="product-fields-error">
+                  {warningIcon} {imageError}
+                </div>
+              )}
             </div>
-          )}
-        </div>
 
-        <div className="product-fields">
-          <CustomDropdown name="type" value={inputValues.type} onChange={handleInputChange} options={productType} />
-        </div>
-
-        <div className={priceError ? "product-fields red" : "product-fields"}>
-          <CustomInput
-            type="text"
-            name="price"
-            value={inputValues.price}
-            placeholder="Set the price of the product"
-            onChange={handleInputChange}
-          />
-
-          {priceError && (
-            <div className="product-fields-error">
-              {warningIcon} {priceError}
+            <div className="product-fields">
+              <CustomDropdown name="type" value={inputValues.type} onChange={handleInputChange} options={productType} />
             </div>
-          )}
-        </div>
 
-        <div className={descError ? "product-fields red" : "product-fields"}>
-          <CustomTextArea
-            type="text"
-            name="description"
-            value={inputValues.description}
-            placeholder="Enter the full product description, specifications and details"
-            onChange={handleInputChange}
-          />
+            <div className={priceError ? "product-fields red" : "product-fields"}>
+              <CustomInput
+                type="text"
+                name="price"
+                value={inputValues.price}
+                placeholder="Set the price of the product"
+                onChange={handleInputChange}
+              />
 
-          {descError && (
-            <div className="product-fields-error">
-              {warningIcon} {descError}
+              {priceError && (
+                <div className="product-fields-error">
+                  {warningIcon} {priceError}
+                </div>
+              )}
             </div>
-          )}
+
+            <div className={descError ? "product-fields red" : "product-fields"}>
+              <CustomTextArea
+                type="text"
+                name="description"
+                value={inputValues.description}
+                placeholder="Enter the full product description, specifications and details"
+                onChange={handleInputChange}
+              />
+
+              {descError && (
+                <div className="product-fields-error">
+                  {warningIcon} {descError}
+                </div>
+              )}
+            </div>
+
+            {isPending ? (
+              <CustomButton disabled type="button" name="Adding..." />
+            ) : (
+              <Fragment>
+                <CustomButton type="submit" name="Add product" />
+
+                <CustomButton type="button" name="Cancel" className="button-red" onClick={() => navigate("/")} />
+              </Fragment>
+            )}
+          </form>
+        </Fragment>
+      ) : (
+        <div className="no-access-error">
+          Error! No access to this page. You can go back to{" "}
+          <Link className="link" to="/">
+            Main Page
+          </Link>
         </div>
-
-        {isPending ? (
-          <CustomButton disabled type="button" name="Adding..." />
-        ) : (
-          <Fragment>
-            <CustomButton type="submit" name="Add product" />
-
-            <CustomButton type="button" name="Cancel" className="button-red" onClick={() => navigate("/")} />
-          </Fragment>
-        )}
-      </form>
+      )}
     </div>
   );
 };
