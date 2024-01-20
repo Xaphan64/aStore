@@ -27,6 +27,7 @@ const Header = () => {
   const location = useLocation();
   const { id } = useParams();
   const isMobile = window.matchMedia("(max-width: 750px")?.matches;
+  const getProductsList = JSON.parse(localStorage?.getItem("cartProductsList"));
 
   // STATE CONSTANTS
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -39,7 +40,8 @@ const Header = () => {
       location.pathname === "/add-product" ||
       location.pathname === "/orders" ||
       location.pathname === "/favorites" ||
-      location.pathname === `/product/${id}`
+      location.pathname === `/product/${id}` ||
+      location.pathname === "/cart"
     ) {
       setActive(false);
     }
@@ -81,7 +83,10 @@ const Header = () => {
             </CustomButton>
 
             <CustomButton type="button">
-              <div className="left-icon">{cartIcon}</div>
+              <div className="left-icon">
+                {getProductsList.length > 0 && <span className="cart-length">{getProductsList.length}</span>}
+                {cartIcon}
+              </div>
               <div className="button-text">Cart {dropdownIcon}</div>
             </CustomButton>
           </div>

@@ -19,6 +19,7 @@ import AddProduct from "./components/pages/AddProduct/AddProduct";
 import ErrorPage from "./components/config/errorPage";
 import Categories from "./components/pages/Categories/Categories";
 import Cart from "./components/pages/Cart/Cart";
+import Checkout from "./components/pages/Checkout/Checkout";
 
 // CONFIGURATION
 const App = () => {
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="/orders" element={<Orders />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/add-product" element={<AddProduct />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/categories/:id" element={<Categories />} />

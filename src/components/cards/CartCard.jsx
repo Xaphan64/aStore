@@ -22,7 +22,7 @@ const CartCard = (props) => {
 
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
-
+  const getProductsList = JSON.parse(localStorage?.getItem("cartProductsList"));
   // STATE CONSTANTS
 
   // LIFE CYCLE
@@ -43,6 +43,12 @@ const CartCard = (props) => {
         .put(`http://localhost:8000/${productCategory}/${id}`, removeFromFavorite)
         .then((response) => {
           console.log("Moved to favorite", response);
+
+          if (getProductsList && getProductsList.length > 0) {
+            const updatedCartList = getProductsList.filter((product) => !(product.id === id && product.type === type));
+
+            localStorage.setItem("cartProductsList", JSON.stringify(updatedCartList));
+          }
         })
         .catch((error) => {
           console.error("Error, could not move to favorite", error);
@@ -70,6 +76,12 @@ const CartCard = (props) => {
         .put(`http://localhost:8000/${productCategory}/${id}`, removeFromFavorite)
         .then((response) => {
           console.log("Removed from favorite", response);
+
+          if (getProductsList && getProductsList.length > 0) {
+            const updatedCartList = getProductsList.filter((product) => !(product.id === id && product.type === type));
+
+            localStorage.setItem("cartProductsList", JSON.stringify(updatedCartList));
+          }
         })
         .catch((error) => {
           console.error("Error, could not remove from favorite", error);
@@ -88,7 +100,12 @@ const CartCard = (props) => {
           alt="N/a"
         />
 
-        <span className="favorite-card-title">{product.name}</span>
+        <span
+          className="favorite-card-title"
+          onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: type } })}
+        >
+          {product.name}
+        </span>
       </div>
       <div className="favorite-card-right">
         <span className="favorite-card-price">{priceFormat(product.price)} Lei</span>

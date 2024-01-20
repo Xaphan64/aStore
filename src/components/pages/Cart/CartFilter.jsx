@@ -1,16 +1,15 @@
 // ASSETS
 
-import { Fragment } from "react";
-import { useFetch } from "../../hooks/useFetch";
-import CartCard from "../../cards/CartCard";
-
 // STYLES
 
 // LIBRARIES
+import { Fragment } from "react";
 
 // MISC
+import { useFetch } from "../../hooks/useFetch";
 
 // COMPONENTS
+import CartCard from "../../cards/CartCard";
 
 // CONFIGURATION
 const CartFilter = (props) => {
@@ -30,7 +29,7 @@ const CartFilter = (props) => {
   // EVENT HANDLERS
   return (
     <Fragment>
-      {productsCart.length > 0 ? (
+      {productsCart.length > 0 && (
         <Fragment>
           {productsCart.map((product, index) => (
             <div className="favorite-map" key={`category-${index}-${product?.id}`}>
@@ -38,8 +37,6 @@ const CartFilter = (props) => {
             </div>
           ))}
         </Fragment>
-      ) : (
-        <div className="favorite-message">The cart is empty</div>
       )}
     </Fragment>
   );

@@ -37,11 +37,24 @@ const FavoriteCard = (props) => {
     const productCategory = type || "";
     const id = product.id || "";
 
+    const getProductsList = JSON.parse(localStorage?.getItem("cartProductsList"));
+    const listOfCartItems = getProductsList?.length > 0 ? getProductsList : [];
+
+    let localCartList = [...listOfCartItems];
+
     if (productCategory && id) {
       axios
         .put(`http://localhost:8000/${productCategory}/${id}`, addToCart)
         .then((response) => {
           console.log("Added to cart", response);
+
+          localCartList.push({
+            price: product.price,
+            id: product.id,
+            type: product.type,
+          });
+
+          localStorage.setItem("cartProductsList", JSON.stringify(localCartList));
         })
         .catch((error) => {
           console.error("Error, could not add to cart", error);
@@ -87,7 +100,12 @@ const FavoriteCard = (props) => {
           alt="N/a"
         />
 
-        <span className="favorite-card-title">{product.name}</span>
+        <span
+          className="favorite-card-title"
+          onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: type } })}
+        >
+          {product.name}
+        </span>
       </div>
       <div className="favorite-card-right">
         <span className="favorite-card-price">{priceFormat(product.price)} Lei</span>
