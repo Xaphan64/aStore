@@ -117,8 +117,36 @@ const ProductDetails = () => {
   };
 
   const handleAddCart = () => {
-    console.log("add to cart clicked");
-    showaddCart();
+    const addToCart = {
+      ...inputValues,
+      cart: true,
+    };
+
+    const getProductsList = JSON.parse(localStorage?.getItem("cartProductsList"));
+    const listOfCartItems = getProductsList?.length > 0 ? getProductsList : [];
+
+    let localCartList = [...listOfCartItems];
+
+    axios
+      .put(`http://localhost:8000/${state?.currentCategory}/${id}`, addToCart)
+      .then((response) => {
+        console.log("Added to cart", response);
+
+        localCartList.push({
+          price: product.price,
+          id: product.id,
+          type: product.type,
+        });
+
+        localStorage.setItem("cartProductsList", JSON.stringify(localCartList));
+
+        showaddCart();
+      })
+      .catch((error) => {
+        console.error("Error, could not add to cart", error);
+      });
+
+    console.log("Add to cart clicked");
   };
 
   const handleImageClick = () => {

@@ -23,6 +23,7 @@ const CartCard = (props) => {
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
   const getProductsList = JSON.parse(localStorage?.getItem("cartProductsList"));
+
   // STATE CONSTANTS
 
   // LIFE CYCLE
