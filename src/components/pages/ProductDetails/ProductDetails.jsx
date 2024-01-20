@@ -19,6 +19,7 @@ import CustomButton from "../../atoms/CustomButton";
 import CustomInput from "../../atoms/CustomInput";
 import CustomTextArea from "../../atoms/CustomTextArea";
 import ConfirmationModal from "./ConfirmationModal/ConfirmationModal";
+import Snackbar from "../../atoms/Snackbar/Snackbar";
 
 // CONFIGURATION
 const ProductDetails = () => {
@@ -32,6 +33,16 @@ const ProductDetails = () => {
   const { state } = useLocation();
   const fileInput = useRef(null);
   const admin = sessionStorage.getItem("adminToken");
+
+  const snackbarType = {
+    addFavorite: "addFavorite",
+    removeFavorite: "removeFavorite",
+    addCart: "addCart",
+  };
+
+  const snackbarRefAdd = useRef(null);
+  const snackbarRefRemove = useRef(null);
+  const snackbarRefCart = useRef(null);
 
   // STATE CONSTANTS
   const [editMode, setEditMode] = useState(false);
@@ -81,7 +92,6 @@ const ProductDetails = () => {
   }, [editMode]);
 
   // EVENT HANDLERS
-
   const handleFavorite = (favStatus) => {
     setAddFavorite(favStatus);
 
@@ -94,14 +104,21 @@ const ProductDetails = () => {
       .put(`http://localhost:8000/${state?.currentCategory}/${id}`, updatedFavorite)
       .then((response) => {
         if (favStatus) {
-          console.log("Removed from favorites", response);
-        } else {
           console.log("Added to favorites", response);
+          showAddFavorite();
+        } else {
+          console.log("Removed from favorites", response);
+          showRemoveFavorite();
         }
       })
       .catch((error) => {
         console.error("Error updating favorite status", error);
       });
+  };
+
+  const handleAddCart = () => {
+    console.log("add to cart clicked");
+    showaddCart();
   };
 
   const handleImageClick = () => {
@@ -171,6 +188,18 @@ const ProductDetails = () => {
 
   const priceFormat = (number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  };
+
+  const showAddFavorite = () => {
+    snackbarRefAdd.current.show();
+  };
+
+  const showRemoveFavorite = () => {
+    snackbarRefRemove.current.show();
+  };
+
+  const showaddCart = () => {
+    snackbarRefCart.current.show();
   };
 
   return (
@@ -263,6 +292,15 @@ const ProductDetails = () => {
             </div>
           ) : (
             <div className="product-details-container">
+              <Snackbar message="Product added to favorites" ref={snackbarRefAdd} type={snackbarType.addFavorite} />
+
+              <Snackbar
+                message="Product removed from favorites"
+                ref={snackbarRefRemove}
+                type={snackbarType.removeFavorite}
+              />
+
+              <Snackbar message="Product added to cart" ref={snackbarRefCart} type={snackbarType.addCart} />
               <div className="product-details-items">
                 <h2>{product.name}</h2>
                 <div className="product-details-body">
@@ -270,7 +308,7 @@ const ProductDetails = () => {
                   <div className="product-details-buttons">
                     <span className="product-details-price">{priceFormat(product.price)} Lei</span>
 
-                    <CustomButton type="button">
+                    <CustomButton type="button" onClick={handleAddCart}>
                       <div>{cartFilledIcon}</div>
                       <span>Add to cart</span>
                     </CustomButton>

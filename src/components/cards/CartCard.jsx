@@ -44,8 +44,8 @@ const CartCard = (props) => {
         .then((response) => {
           console.log("Moved to favorite", response);
 
-          if (getProductsList && getProductsList.length > 0) {
-            const updatedCartList = getProductsList.filter((product) => !(product.id === id && product.type === type));
+          if (getProductsList && getProductsList?.length > 0) {
+            const updatedCartList = getProductsList?.filter((product) => !(product.id === id && product.type === type));
 
             localStorage.setItem("cartProductsList", JSON.stringify(updatedCartList));
           }
@@ -77,8 +77,8 @@ const CartCard = (props) => {
         .then((response) => {
           console.log("Removed from favorite", response);
 
-          if (getProductsList && getProductsList.length > 0) {
-            const updatedCartList = getProductsList.filter((product) => !(product.id === id && product.type === type));
+          if (getProductsList && getProductsList?.length > 0) {
+            const updatedCartList = getProductsList?.filter((product) => !(product.id === id && product.type === type));
 
             localStorage.setItem("cartProductsList", JSON.stringify(updatedCartList));
           }

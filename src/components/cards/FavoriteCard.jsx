@@ -16,7 +16,7 @@ import CustomButton from "../atoms/CustomButton";
 // CONFIGURATION
 const FavoriteCard = (props) => {
   // PROPERTIES
-  const { product, type } = props;
+  const { product, type, showaddCart } = props;
 
   // API REQUESTS
 
@@ -55,6 +55,8 @@ const FavoriteCard = (props) => {
           });
 
           localStorage.setItem("cartProductsList", JSON.stringify(localCartList));
+
+          showaddCart();
         })
         .catch((error) => {
           console.error("Error, could not add to cart", error);

@@ -4,6 +4,19 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  position: relative;
+
+  .main-page-notification {
+    color: $primary-white;
+
+    background-color: black;
+    position: fixed;
+    z-index: 1;
+    top: 15%;
+    left: 92.5%;
+    transform: translateX(-50%);
+    width: 200px;
+  }
 
   .ads-container {
     padding-top: 8px;

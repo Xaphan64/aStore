@@ -84,7 +84,7 @@ const Header = () => {
 
             <CustomButton type="button">
               <div className="left-icon">
-                {getProductsList.length > 0 && <span className="cart-length">{getProductsList.length}</span>}
+                {getProductsList?.length > 0 && <span className="cart-length">{getProductsList.length}</span>}
                 {cartIcon}
               </div>
               <div className="button-text">Cart {dropdownIcon}</div>

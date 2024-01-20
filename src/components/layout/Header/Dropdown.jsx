@@ -5,11 +5,11 @@ import { dropdownUpIcon } from "../../assets/MUI-icons";
 
 // LIBRARIES
 import { Link, useNavigate } from "react-router-dom";
-import CustomButton from "../../atoms/CustomButton";
 
 // MISC
 
 // COMPONENTS
+import CustomButton from "../../atoms/CustomButton";
 
 // CONFIGURATION
 const DropdownAccount = () => {

@@ -18,7 +18,7 @@ import CustomButton from "../atoms/CustomButton";
 // CONFIGURATION
 const ProductCard = (props) => {
   // PROPERTIES
-  const { product, type, category } = props;
+  const { product, type, category, showAddFavorite, showRemoveFavorite, showaddCart } = props;
 
   // API REQUESTS
 
@@ -55,18 +55,16 @@ const ProductCard = (props) => {
     const productCategory = category || type || "";
     const id = product.id || "";
 
-    console.log("id :>> ", id);
-
-    console.log("category :>> ", productCategory);
-
     if (productCategory && id) {
       axios
         .put(`http://localhost:8000/${productCategory}/${id}`, updatedFavorite)
         .then((response) => {
           if (favStatus) {
             console.log("Added to favorite", response);
+            showAddFavorite();
           } else {
             console.log("Removed from favorite", response);
+            showRemoveFavorite();
           }
         })
         .catch((error) => {
@@ -77,6 +75,7 @@ const ProductCard = (props) => {
 
   const handleAddCart = () => {
     console.log("add to cart clicked");
+    showaddCart();
   };
 
   const priceFormat = (number) => {

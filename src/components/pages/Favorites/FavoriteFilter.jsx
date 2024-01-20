@@ -14,7 +14,7 @@ import FavoriteCard from "../../cards/FavoriteCard";
 // CONFIGURATION
 const FavoriteFilter = (props) => {
   // PROPERTIES
-  const { type = "" } = props;
+  const { type = "", showaddCart } = props;
 
   // API REQUESTS
   const { data: products } = useFetch(`http://localhost:8000/${type}`);
@@ -33,7 +33,7 @@ const FavoriteFilter = (props) => {
         <Fragment>
           {productsFavorite.map((product, index) => (
             <div className="favorite-map" key={`category-${index}-${product?.id}`}>
-              <FavoriteCard product={product} type={type} />
+              <FavoriteCard product={product} type={type} showaddCart={showaddCart} />
             </div>
           ))}
         </Fragment>

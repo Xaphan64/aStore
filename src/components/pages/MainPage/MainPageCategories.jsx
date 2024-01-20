@@ -16,7 +16,7 @@ import ProductCard from "../../cards/ProductCard";
 
 const MainPageCategories = (props) => {
   // PROPERTIES
-  const { type = "" } = props;
+  const { type = "", showAddFavorite, showRemoveFavorite, showaddCart } = props;
 
   // API REQUESTS
   const { data: products } = useFetch(`http://localhost:8000/${type}`);
@@ -70,7 +70,13 @@ const MainPageCategories = (props) => {
         <div className="main-page-category" ref={scroll} onScroll={() => scrollCheck(scroll)}>
           {products?.map((product, index) => (
             <div className="main-page-category-map" key={`category-${index}-${product?.id}`}>
-              <ProductCard product={product} type={type} />
+              <ProductCard
+                product={product}
+                type={type}
+                showAddFavorite={showAddFavorite}
+                showRemoveFavorite={showRemoveFavorite}
+                showaddCart={showaddCart}
+              />
             </div>
           ))}
         </div>
