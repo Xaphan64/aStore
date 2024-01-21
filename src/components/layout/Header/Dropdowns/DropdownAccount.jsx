@@ -1,29 +1,47 @@
 // ASSETS
-import { dropdownUpIcon } from "../../assets/MUI-icons";
+import { dropdownUpIcon } from "../../../assets/MUI-icons";
 
 // STYLES
 
 // LIBRARIES
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useRef } from "react";
 
 // MISC
 
 // COMPONENTS
-import CustomButton from "../../atoms/CustomButton";
+import CustomButton from "../../../atoms/CustomButton";
 
 // CONFIGURATION
-const DropdownAccount = () => {
+const DropdownAccount = (props) => {
   // PROPERTIES
+  const { setIsDropdownVisible } = props;
 
   // API REQUESTS
 
   // LIBRARY CONSTANTS
   const account = localStorage.getItem("Username");
   const navigate = useNavigate();
+  let dropdownRef = useRef();
 
   // STATE CONSTANTS
 
   // LIFE CYCLE
+  useEffect(() => {
+    let handler = (event) => {
+      if (!dropdownRef.current.contains(event.target)) {
+        setIsDropdownVisible(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+
+    // eslint-disable-next-line
+  }, []);
 
   // EVENT HANDLERS
   const handleLogout = () => {
@@ -35,7 +53,7 @@ const DropdownAccount = () => {
   const admin = sessionStorage.getItem("adminToken");
 
   return (
-    <div className="dropdown-account">
+    <div className="dropdown-account" ref={dropdownRef}>
       <div className="dropdown-icon">{dropdownUpIcon}</div>
 
       {user || admin ? (

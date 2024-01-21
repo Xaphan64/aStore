@@ -16,7 +16,7 @@ import CustomButton from "../atoms/CustomButton";
 // CONFIGURATION
 const FavoriteCard = (props) => {
   // PROPERTIES
-  const { product, type, showaddCart } = props;
+  const { product, type, showaddCart, handleRemoveFavorite } = props;
 
   // API REQUESTS
 
@@ -70,29 +70,6 @@ const FavoriteCard = (props) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   };
 
-  const handleRemoveFavorite = () => {
-    const removeFromFavorite = {
-      ...product,
-      favorite: false,
-    };
-
-    const productCategory = type || "";
-    const id = product.id || "";
-
-    if (productCategory && id) {
-      axios
-        .put(`http://localhost:8000/${productCategory}/${id}`, removeFromFavorite)
-        .then((response) => {
-          console.log("Removed from favorite", response);
-        })
-        .catch((error) => {
-          console.error("Error, could not remove from favorite", error);
-        });
-
-      console.log("Remove from favorite clicked");
-    }
-  };
-
   return (
     <div className="favorite-card">
       <div className="favorite-card-left">
@@ -120,7 +97,7 @@ const FavoriteCard = (props) => {
         </div>
 
         <div className="favorite-card-remove-button">
-          <CustomButton type="button" onClick={handleRemoveFavorite}>
+          <CustomButton type="button" onClick={() => handleRemoveFavorite(product)}>
             <div>{deleteIcon}</div>
             <span>Remove</span>
           </CustomButton>

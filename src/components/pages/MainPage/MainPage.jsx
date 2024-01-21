@@ -28,7 +28,7 @@ const MainPage = () => {
     { url: mountainImage, title: "Mountain" },
   ];
 
-  const products = [
+  const categories = [
     { type: "phones" },
     { type: "laptops" },
     { type: "tv" },
@@ -86,7 +86,7 @@ const MainPage = () => {
 
       {!isLoading && !error && (
         <div className="main-page-categories-container">
-          {products?.map((product, index) => (
+          {categories?.map((product, index) => (
             <MainPageCategories
               type={product.type}
               key={`category-${index}-${product?.id}`}

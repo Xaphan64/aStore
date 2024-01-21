@@ -14,7 +14,9 @@ import { useEffect, useState } from "react";
 // COMPONENTS
 import CustomInput from "../../atoms/CustomInput";
 import CustomButton from "../../atoms/CustomButton";
-import DropdownAccount from "./Dropdown";
+import DropdownAccount from "./Dropdowns/DropdownAccount";
+import DropdownFavorites from "./Dropdowns/DropdownFavorites";
+import DropdownCart from "./Dropdowns/DropdownCart";
 
 // CONFIGURATION
 const Header = () => {
@@ -30,8 +32,12 @@ const Header = () => {
   const getProductsList = JSON.parse(localStorage?.getItem("cartProductsList"));
 
   // STATE CONSTANTS
-  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [active, setActive] = useState(null);
+  const [isDropdownVisible, setIsDropdownVisible] = useState({
+    account: false,
+    favorites: false,
+    cart: false,
+  });
 
   // LIFE CYCLE
   useEffect(() => {
@@ -50,8 +56,13 @@ const Header = () => {
   }, [location]);
 
   // EVENT HANDLERS
-  const handleDropdown = () => {
-    setIsDropdownVisible(!isDropdownVisible);
+  const handleDropdown = (dropdownType) => {
+    const prevDropdown = (prevIsDropdownVisible) => ({
+      ...prevIsDropdownVisible,
+      [dropdownType]: !prevIsDropdownVisible[dropdownType],
+    });
+
+    setIsDropdownVisible(prevDropdown);
   };
 
   const handleCategory = (category) => {
@@ -70,24 +81,28 @@ const Header = () => {
           {!isMobile && <CustomInput type="text" name="search" placeholder="Type here to search for something" />}
 
           <div className="login-right-buttons">
-            <CustomButton type="button" onClick={handleDropdown}>
+            <CustomButton type="button" onClick={() => handleDropdown("account")}>
               <div className="left-icon">{profileIcon}</div>
               <div className="button-text">Account {dropdownIcon}</div>
 
-              {isDropdownVisible && <DropdownAccount />}
+              {isDropdownVisible.account && <DropdownAccount setIsDropdownVisible={setIsDropdownVisible} />}
             </CustomButton>
 
-            <CustomButton type="button">
+            <CustomButton type="button" onClick={() => handleDropdown("favorites")}>
               <div className="left-icon">{favoriteIcon}</div>
               <div className="button-text">Favorites {dropdownIcon}</div>
+
+              {isDropdownVisible.favorites && <DropdownFavorites setIsDropdownVisible={setIsDropdownVisible} />}
             </CustomButton>
 
-            <CustomButton type="button">
+            <CustomButton type="button" onClick={() => handleDropdown("cart")}>
               <div className="left-icon">
                 {getProductsList?.length > 0 && <span className="cart-length">{getProductsList.length}</span>}
                 {cartIcon}
               </div>
               <div className="button-text">Cart {dropdownIcon}</div>
+
+              {isDropdownVisible.cart && <DropdownCart setIsDropdownVisible={setIsDropdownVisible} />}
             </CustomButton>
           </div>
         </div>

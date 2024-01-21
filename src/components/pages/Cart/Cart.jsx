@@ -4,7 +4,7 @@
 import "./../Favorites/Favorites.scss";
 
 // LIBRARIES
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // MISC
@@ -35,18 +35,20 @@ const Cart = () => {
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
 
-  const getProductsList = JSON.parse(localStorage?.getItem("cartProductsList"));
-
-  const totalPrice = getProductsList?.reduce((accumulator, product) => accumulator + parseFloat(product.price), 0);
-  const priceFormat = (number) => {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-  };
+  // const getProductsList = JSON.parse(localStorage?.getItem("cartProductsList"));
 
   const user = sessionStorage.getItem("token");
   const admin = sessionStorage.getItem("adminToken");
 
   // STATE CONSTANTS
+  const [cartProductList, setCartProductList] = useState(JSON.parse(localStorage?.getItem("cartProductsList")));
 
+  const priceFormat = () => {
+    const totalPrice = cartProductList?.reduce((accumulator, product) => accumulator + parseFloat(product.price), 0);
+    console.log("totalPrice :>> ", totalPrice);
+    return totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  };
+  console.log("cartProductList :>> ", cartProductList);
   // LIFE CYCLE
 
   // EVENT HANDLERS
@@ -61,17 +63,21 @@ const Cart = () => {
 
           <div className="favorite-category">
             {category?.map((product, index) => (
-              <CartFilter type={product.type} key={`category-${index}-${product.id}`} />
+              <CartFilter
+                type={product.type}
+                key={`category-${index}-${product.id}`}
+                setCartProductList={setCartProductList}
+              />
             ))}
 
-            {!getProductsList || getProductsList?.length === 0 ? (
+            {!cartProductList || cartProductList?.length === 0 ? (
               <div className="favorite-message">The cart is empty</div>
             ) : (
               <div className="cart-footer-containter">
                 <div className="cart-total-price">
                   <span className="cart-text">Total:</span>
 
-                  <span className="cart-price">{priceFormat(totalPrice)} Lei</span>
+                  <span className="cart-price">{priceFormat()} Lei</span>
                 </div>
 
                 <CustomButton

@@ -16,7 +16,7 @@ import CustomButton from "../atoms/CustomButton";
 // CONFIGURATION
 const CartCard = (props) => {
   // PROPERTIES
-  const { product, type } = props;
+  const { product, type, handleMoveFavorite, handleRemoveCart } = props;
 
   // API REQUESTS
 
@@ -29,67 +29,9 @@ const CartCard = (props) => {
   // LIFE CYCLE
 
   // EVENT HANDLERS
-  const handleMoveFavorite = () => {
-    const removeFromFavorite = {
-      ...product,
-      cart: false,
-      favorite: true,
-    };
-
-    const productCategory = type || "";
-    const id = product.id || "";
-
-    if (productCategory && id) {
-      axios
-        .put(`http://localhost:8000/${productCategory}/${id}`, removeFromFavorite)
-        .then((response) => {
-          console.log("Moved to favorite", response);
-
-          if (getProductsList && getProductsList?.length > 0) {
-            const updatedCartList = getProductsList?.filter((product) => !(product.id === id && product.type === type));
-
-            localStorage.setItem("cartProductsList", JSON.stringify(updatedCartList));
-          }
-        })
-        .catch((error) => {
-          console.error("Error, could not move to favorite", error);
-        });
-
-      console.log("Move to favorite clicked");
-    }
-  };
 
   const priceFormat = (number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-  };
-
-  const handleRemoveCart = () => {
-    const removeFromFavorite = {
-      ...product,
-      cart: false,
-    };
-
-    const productCategory = type || "";
-    const id = product.id || "";
-
-    if (productCategory && id) {
-      axios
-        .put(`http://localhost:8000/${productCategory}/${id}`, removeFromFavorite)
-        .then((response) => {
-          console.log("Removed from favorite", response);
-
-          if (getProductsList && getProductsList?.length > 0) {
-            const updatedCartList = getProductsList?.filter((product) => !(product.id === id && product.type === type));
-
-            localStorage.setItem("cartProductsList", JSON.stringify(updatedCartList));
-          }
-        })
-        .catch((error) => {
-          console.error("Error, could not remove from favorite", error);
-        });
-
-      console.log("Remove from favorite clicked");
-    }
   };
 
   return (
@@ -112,14 +54,14 @@ const CartCard = (props) => {
         <span className="favorite-card-price">{priceFormat(product.price)} Lei</span>
 
         <div className="favorite-card-remove-button">
-          <CustomButton type="button" onClick={handleMoveFavorite}>
+          <CustomButton type="button" onClick={() => handleMoveFavorite(product)}>
             <div>{cartFilledIcon}</div>
             <span>Move to Favorite</span>
           </CustomButton>
         </div>
 
         <div className="favorite-card-remove-button">
-          <CustomButton type="button" onClick={handleRemoveCart}>
+          <CustomButton type="button" onClick={() => handleRemoveCart(product)}>
             <div>{deleteIcon}</div>
             <span>Remove</span>
           </CustomButton>

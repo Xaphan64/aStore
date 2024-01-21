@@ -5,7 +5,6 @@ import { cartFilledIcon, favoriteIcon, favoriteAddedIcon } from "../assets/MUI-i
 import "./ProductCard.scss";
 
 // LIBRARIES
-import propTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -18,7 +17,7 @@ import CustomButton from "../atoms/CustomButton";
 // CONFIGURATION
 const ProductCard = (props) => {
   // PROPERTIES
-  const { product, type, category, showAddFavorite, showRemoveFavorite, showaddCart } = props;
+  const { product, type, showAddFavorite, showRemoveFavorite, showaddCart } = props;
 
   // API REQUESTS
 
@@ -26,11 +25,11 @@ const ProductCard = (props) => {
   const navigate = useNavigate();
 
   // STATE CONSTANTS
-  const [addFavorite, setAddFavorite] = useState(false);
+  const [addFavorite, setAddFavorite] = useState(product?.favorite || false);
 
   // LIFE CYCLE
   useEffect(() => {
-    const productCategory = category || type;
+    const productCategory = type;
     const id = product.id || "";
 
     axios
@@ -41,7 +40,7 @@ const ProductCard = (props) => {
       .catch((error) => console.log(error));
 
     // eslint-disable-next-line
-  }, []);
+  }, [type]);
 
   // EVENT HANDLERS
   const handleFavorite = (favStatus) => {
@@ -52,7 +51,7 @@ const ProductCard = (props) => {
       favorite: favStatus,
     };
 
-    const productCategory = category || type || "";
+    const productCategory = type || "";
     const id = product.id || "";
 
     if (productCategory && id) {
@@ -79,7 +78,7 @@ const ProductCard = (props) => {
       cart: true,
     };
 
-    const productCategory = category || type || "";
+    const productCategory = type || "";
     const id = product.id || "";
 
     const getProductsList = JSON.parse(localStorage?.getItem("cartProductsList"));
@@ -120,13 +119,13 @@ const ProductCard = (props) => {
       <div className="product-card-body">
         <div className="product-card-image">
           <img
-            onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: category || type } })}
+            onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: type } })}
             src={product.image}
             alt="N/a"
           />
 
           <CustomButton type="button">
-            {addFavorite ? (
+            {addFavorite && product.type === type ? (
               <div className="favorite-button added" onClick={() => handleFavorite(false)}>
                 {favoriteAddedIcon}
               </div>
@@ -140,7 +139,7 @@ const ProductCard = (props) => {
 
         <span
           className="product-card-title"
-          onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: category || type } })}
+          onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: type } })}
         >
           {product.name}
         </span>
@@ -155,10 +154,6 @@ const ProductCard = (props) => {
       </div>
     </div>
   );
-};
-
-ProductCard.propsTypes = {
-  product: propTypes.array,
 };
 
 export default ProductCard;

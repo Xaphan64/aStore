@@ -4,7 +4,6 @@
 import "./ConfirmationModal.scss";
 
 // LIBRARIES
-import propTypes from "prop-types";
 import { Fragment } from "react";
 
 // MISC
@@ -49,13 +48,6 @@ const ConfirmationModal = (props) => {
       </div>
     </div>
   );
-};
-
-ConfirmationModal.propsTypes = {
-  product: propTypes.array,
-  handleDelete: propTypes.func,
-  setModal: propTypes.func,
-  isPending: propTypes.object,
 };
 
 export default ConfirmationModal;

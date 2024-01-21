@@ -4,6 +4,7 @@
 
 // LIBRARIES
 import { Fragment } from "react";
+import axios from "axios";
 
 // MISC
 import { useFetch } from "../../hooks/useFetch";
@@ -14,26 +15,95 @@ import CartCard from "../../cards/CartCard";
 // CONFIGURATION
 const CartFilter = (props) => {
   // PROPERTIES
-  const { type = "" } = props;
+  const { type = "", setCartProductList = () => {} } = props;
 
   // API REQUESTS
-  const { data: products } = useFetch(`http://localhost:8000/${type}`);
+  const { data: products, setIsRerendering } = useFetch(`http://localhost:8000/${type}`);
 
   // LIBRARY CONSTANTS
   const productsCart = products.filter((product) => product.cart === true);
+  const getProductsList = JSON.parse(localStorage?.getItem("cartProductsList"));
 
   // STATE CONSTANTS
 
   // LIFE CYCLE
 
   // EVENT HANDLERS
+  const handleMoveFavorite = (product) => {
+    const removeFromFavorite = {
+      ...product,
+      cart: false,
+      favorite: true,
+    };
+
+    const productCategory = type || "";
+    const id = product.id || "";
+
+    if (productCategory && id) {
+      axios
+        .put(`http://localhost:8000/${productCategory}/${id}`, removeFromFavorite)
+        .then((response) => {
+          console.log("Moved to favorite", response);
+
+          if (getProductsList && getProductsList?.length > 0) {
+            const updatedCartList = getProductsList?.filter((product) => !(product.id === id && product.type === type));
+
+            localStorage.setItem("cartProductsList", JSON.stringify(updatedCartList));
+            setCartProductList(updatedCartList);
+            setIsRerendering(response?.data?.cart);
+          }
+        })
+        .catch((error) => {
+          console.error("Error, could not move to favorite", error);
+        });
+
+      console.log("Move to favorite clicked");
+    }
+  };
+
+  const handleRemoveCart = (product) => {
+    const removeFromFavorite = {
+      ...product,
+      cart: false,
+    };
+
+    const productCategory = type || "";
+    const id = product.id || "";
+
+    if (productCategory && id) {
+      axios
+        .put(`http://localhost:8000/${productCategory}/${id}`, removeFromFavorite)
+        .then((response) => {
+          console.log("Removed from favorite", response);
+
+          if (getProductsList && getProductsList?.length > 0) {
+            const updatedCartList = getProductsList?.filter((product) => !(product.id === id && product.type === type));
+
+            localStorage.setItem("cartProductsList", JSON.stringify(updatedCartList));
+            setCartProductList(updatedCartList);
+            setIsRerendering(response?.data?.cart);
+          }
+        })
+        .catch((error) => {
+          console.error("Error, could not remove from favorite", error);
+        });
+
+      console.log("Remove from favorite clicked");
+    }
+  };
+
   return (
     <Fragment>
       {productsCart.length > 0 && (
         <Fragment>
           {productsCart.map((product, index) => (
             <div className="favorite-map" key={`category-${index}-${product?.id}`}>
-              <CartCard product={product} type={type} />
+              <CartCard
+                product={product}
+                type={type}
+                handleMoveFavorite={handleMoveFavorite}
+                handleRemoveCart={handleRemoveCart}
+              />
             </div>
           ))}
         </Fragment>

@@ -74,7 +74,7 @@ const Categories = () => {
                   <Fragment key={`categories-${index}-${product.id}`}>
                     <ProductCard
                       product={product}
-                      category={category}
+                      type={category}
                       showAddFavorite={showAddFavorite}
                       showRemoveFavorite={showRemoveFavorite}
                       showaddCart={showaddCart}

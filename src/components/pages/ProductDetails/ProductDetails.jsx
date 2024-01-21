@@ -197,7 +197,6 @@ const ProductDetails = () => {
     if (inputValues.name.trim() !== "" && priceRegex.test(inputValues.price) && inputValues.description.trim() !== "") {
       axios.put(`http://localhost:8000/${state?.currentCategory}/${id}`, inputValues).then((response) => {
         console.log("product edited sucesfully", response);
-        // navigate(`/product/${product.id}`);
         setIsPending(false);
         setEditMode(false);
       });
