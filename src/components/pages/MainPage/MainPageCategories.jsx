@@ -19,7 +19,7 @@ const MainPageCategories = (props) => {
   const { type = "", showAddFavorite, showRemoveFavorite, showaddCart } = props;
 
   // API REQUESTS
-  const { data: products } = useFetch(`http://localhost:8000/${type}`);
+  const { data: products, setIsRerendering } = useFetch(`http://localhost:8000/${type}`);
 
   // LIBRARY CONSTANTS
   let scroll = useRef(null);
@@ -76,6 +76,7 @@ const MainPageCategories = (props) => {
                 showAddFavorite={showAddFavorite}
                 showRemoveFavorite={showRemoveFavorite}
                 showaddCart={showaddCart}
+                setIsRerendering={setIsRerendering}
               />
             </div>
           ))}

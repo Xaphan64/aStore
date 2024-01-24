@@ -20,9 +20,17 @@
     flex-direction: column;
 
     .favorite-message {
-      font-size: 18px;
+      font-size: 32px;
       text-align: center;
       padding: 16px;
+
+      .link {
+        color: #59b7ff;
+
+        &:hover {
+          color: #ff9443;
+        }
+      }
     }
 
     .cart-footer-containter {

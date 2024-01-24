@@ -31,7 +31,7 @@ const Categories = () => {
     addCart: "addCart",
   };
   // API REQUESTS
-  const { data: products, isLoading, error } = useFetch(`http://localhost:8000/${category}`);
+  const { data: products, isLoading, error, setIsRerendering } = useFetch(`http://localhost:8000/${category}`);
 
   // STATE CONSTANTS
 
@@ -78,6 +78,7 @@ const Categories = () => {
                       showAddFavorite={showAddFavorite}
                       showRemoveFavorite={showRemoveFavorite}
                       showaddCart={showaddCart}
+                      setIsRerendering={setIsRerendering}
                     />
                   </Fragment>
                 ))}

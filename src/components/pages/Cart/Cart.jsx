@@ -5,7 +5,7 @@ import "./../Favorites/Favorites.scss";
 
 // LIBRARIES
 import { Fragment, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // MISC
 import { useFetch } from "../../hooks/useFetch";
@@ -35,8 +35,6 @@ const Cart = () => {
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
 
-  // const getProductsList = JSON.parse(localStorage?.getItem("cartProductsList"));
-
   const user = sessionStorage.getItem("token");
   const admin = sessionStorage.getItem("adminToken");
 
@@ -45,10 +43,10 @@ const Cart = () => {
 
   const priceFormat = () => {
     const totalPrice = cartProductList?.reduce((accumulator, product) => accumulator + parseFloat(product.price), 0);
-    console.log("totalPrice :>> ", totalPrice);
+
     return totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   };
-  console.log("cartProductList :>> ", cartProductList);
+
   // LIFE CYCLE
 
   // EVENT HANDLERS
@@ -71,7 +69,12 @@ const Cart = () => {
             ))}
 
             {!cartProductList || cartProductList?.length === 0 ? (
-              <div className="favorite-message">The cart is empty</div>
+              <div className="favorite-message">
+                There are no products in cart. If you want to add products go to{" "}
+                <Link to="/" className="link">
+                  main page
+                </Link>
+              </div>
             ) : (
               <div className="cart-footer-containter">
                 <div className="cart-total-price">

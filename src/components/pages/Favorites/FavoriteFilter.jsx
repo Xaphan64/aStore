@@ -4,7 +4,7 @@
 
 // LIBRARIES
 import axios from "axios";
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 
 // MISC
 import { useFetch } from "../../hooks/useFetch";
@@ -15,7 +15,7 @@ import FavoriteCard from "../../cards/FavoriteCard";
 // CONFIGURATION
 const FavoriteFilter = (props) => {
   // PROPERTIES
-  const { type = "", showaddCart } = props;
+  const { type = "", showaddCart, setFavoriteProductList = () => {} } = props;
 
   // API REQUESTS
   const { data: products, setIsRerendering } = useFetch(`http://localhost:8000/${type}`);
@@ -26,9 +26,6 @@ const FavoriteFilter = (props) => {
   // STATE CONSTANTS
 
   // LIFE CYCLE
-  useEffect(() => {
-    console.log(products);
-  }, [products]);
 
   // EVENT HANDLERS
   const handleRemoveFavorite = (product) => {
@@ -40,11 +37,26 @@ const FavoriteFilter = (props) => {
     const productCategory = type || "";
     const id = product.id || "";
 
+    const getFavoriteList = JSON.parse(localStorage?.getItem("favoriteList"));
+
     if (productCategory && id) {
       axios
         .put(`http://localhost:8000/${productCategory}/${id}`, removeFromFavorite)
         .then((response) => {
           console.log("Removed from favorite", response);
+
+          // if list and length is not 0 delete the product with the same id and type
+          if (getFavoriteList && getFavoriteList?.length > 0) {
+            const updatedFavoriteList = getFavoriteList?.filter(
+              (product) => !(product.id === id && product.type === type)
+            );
+
+            //update the data in localStorage
+            localStorage.setItem("favoriteList", JSON.stringify(updatedFavoriteList));
+
+            setFavoriteProductList(updatedFavoriteList);
+          }
+
           setIsRerendering(response?.data?.favorite);
         })
         .catch((error) => {
@@ -57,22 +69,16 @@ const FavoriteFilter = (props) => {
 
   return (
     <Fragment>
-      {productsFavorite.length > 0 ? (
-        <Fragment>
-          {productsFavorite.map((product, index) => (
-            <div className="favorite-map" key={`category-${index}-${product?.id}`}>
-              <FavoriteCard
-                product={product}
-                type={type}
-                showaddCart={showaddCart}
-                handleRemoveFavorite={handleRemoveFavorite}
-              />
-            </div>
-          ))}
-        </Fragment>
-      ) : (
-        <div className="favorite-message">You haven't any product added to favorites</div>
-      )}
+      {productsFavorite.map((product, index) => (
+        <div className="favorite-map" key={`category-${index}-${product?.id}`}>
+          <FavoriteCard
+            product={product}
+            type={type}
+            showaddCart={showaddCart}
+            handleRemoveFavorite={handleRemoveFavorite}
+          />
+        </div>
+      ))}
     </Fragment>
   );
 };

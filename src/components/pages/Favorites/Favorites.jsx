@@ -4,7 +4,8 @@
 import "./Favorites.scss";
 
 // LIBRARIES
-import { Fragment, useRef } from "react";
+import { Fragment, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 // MISC
 import { useFetch } from "../../hooks/useFetch";
@@ -36,7 +37,9 @@ const Favorites = () => {
   const snackbarType = {
     addCart: "addCart",
   };
+
   // STATE CONSTANTS
+  const [favoriteProducList, setFavoriteProductList] = useState(JSON.parse(localStorage?.getItem("favoriteList")));
 
   // LIFE CYCLE
 
@@ -58,8 +61,23 @@ const Favorites = () => {
 
           <div className="favorite-category">
             {category?.map((product, index) => (
-              <FavoriteFilter type={product.type} key={`category-${index}-${product?.id}`} showaddCart={showaddCart} />
+              <FavoriteFilter
+                type={product.type}
+                key={`category-${index}-${product?.id}`}
+                showaddCart={showaddCart}
+                setFavoriteProductList={setFavoriteProductList}
+              />
             ))}
+
+            {!favoriteProducList ||
+              (favoriteProducList?.length === 0 && (
+                <div className="favorite-message">
+                  There are no products added to favorites. If you want to add products go to{" "}
+                  <Link to="/" className="link">
+                    main page
+                  </Link>
+                </div>
+              ))}
           </div>
         </Fragment>
       )}

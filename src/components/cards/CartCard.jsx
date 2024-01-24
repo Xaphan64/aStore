@@ -5,7 +5,6 @@ import { cartFilledIcon, deleteIcon } from "../assets/MUI-icons";
 import "./FavoriteCard.scss";
 
 // LIBRARIES
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 // MISC
@@ -22,7 +21,6 @@ const CartCard = (props) => {
 
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
-  const getProductsList = JSON.parse(localStorage?.getItem("cartProductsList"));
 
   // STATE CONSTANTS
 

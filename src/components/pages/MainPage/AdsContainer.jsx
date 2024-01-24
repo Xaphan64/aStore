@@ -76,8 +76,8 @@ const ImageSlider = ({ slides }) => {
 
           {currentSlide === 2 && (
             <span>
-              In this project you can create, add, delete edit a product only if you are an admin. If you are a normal
-              user you can add to favorites, add to card and buy one or multiple products.
+              In this project you can create, add, delete and edit a product only if you are an admin. If you are a
+              normal user you can add to favorites, add to card and buy one or multiple products.
             </span>
           )}
         </span>

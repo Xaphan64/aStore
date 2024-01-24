@@ -39,6 +39,14 @@ const CartFilter = (props) => {
     const productCategory = type || "";
     const id = product.id || "";
 
+    //get data from localStorage
+    const getFavoriteList = JSON.parse(localStorage?.getItem("favoriteList"));
+
+    //if the localStorage is populated get the data otherwise create an empty array
+    const listOfFavoriteItems = getFavoriteList?.length > 0 ? getFavoriteList : [];
+
+    let localFavoriteList = [...listOfFavoriteItems];
+
     if (productCategory && id) {
       axios
         .put(`http://localhost:8000/${productCategory}/${id}`, removeFromFavorite)
@@ -50,6 +58,16 @@ const CartFilter = (props) => {
 
             localStorage.setItem("cartProductsList", JSON.stringify(updatedCartList));
             setCartProductList(updatedCartList);
+
+            //add id and type in localFavorite list
+            localFavoriteList.push({
+              id: product.id,
+              type: product.type,
+            });
+
+            //save id and type in localStorage
+            localStorage.setItem("favoriteList", JSON.stringify(localFavoriteList));
+
             setIsRerendering(response?.data?.cart);
           }
         })

@@ -50,7 +50,7 @@ const MainPage = () => {
   const snackbarRefCart = useRef(null);
 
   // API REQUESTS
-  const { isLoading, error } = useFetch(`http://localhost:8000`);
+  const { isLoading, error, setIsRerendering } = useFetch(`http://localhost:8000`);
 
   // STATE CONSTANTS
 
@@ -93,6 +93,7 @@ const MainPage = () => {
               showAddFavorite={showAddFavorite}
               showRemoveFavorite={showRemoveFavorite}
               showaddCart={showaddCart}
+              setIsRerendering={setIsRerendering}
             />
           ))}
         </div>

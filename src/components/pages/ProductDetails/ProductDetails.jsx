@@ -66,6 +66,7 @@ const ProductDetails = () => {
     isLoading,
     error,
     setData,
+    setIsRerendering,
   } = useFetch(`http://localhost:8000/${state?.currentCategory}/${id}`);
 
   //useEffect to get the input data when pressing the edit
@@ -95,19 +96,61 @@ const ProductDetails = () => {
   const handleFavorite = (favStatus) => {
     setAddFavorite(favStatus);
 
+    //change the favorite status of the inputValues
     const updatedFavorite = {
       ...inputValues,
       favorite: favStatus,
     };
+
+    console.log("updatedFavorite Cart:>> ", updatedFavorite.cart);
+    console.log("updatedFavorite Favorite:>> ", updatedFavorite.favorite);
+
+    const type = state?.currentCategory;
+
+    //get data from localStorage
+    const getFavoriteList = JSON.parse(localStorage?.getItem("favoriteList"));
+
+    //if the localStorage is populated get the data otherwise create an empty array
+    const listOfFavoriteItems = getFavoriteList?.length > 0 ? getFavoriteList : [];
+
+    let localFavoriteList = [...listOfFavoriteItems];
 
     axios
       .put(`http://localhost:8000/${state?.currentCategory}/${id}`, updatedFavorite)
       .then((response) => {
         if (favStatus) {
           console.log("Added to favorites", response);
+
+          //add id and type in localFavorite list
+          localFavoriteList.push({
+            id: inputValues.id,
+            type: inputValues.type,
+          });
+
+          //save id and type in localStorage
+          localStorage.setItem("favoriteList", JSON.stringify(localFavoriteList));
+
+          setIsRerendering(response?.data);
+          setIsRerendering(response?.data?.favorite);
+          setIsRerendering(response?.data?.cart);
+
           showAddFavorite();
         } else {
           console.log("Removed from favorites", response);
+          // if list and length is not 0 delete the product with the same id and type
+          if (getFavoriteList && getFavoriteList?.length > 0) {
+            const updatedFavoriteList = getFavoriteList?.filter((product) => {
+              return !(product.id === parseInt(id) && product.type === type);
+            });
+
+            //update the data in localStorage
+            localStorage.setItem("favoriteList", JSON.stringify(updatedFavoriteList));
+          }
+
+          setIsRerendering(response?.data);
+          setIsRerendering(response?.data?.favorite);
+          setIsRerendering(response?.data?.cart);
+
           showRemoveFavorite();
         }
       })
@@ -117,12 +160,19 @@ const ProductDetails = () => {
   };
 
   const handleAddCart = () => {
+    //change the cart status of the product
     const addToCart = {
       ...inputValues,
       cart: true,
     };
 
+    console.log("addToCart Cart:>> ", addToCart.cart);
+    console.log("addToCart Favorite:>> ", addToCart.favorite);
+
+    //get data from localStorage
     const getProductsList = JSON.parse(localStorage?.getItem("cartProductsList"));
+
+    //if the localStorage is populated get the data otherwise create an empty array
     const listOfCartItems = getProductsList?.length > 0 ? getProductsList : [];
 
     let localCartList = [...listOfCartItems];
@@ -132,13 +182,19 @@ const ProductDetails = () => {
       .then((response) => {
         console.log("Added to cart", response);
 
+        //add id, type and price in localCartList list
         localCartList.push({
           price: product.price,
           id: product.id,
           type: product.type,
         });
 
+        //save data in localStorage
         localStorage.setItem("cartProductsList", JSON.stringify(localCartList));
+
+        setIsRerendering(response?.data);
+        setIsRerendering(response?.data?.favorite);
+        setIsRerendering(response?.data?.cart);
 
         showaddCart();
       })

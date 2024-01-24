@@ -30,6 +30,7 @@ const Header = () => {
   const { id } = useParams();
   const isMobile = window.matchMedia("(max-width: 750px")?.matches;
   const getProductsList = JSON.parse(localStorage?.getItem("cartProductsList"));
+  const getFavoriteList = JSON.parse(localStorage?.getItem("favoriteList"));
 
   // STATE CONSTANTS
   const [active, setActive] = useState(null);
@@ -89,7 +90,10 @@ const Header = () => {
             </CustomButton>
 
             <CustomButton type="button" onClick={() => handleDropdown("favorites")}>
-              <div className="left-icon">{favoriteIcon}</div>
+              <div className="left-icon">
+                {getFavoriteList?.length > 0 && <span className="cart-length">{getFavoriteList.length}</span>}
+                {favoriteIcon}
+              </div>
               <div className="button-text">Favorites {dropdownIcon}</div>
 
               {isDropdownVisible.favorites && <DropdownFavorites setIsDropdownVisible={setIsDropdownVisible} />}
