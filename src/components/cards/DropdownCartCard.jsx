@@ -1,8 +1,7 @@
 // ASSETS
-import { cartFilledIcon, deleteIcon } from "../assets/MUI-icons";
+import { deleteIcon } from "../assets/MUI-icons";
 
 // STYLES
-import "./FavoriteCard.scss";
 
 // LIBRARIES
 import { useNavigate } from "react-router-dom";
@@ -13,15 +12,14 @@ import { useNavigate } from "react-router-dom";
 import CustomButton from "../atoms/CustomButton";
 
 // CONFIGURATION
-const CartCard = (props) => {
+const DropdownCartCard = (props) => {
   // PROPERTIES
-  const { product, type, handleMoveFavorite, handleRemoveCart } = props;
+  const { product, type, handleRemoveCart } = props;
 
   // API REQUESTS
 
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
-
   // STATE CONSTANTS
 
   // LIFE CYCLE
@@ -32,35 +30,28 @@ const CartCard = (props) => {
   };
 
   return (
-    <div className="favorite-card">
-      <div className="favorite-card-left">
+    <div className="dropdown-favorite-card">
+      <div className="dropdown-favorite-card-header">
         <img
           onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: type } })}
           src={product.image}
           alt="N/a"
         />
-
         <span
-          className="favorite-card-title"
+          className="dropdown-favorite-card-title"
           onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: type } })}
         >
           {product.name}
         </span>
+
+        <span className="dropdown-favorite-card-price">{priceFormat(product.price)} Lei</span>
       </div>
-      <div className="favorite-card-right">
-        <span className="favorite-card-price">{priceFormat(product.price)} Lei</span>
 
-        <div className="favorite-card-remove-button">
-          <CustomButton type="button" onClick={() => handleMoveFavorite(product)}>
-            <div>{cartFilledIcon}</div>
-            <span>Move to Favorite</span>
-          </CustomButton>
-        </div>
-
-        <div className="favorite-card-remove-button">
+      <div className="dropdown-favorite-card-footer">
+        <div className="dropdown-favorite-buttons">
           <CustomButton type="button" onClick={() => handleRemoveCart(product)}>
             <div>{deleteIcon}</div>
-            <span>Remove</span>
+            <span>Remove from cart</span>
           </CustomButton>
         </div>
       </div>
@@ -68,4 +59,4 @@ const CartCard = (props) => {
   );
 };
 
-export default CartCard;
+export default DropdownCartCard;

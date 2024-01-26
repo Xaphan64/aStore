@@ -29,10 +29,17 @@ const Header = () => {
   const location = useLocation();
   const { id } = useParams();
   const isMobile = window.matchMedia("(max-width: 750px")?.matches;
-  const getProductsList = JSON.parse(localStorage?.getItem("cartProductsList"));
+  const getCartList = JSON.parse(localStorage?.getItem("cartProductsList"));
   const getFavoriteList = JSON.parse(localStorage?.getItem("favoriteList"));
 
   // STATE CONSTANTS
+  // const [favoriteList, setFavoriteList] = useState(getCartList?.length || 0);
+  // const [cartList, setCartList] = useState(getFavoriteList?.length || 0);
+
+  // const [cartLength, setCartLength] = useState(0);
+  // const [favoritesLength, setFavoritesLength] = useState(0);
+
+  const [isHeader, setIsHeader] = useState(false);
   const [active, setActive] = useState(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState({
     account: false,
@@ -56,6 +63,11 @@ const Header = () => {
     // eslint-disable-next-line
   }, [location]);
 
+  // useEffect(() => {
+  //   setCartLength(getCartList?.length || 0);
+  //   setFavoritesLength(getFavoriteList?.length || 0);
+  // }, [getCartList, getFavoriteList]);
+
   // EVENT HANDLERS
   const handleDropdown = (dropdownType) => {
     const prevDropdown = (prevIsDropdownVisible) => ({
@@ -63,6 +75,7 @@ const Header = () => {
       [dropdownType]: !prevIsDropdownVisible[dropdownType],
     });
 
+    setIsHeader(true);
     setIsDropdownVisible(prevDropdown);
   };
 
@@ -82,31 +95,43 @@ const Header = () => {
           {!isMobile && <CustomInput type="text" name="search" placeholder="Type here to search for something" />}
 
           <div className="login-right-buttons">
+            <CustomButton type="button" onClick={() => handleDropdown("favorites")}>
+              <div className="left-icon">
+                {getFavoriteList.length > 0 && <span className="cart-length">{getFavoriteList.length}</span>}
+                {favoriteIcon}
+              </div>
+              <div className="button-text">Favorites {dropdownIcon}</div>
+
+              {isDropdownVisible.favorites && (
+                <DropdownFavorites
+                  setIsDropdownVisible={setIsDropdownVisible}
+                  isHeader={isHeader}
+                  getFavoriteList={getFavoriteList}
+                />
+              )}
+            </CustomButton>
+
+            <CustomButton type="button" onClick={() => handleDropdown("cart")}>
+              <div className="left-icon">
+                {getCartList.length > 0 && <span className="cart-length">{getCartList.length}</span>}
+                {cartIcon}
+              </div>
+              <div className="button-text">Cart {dropdownIcon}</div>
+
+              {isDropdownVisible.cart && (
+                <DropdownCart
+                  setIsDropdownVisible={setIsDropdownVisible}
+                  isHeader={isHeader}
+                  getCartList={getCartList}
+                />
+              )}
+            </CustomButton>
+
             <CustomButton type="button" onClick={() => handleDropdown("account")}>
               <div className="left-icon">{profileIcon}</div>
               <div className="button-text">Account {dropdownIcon}</div>
 
               {isDropdownVisible.account && <DropdownAccount setIsDropdownVisible={setIsDropdownVisible} />}
-            </CustomButton>
-
-            <CustomButton type="button" onClick={() => handleDropdown("favorites")}>
-              <div className="left-icon">
-                {getFavoriteList?.length > 0 && <span className="cart-length">{getFavoriteList.length}</span>}
-                {favoriteIcon}
-              </div>
-              <div className="button-text">Favorites {dropdownIcon}</div>
-
-              {isDropdownVisible.favorites && <DropdownFavorites setIsDropdownVisible={setIsDropdownVisible} />}
-            </CustomButton>
-
-            <CustomButton type="button" onClick={() => handleDropdown("cart")}>
-              <div className="left-icon">
-                {getProductsList?.length > 0 && <span className="cart-length">{getProductsList.length}</span>}
-                {cartIcon}
-              </div>
-              <div className="button-text">Cart {dropdownIcon}</div>
-
-              {isDropdownVisible.cart && <DropdownCart setIsDropdownVisible={setIsDropdownVisible} />}
             </CustomButton>
           </div>
         </div>

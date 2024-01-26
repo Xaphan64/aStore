@@ -4,18 +4,19 @@ import { dropdownUpIcon } from "../../../assets/MUI-icons";
 // STYLES
 
 // LIBRARIES
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 // MISC
 
 // COMPONENTS
 import CustomButton from "../../../atoms/CustomButton";
+import Favorites from "../../../pages/Favorites/Favorites";
 
 // CONFIGURATION
 const DropdownFavorites = (props) => {
   // PROPERTIES
-  const { setIsDropdownVisible } = props;
+  const { setIsDropdownVisible, isHeader, getFavoriteList } = props;
 
   // API REQUESTS
 
@@ -43,21 +44,28 @@ const DropdownFavorites = (props) => {
   // EVENT HANDLERS
   return (
     <div className="dropdown-account" ref={dropdownRef}>
-      <div className="dropdown-icon">{dropdownUpIcon}</div>
+      {getFavoriteList.length > 0 ? (
+        <Fragment>
+          <div className="dropdown-icon">{dropdownUpIcon}</div>
 
-      <div className="dropdown-options">
-        <span className="dropdown-title">Added products</span>
+          <div className="dropdown-options product">
+            <span className="dropdown-title">Added to favorite</span>
 
-        <div className="dropdown-redirects">
-          <span className="dropdown-buttons">favorite dropdown</span>
-          <span className="dropdown-buttons">favorite dropdown</span>
-          <span className="dropdown-buttons">favorite dropdown</span>
-        </div>
+            <div className="dropdown-redirects products">
+              <Favorites isHeader={isHeader} />
+            </div>
 
-        <div className="dropdown-not-logged">
-          <CustomButton type="button" name="Go to favorite page" onClick={() => navigate("/favorites")} />
-        </div>
-      </div>
+            <div className="dropdown-not-logged">
+              <CustomButton type="button" name="Go to favorite page" onClick={() => navigate("/favorites")} />
+            </div>
+          </div>
+        </Fragment>
+      ) : (
+        <Fragment>
+          <div className="dropdown-icon">{dropdownUpIcon}</div>
+          <span className="dropdown-empty">There are no favorite products</span>
+        </Fragment>
+      )}
     </div>
   );
 };

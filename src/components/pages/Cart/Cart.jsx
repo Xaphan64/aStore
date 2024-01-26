@@ -15,10 +15,20 @@ import CartFilter from "./CartFilter";
 import CustomButton from "../../atoms/CustomButton";
 
 // CONFIGURATION
-const Cart = () => {
+const Cart = (props) => {
   // PROPERTIES
+  const { isHeader } = props;
 
   // API REQUESTS
+
+  const { isLoading, error } = useFetch(`http://localhost:8000`);
+
+  // LIBRARY CONSTANTS
+  const navigate = useNavigate();
+
+  const user = sessionStorage.getItem("token");
+  const admin = sessionStorage.getItem("adminToken");
+
   const category = [
     { type: "phones" },
     { type: "laptops" },
@@ -29,14 +39,6 @@ const Cart = () => {
     { type: "toys" },
     { type: "furniture" },
   ];
-
-  const { isLoading, error } = useFetch(`http://localhost:8000`);
-
-  // LIBRARY CONSTANTS
-  const navigate = useNavigate();
-
-  const user = sessionStorage.getItem("token");
-  const admin = sessionStorage.getItem("adminToken");
 
   // STATE CONSTANTS
   const [cartProductList, setCartProductList] = useState(JSON.parse(localStorage?.getItem("cartProductsList")));
@@ -57,7 +59,7 @@ const Cart = () => {
 
       {!isLoading && !error && (
         <Fragment>
-          <h1 className="favorite-title">My Cart</h1>
+          {!isHeader && <h1 className="favorite-title">My Cart</h1>}
 
           <div className="favorite-category">
             {category?.map((product, index) => (
@@ -65,6 +67,7 @@ const Cart = () => {
                 type={product.type}
                 key={`category-${index}-${product.id}`}
                 setCartProductList={setCartProductList}
+                isHeader={isHeader}
               />
             ))}
 
@@ -76,19 +79,30 @@ const Cart = () => {
                 </Link>
               </div>
             ) : (
-              <div className="cart-footer-containter">
-                <div className="cart-total-price">
-                  <span className="cart-text">Total:</span>
+              <Fragment>
+                <div className={isHeader ? "dropdown-cart-footer" : "cart-footer-containter"}>
+                  <div className="cart-total-price">
+                    <span className="cart-text">
+                      Total:
+                      {isHeader && (
+                        <span className="dropdown-cart-length">
+                          {cartProductList?.length} {cartProductList?.length === 1 ? "product" : "products"}
+                        </span>
+                      )}
+                    </span>
 
-                  <span className="cart-price">{priceFormat()} Lei</span>
+                    <span className="cart-price">{priceFormat()} Lei</span>
+                  </div>
+
+                  {!isHeader && (
+                    <CustomButton
+                      name="Next"
+                      type="button"
+                      onClick={user || admin ? () => navigate("/checkout") : () => navigate("/login")}
+                    />
+                  )}
                 </div>
-
-                <CustomButton
-                  name="Next"
-                  type="button"
-                  onClick={user || admin ? () => navigate("/checkout") : () => navigate("/login")}
-                />
-              </div>
+              </Fragment>
             )}
           </div>
         </Fragment>

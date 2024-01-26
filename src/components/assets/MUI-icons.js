@@ -20,6 +20,7 @@ import WeekendIcon from "@mui/icons-material/Weekend";
 
 //dropdown
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import CloseIcon from "@mui/icons-material/Close";
 
 //card
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
@@ -57,6 +58,7 @@ export const furnitureIcon = <WeekendIcon />;
 
 //dropdown export
 export const dropdownUpIcon = <ArrowDropUpIcon />;
+export const removeIcon = <CloseIcon />;
 
 //card export
 export const favoriteAddedIcon = <FavoriteOutlinedIcon />;

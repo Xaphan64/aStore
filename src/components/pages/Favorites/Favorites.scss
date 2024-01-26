@@ -3,7 +3,7 @@
 .favorite-container {
   display: flex;
   flex-direction: column;
-  padding: 0 16px 16px 16px;
+  padding: 0 16px;
 
   .error-message {
     text-align: center;
@@ -55,6 +55,20 @@
         background-color: $primary-blue;
         font-size: 18px;
         cursor: pointer;
+      }
+    }
+
+    .dropdown-cart-footer {
+      .cart-total-price {
+        border-top: 1px solid $primary-white;
+        padding: 8px;
+        display: flex;
+        justify-content: space-between;
+
+        .cart-text {
+          display: flex;
+          gap: 4px;
+        }
       }
     }
   }

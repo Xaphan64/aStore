@@ -15,8 +15,9 @@ import FavoriteFilter from "./FavoriteFilter";
 import Snackbar from "../../atoms/Snackbar/Snackbar";
 
 // CONFIGURATION
-const Favorites = () => {
+const Favorites = (props) => {
   // PROPERTIES
+  const { isHeader } = props;
 
   // API REQUESTS
   const { isLoading, error } = useFetch(`http://localhost:8000`);
@@ -57,7 +58,7 @@ const Favorites = () => {
 
       {!isLoading && !error && (
         <Fragment>
-          <h2 className="favorite-title">My favorites</h2>
+          {!isHeader && <h2 className="favorite-title">My favorites</h2>}
 
           <div className="favorite-category">
             {category?.map((product, index) => (
@@ -66,6 +67,7 @@ const Favorites = () => {
                 key={`category-${index}-${product?.id}`}
                 showaddCart={showaddCart}
                 setFavoriteProductList={setFavoriteProductList}
+                isHeader={isHeader}
               />
             ))}
 

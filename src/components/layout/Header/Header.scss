@@ -102,7 +102,7 @@
         .dropdown-icon {
           display: flex;
           align-self: center;
-          margin-top: -5px;
+          margin-top: -4px;
         }
 
         .dropdown-options {
@@ -112,10 +112,14 @@
           margin-top: -5px;
           text-align: left;
           font-weight: bold;
+
+          &.product {
+            gap: 0;
+          }
         }
 
         .dropdown-title {
-          padding: 8px;
+          padding: 4px;
           text-align: center;
         }
 
@@ -127,6 +131,13 @@
           border-bottom: 1px solid $primary-white;
           padding: 8px 0;
           font-weight: normal;
+
+          &.products {
+            border: none;
+            padding: 0;
+            overflow-y: scroll;
+            max-height: 300px;
+          }
 
           .dropdown-buttons {
             cursor: pointer;
@@ -156,6 +167,8 @@
           display: flex;
           flex-direction: column;
           gap: 8px;
+          border-top: 1px solid $primary-white;
+          padding-top: 8px;
 
           button {
             padding: 8px;
@@ -179,6 +192,10 @@
               }
             }
           }
+        }
+
+        .dropdown-empty {
+          margin-top: -5px;
         }
       }
     }
