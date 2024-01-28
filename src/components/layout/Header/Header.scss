@@ -40,12 +40,23 @@
       display: flex;
       gap: 10px;
       padding: 0 10px;
+      align-items: center;
+      justify-content: center;
 
       button {
         background-color: $background-color;
         color: $primary-white;
         border: none;
         gap: 8px;
+      }
+
+      .header-dropdown-button {
+        color: $primary-white;
+        cursor: pointer;
+        display: flex;
+        user-select: none;
+        font-size: 14px;
+        width: 100%;
 
         .button-text {
           display: flex;
@@ -70,6 +81,9 @@
             width: 16px;
             height: 16px;
             border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
         }
 
@@ -80,24 +94,36 @@
 
       @media screen and (min-width: 0px) and (max-width: 1080px) {
         gap: 20px;
-        button {
+        .header-dropdown-button {
           .button-text {
             display: none;
           }
         }
       }
 
-      .dropdown-account {
+      .dropdown-header {
         display: flex;
         flex-direction: column;
         background-color: #292929;
         color: $primary-white;
         border-radius: 8px;
         position: absolute;
-        top: 45px;
+        top: 50px;
         padding: 0 8px 8px 8px;
         cursor: default;
         z-index: 2;
+
+        &.account {
+          right: 16px;
+        }
+
+        &.cart {
+          right: 38px;
+        }
+
+        &.favorite {
+          right: 140px;
+        }
 
         .dropdown-icon {
           display: flex;
@@ -182,7 +208,8 @@
 
           .dropdown-not-logged-register {
             display: flex;
-            gap: 3px;
+            gap: 8px;
+            align-items: center;
 
             .link {
               color: #59b7ff;
@@ -195,7 +222,25 @@
         }
 
         .dropdown-empty {
-          margin-top: -5px;
+          display: flex;
+          flex-direction: column;
+          position: absolute;
+          background-color: #292929;
+          padding: 8px 16px;
+          border-radius: 8px;
+
+          &.favorite {
+            right: 40px;
+          }
+
+          &.cart {
+            right: 80px;
+          }
+
+          .dropdown-empty-message {
+            margin-top: -4px;
+            white-space: nowrap;
+          }
         }
       }
     }

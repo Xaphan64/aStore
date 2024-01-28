@@ -53,7 +53,7 @@ const DropdownAccount = (props) => {
   const admin = sessionStorage.getItem("adminToken");
 
   return (
-    <div className="dropdown-account" ref={dropdownRef}>
+    <div className="dropdown-header account" ref={dropdownRef}>
       <div className="dropdown-icon">{dropdownUpIcon}</div>
 
       {user || admin ? (

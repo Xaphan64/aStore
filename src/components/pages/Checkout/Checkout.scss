@@ -1,0 +1,34 @@
+@import "../../../index.scss";
+
+.checkout-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+
+  .checkout-title {
+    text-align: center;
+  }
+
+  .checkout-form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+
+    .checkout-products {
+      border-bottom: 1px solid $primary-white;
+      padding-bottom: 8px;
+    }
+
+    .checkout-details {
+      padding-top: 24px;
+      display: flex;
+      flex-direction: column;
+
+      h2 {
+        text-align: center;
+      }
+    }
+  }
+}

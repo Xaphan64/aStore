@@ -17,10 +17,9 @@ import CustomButton from "../../atoms/CustomButton";
 // CONFIGURATION
 const Cart = (props) => {
   // PROPERTIES
-  const { isHeader } = props;
+  const { isHeader, isCheckout } = props;
 
   // API REQUESTS
-
   const { isLoading, error } = useFetch(`http://localhost:8000`);
 
   // LIBRARY CONSTANTS
@@ -59,7 +58,7 @@ const Cart = (props) => {
 
       {!isLoading && !error && (
         <Fragment>
-          {!isHeader && <h1 className="favorite-title">My Cart</h1>}
+          {!isHeader && !isCheckout && <h2 className="favorite-title">My Cart</h2>}
 
           <div className="favorite-category">
             {category?.map((product, index) => (
@@ -68,6 +67,7 @@ const Cart = (props) => {
                 key={`category-${index}-${product.id}`}
                 setCartProductList={setCartProductList}
                 isHeader={isHeader}
+                isCheckout={isCheckout}
               />
             ))}
 
@@ -80,21 +80,25 @@ const Cart = (props) => {
               </div>
             ) : (
               <Fragment>
-                <div className={isHeader ? "dropdown-cart-footer" : "cart-footer-containter"}>
+                <div
+                  className={
+                    isHeader ? "dropdown-cart-footer" : isCheckout ? "checkout-total-price" : "cart-footer-containter"
+                  }
+                >
                   <div className="cart-total-price">
-                    <span className="cart-text">
+                    <div className="cart-text">
                       Total:
                       {isHeader && (
                         <span className="dropdown-cart-length">
                           {cartProductList?.length} {cartProductList?.length === 1 ? "product" : "products"}
                         </span>
                       )}
-                    </span>
+                    </div>
 
-                    <span className="cart-price">{priceFormat()} Lei</span>
+                    <div className="cart-price">{priceFormat()} Lei</div>
                   </div>
 
-                  {!isHeader && (
+                  {!isHeader && !isCheckout && (
                     <CustomButton
                       name="Next"
                       type="button"

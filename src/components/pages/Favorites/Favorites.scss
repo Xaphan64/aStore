@@ -72,4 +72,19 @@
       }
     }
   }
+
+  .checkout-total-price {
+    color: $primary-white;
+    font-size: 24px;
+    display: flex;
+    border-bottom: 1px solid $primary-white;
+    padding: 8px 0;
+    width: 100%;
+    justify-content: flex-end;
+
+    .cart-total-price {
+      display: flex;
+      gap: 8px;
+    }
+  }
 }

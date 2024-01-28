@@ -12,11 +12,12 @@ import { useFetch } from "../../hooks/useFetch";
 // COMPONENTS
 import CartCard from "../../cards/CartCard";
 import DropdownCartCard from "../../cards/DropdownCartCard";
+import CheckoutCard from "../../cards/CheckoutCard";
 
 // CONFIGURATION
 const CartFilter = (props) => {
   // PROPERTIES
-  const { type = "", setCartProductList = () => {}, isHeader } = props;
+  const { type = "", setCartProductList = () => {}, isHeader, isCheckout } = props;
 
   // API REQUESTS
   const { data: products, setIsRerendering } = useFetch(`http://localhost:8000/${type}`);
@@ -117,9 +118,7 @@ const CartFilter = (props) => {
         <Fragment>
           {productsCart.map((product, index) => (
             <div className="favorite-map" key={`category-${index}-${product?.id}`}>
-              {isHeader ? (
-                <DropdownCartCard product={product} type={type} handleRemoveCart={handleRemoveCart} />
-              ) : (
+              {!isHeader && !isCheckout && (
                 <CartCard
                   product={product}
                   type={type}
@@ -127,6 +126,9 @@ const CartFilter = (props) => {
                   handleRemoveCart={handleRemoveCart}
                 />
               )}
+
+              {isHeader && <DropdownCartCard product={product} type={type} handleRemoveCart={handleRemoveCart} />}
+              {isCheckout && <CheckoutCard product={product} type={type} />}
             </div>
           ))}
         </Fragment>

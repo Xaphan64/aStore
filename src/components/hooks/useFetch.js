@@ -17,7 +17,6 @@ export const useFetch = (url) => {
   // API REQUESTS
 
   // LIBRARY CONSTANTS
-
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isRerendering, setIsRerendering] = useState(false);
@@ -43,7 +42,6 @@ export const useFetch = (url) => {
   }, [url, isRerendering]);
 
   // EVENT HANDLERS
-
   return {
     data,
     isLoading,

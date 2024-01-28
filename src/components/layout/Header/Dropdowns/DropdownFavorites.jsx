@@ -43,7 +43,7 @@ const DropdownFavorites = (props) => {
 
   // EVENT HANDLERS
   return (
-    <div className="dropdown-account" ref={dropdownRef}>
+    <div className="dropdown-header favorite" ref={dropdownRef}>
       {getFavoriteList.length > 0 ? (
         <Fragment>
           <div className="dropdown-icon">{dropdownUpIcon}</div>
@@ -62,8 +62,10 @@ const DropdownFavorites = (props) => {
         </Fragment>
       ) : (
         <Fragment>
-          <div className="dropdown-icon">{dropdownUpIcon}</div>
-          <span className="dropdown-empty">There are no favorite products</span>
+          <div className="dropdown-empty favorite">
+            <div className="dropdown-icon">{dropdownUpIcon}</div>
+            <span className="dropdown-empty-message">There are no favorite products</span>
+          </div>
         </Fragment>
       )}
     </div>

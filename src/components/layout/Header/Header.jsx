@@ -95,7 +95,7 @@ const Header = () => {
           {!isMobile && <CustomInput type="text" name="search" placeholder="Type here to search for something" />}
 
           <div className="login-right-buttons">
-            <CustomButton type="button" onClick={() => handleDropdown("favorites")}>
+            <div className="header-dropdown-button" onClick={() => handleDropdown("favorites")}>
               <div className="left-icon">
                 {getFavoriteList.length > 0 && <span className="cart-length">{getFavoriteList.length}</span>}
                 {favoriteIcon}
@@ -109,9 +109,9 @@ const Header = () => {
                   getFavoriteList={getFavoriteList}
                 />
               )}
-            </CustomButton>
+            </div>
 
-            <CustomButton type="button" onClick={() => handleDropdown("cart")}>
+            <div className="header-dropdown-button" onClick={() => handleDropdown("cart")}>
               <div className="left-icon">
                 {getCartList.length > 0 && <span className="cart-length">{getCartList.length}</span>}
                 {cartIcon}
@@ -125,14 +125,14 @@ const Header = () => {
                   getCartList={getCartList}
                 />
               )}
-            </CustomButton>
+            </div>
 
-            <CustomButton type="button" onClick={() => handleDropdown("account")}>
+            <div className="header-dropdown-button" type="button" onClick={() => handleDropdown("account")}>
               <div className="left-icon">{profileIcon}</div>
               <div className="button-text">Account {dropdownIcon}</div>
 
               {isDropdownVisible.account && <DropdownAccount setIsDropdownVisible={setIsDropdownVisible} />}
-            </CustomButton>
+            </div>
           </div>
         </div>
 
