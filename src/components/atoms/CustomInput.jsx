@@ -32,6 +32,7 @@ const CustomInput = (props) => {
       maxLength={props.maxLength}
       minLength={props.minLength}
       required={props.required}
+      checked={props.checked}
     />
   );
 };

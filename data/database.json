@@ -7,7 +7,7 @@
       "type": "phones",
       "price": "999",
       "favorite": false,
-      "cart": false,
+      "cart": true,
       "ordered": false,
       "id": 2
     },
@@ -18,7 +18,7 @@
       "type": "phones",
       "price": "1099",
       "favorite": false,
-      "cart": false,
+      "cart": true,
       "ordered": false,
       "id": 4
     },
@@ -163,7 +163,7 @@
       "type": "laptops",
       "price": "999",
       "favorite": false,
-      "cart": false,
+      "cart": true,
       "ordered": false,
       "id": 1
     },
@@ -244,7 +244,7 @@
       "type": "gaming",
       "price": "2999",
       "favorite": false,
-      "cart": false,
+      "cart": true,
       "ordered": false,
       "id": 1
     }

@@ -1,8 +1,11 @@
 // ASSETS
+import { warningIcon } from "../../assets/MUI-icons";
 
 // STYLES
 import "./Checkout.scss";
+
 // LIBRARIES
+import { useState } from "react";
 
 // MISC
 import { useForm } from "../../hooks/useForm";
@@ -23,10 +26,16 @@ const Checkout = () => {
   const isCheckout = true;
 
   // STATE CONSTANTS
+  const [nameError, setNameError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+  const [addressError, setAddressError] = useState("");
+  const [paymentError, setPaymentError] = useState("");
+  const [cardError, setCardError] = useState("");
   const { inputValues, handleInputChange } = useForm({
     name: "",
     phone: "",
     address: "",
+    payMethod: "",
     card: "",
   });
 
@@ -35,6 +44,49 @@ const Checkout = () => {
   // EVENT HANDLERS
   const handleOrder = (event) => {
     event.preventDefault();
+
+    // if name is empty show error
+    if (inputValues.name.trim() === "") {
+      setNameError("Enter your name");
+    } else {
+      setNameError("");
+    }
+
+    const phoneRegex = /^\d{10,}$/;
+
+    //if phone empty or is not min 10 characters and not a number show error
+    if (inputValues.phone.trim() === "") {
+      setPhoneError("Type your phone number");
+    } else if (!phoneRegex.test(inputValues.phone)) {
+      setPhoneError("Please enter a valid phone number");
+    } else {
+      setPhoneError("");
+    }
+
+    //if address is empty throw error message
+    if (inputValues.address.trim() === "") {
+      setAddressError("Enter the address where you want the order to be delivered");
+    } else {
+      setAddressError("");
+    }
+
+    //if none of the radio types are selected throw error
+    if (inputValues.payMethod.trim() === "") {
+      setPaymentError("Please choose one of the payment methods");
+    } else {
+      setPaymentError("");
+    }
+
+    const cardRegex = /^\d{16}$/;
+
+    // if card input is empty or not valid throw error
+    if (inputValues.card.trim() === "") {
+      setCardError("Type your card number");
+    } else if (!cardRegex.test(inputValues.card)) {
+      setCardError("Please enter a valid card number");
+    } else {
+      setCardError("");
+    }
   };
 
   return (
@@ -51,24 +103,99 @@ const Checkout = () => {
         <div className="checkout-details">
           <h2>Order details</h2>
 
-          <div className="checkout-fields">
-            <span>Full name:</span>
-            <CustomInput type="text" name="name" value={inputValues.name} onChange={handleInputChange} />
+          <div className={nameError ? "checkout-fields red" : "checkout-fields"}>
+            <span>Name:</span>
+            <CustomInput
+              type="text"
+              name="name"
+              placeholder="First and last name"
+              value={inputValues.name}
+              onChange={handleInputChange}
+            />
+
+            {nameError && (
+              <div className="checkout-error">
+                {warningIcon} {nameError}
+              </div>
+            )}
           </div>
 
-          <span>Phone number</span>
-          <input />
+          <div className={phoneError ? "checkout-fields red" : "checkout-fields"}>
+            <span>Phone number:</span>
+            <CustomInput type="text" name="phone" value={inputValues.phone} onChange={handleInputChange} />
 
-          <span>Delivery address</span>
-          <input />
+            {phoneError && (
+              <div className="checkout-error">
+                {warningIcon} {phoneError}
+              </div>
+            )}
+          </div>
 
-          <span>Payment method:</span>
-          <div>
-            <span>online card</span>
+          <div className={nameError ? "checkout-fields red" : "checkout-fields"}>
+            <span>Delivery address:</span>
+            <CustomInput type="text" name="address" value={inputValues.address} onChange={handleInputChange} />
 
-            <input />
+            {addressError && (
+              <div className="checkout-error">
+                {warningIcon} {addressError}
+              </div>
+            )}
+          </div>
 
-            <span>Pay on delivery</span>
+          <div className={paymentError ? "checkout-fields red" : "checkout-fields"}>
+            <span>Payment method:</span>
+
+            <div className="checkout-radio">
+              <CustomInput
+                type="radio"
+                name="payMethod"
+                value="onlineCard"
+                id="onlineCard"
+                checked={inputValues.payMethod === "onlineCard"}
+                onChange={handleInputChange}
+              />
+              <label
+                onClick={() => handleInputChange({ target: { name: "payMethod", value: "onlineCard" } })}
+                htmlFor="onlineCard"
+              >
+                Online Card
+              </label>
+            </div>
+
+            {inputValues.payMethod === "onlineCard" && (
+              <div className={cardError ? "checkout-fields red" : "checkout-fields"}>
+                <span>Card details:</span>
+                <CustomInput type="text" name="card" value={inputValues.card} onChange={handleInputChange} />
+
+                {cardError && (
+                  <div className="checkout-error">
+                    {warningIcon} {cardError}
+                  </div>
+                )}
+              </div>
+            )}
+
+            <div className="checkout-radio">
+              <CustomInput
+                type="radio"
+                name="payMethod"
+                value="payOnDelivery"
+                id="payOnDelivery"
+                checked={inputValues.payMethod === "payOnDelivery"}
+                onChange={handleInputChange}
+              />
+              <label
+                onClick={() => handleInputChange({ target: { name: "payMethod", value: "payOnDelivery" } })}
+                htmlFor="payOnDelivery"
+              >
+                Pay on Delivery
+              </label>
+            </div>
+            {paymentError && (
+              <div className="checkout-error">
+                {warningIcon} {paymentError}
+              </div>
+            )}
           </div>
         </div>
 
