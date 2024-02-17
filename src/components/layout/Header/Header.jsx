@@ -55,7 +55,8 @@ const Header = () => {
       location.pathname === "/orders" ||
       location.pathname === "/favorites" ||
       location.pathname === `/product/${id}` ||
-      location.pathname === "/cart"
+      location.pathname === "/cart" ||
+      location.pathname === "/checkout"
     ) {
       setActive(false);
     }
@@ -97,7 +98,7 @@ const Header = () => {
           <div className="login-right-buttons">
             <div className="header-dropdown-button" onClick={() => handleDropdown("favorites")}>
               <div className="left-icon">
-                {getFavoriteList.length > 0 && <span className="cart-length">{getFavoriteList.length}</span>}
+                {getFavoriteList?.length > 0 && <span className="cart-length">{getFavoriteList?.length}</span>}
                 {favoriteIcon}
               </div>
               <div className="button-text">Favorites {dropdownIcon}</div>
@@ -113,7 +114,7 @@ const Header = () => {
 
             <div className="header-dropdown-button" onClick={() => handleDropdown("cart")}>
               <div className="left-icon">
-                {getCartList.length > 0 && <span className="cart-length">{getCartList.length}</span>}
+                {getCartList?.length > 0 && <span className="cart-length">{getCartList?.length}</span>}
                 {cartIcon}
               </div>
               <div className="button-text">Cart {dropdownIcon}</div>

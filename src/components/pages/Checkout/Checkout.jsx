@@ -6,6 +6,7 @@ import "./Checkout.scss";
 
 // LIBRARIES
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // MISC
 import { useForm } from "../../hooks/useForm";
@@ -14,6 +15,8 @@ import { useForm } from "../../hooks/useForm";
 import CustomButton from "../../atoms/CustomButton";
 import Cart from "../Cart/Cart";
 import CustomInput from "../../atoms/CustomInput";
+import { useFetch } from "../../hooks/useFetch";
+import axios from "axios";
 
 // CONFIGURATION
 const Checkout = () => {
@@ -24,6 +27,7 @@ const Checkout = () => {
   // LIBRARY CONSTANTS
   const cartProductList = JSON.parse(localStorage?.getItem("cartProductsList"));
   const isCheckout = true;
+  const navigate = useNavigate();
 
   // STATE CONSTANTS
   const [nameError, setNameError] = useState("");
@@ -87,6 +91,77 @@ const Checkout = () => {
     } else {
       setCardError("");
     }
+
+    //if all of the above conditions are true, redirect to orders page
+    if (
+      inputValues.name.trim() !== "" &&
+      phoneRegex.test(inputValues.phone) &&
+      inputValues.address.trim() !== "" &&
+      (inputValues.payMethod.trim() === "payOnDelivery" ||
+        (inputValues.payMethod.trim() === "onlineCard" && cardRegex.test(inputValues.card)))
+    ) {
+      const cartProductList = JSON.parse(localStorage?.getItem("cartProductsList"));
+
+      // PART 1 OF LOGIC
+      const currentOrderedProducts = JSON.parse(localStorage?.getItem("orderedProducts"));
+
+      console.log("currentOrderedProducts :>> ", currentOrderedProducts);
+
+      let updatedCartList = [];
+
+      if (currentOrderedProducts) {
+        updatedCartList = [...currentOrderedProducts];
+
+        updatedCartList.push({
+          catergoryName: `Order ${updatedCartList.length + 1}`,
+          data: cartProductList,
+        });
+      } else {
+        updatedCartList = [
+          {
+            catergoryName: "Order 1",
+            data: cartProductList,
+          },
+        ];
+      }
+
+      localStorage?.setItem("orderedProducts", JSON.stringify(updatedCartList));
+
+      cartProductList?.forEach((product) => {
+        axios.get(`http://localhost:8000/${product.type}`).then((response) => {
+          const fetchedData = response.data;
+          console.log("response :>> ", fetchedData);
+
+          // fetchedData?.forEach((fetchedProduct) => {
+          //   if (fetchedProduct.id === product.id) {
+          //     const updatedProductList = {
+          //       ...fetchedProduct,
+          //       cart: false,
+          //     };
+
+          //     axios.put(`http://localhost:8000/${product.type}/${fetchedProduct.id}`, updatedProductList);
+          //   }
+          // });
+
+          // fetchedData?.forEach((fetchedProduct) => {
+          //   if (fetchedProduct.id === product.id) {
+          //     return {
+          //       ...fetchedProduct,
+          //       cart: false,
+          //     };
+          //   } else return fetchedProduct;
+          // });
+
+          // axios.put(`http://localhost:8000/${product.type}`, updatedProductList);
+        });
+      });
+
+      // PART 3 OF LOGIC
+
+      localStorage?.removeItem("cartProductsList");
+
+      navigate("/orders");
+    }
   };
 
   return (
@@ -131,7 +206,7 @@ const Checkout = () => {
             )}
           </div>
 
-          <div className={nameError ? "checkout-fields red" : "checkout-fields"}>
+          <div className={addressError ? "checkout-fields red" : "checkout-fields"}>
             <span>Delivery address:</span>
             <CustomInput type="text" name="address" value={inputValues.address} onChange={handleInputChange} />
 
@@ -142,7 +217,7 @@ const Checkout = () => {
             )}
           </div>
 
-          <div className={paymentError ? "checkout-fields red" : "checkout-fields"}>
+          <div className={paymentError ? "checkout-fields radio" : "checkout-fields"}>
             <span>Payment method:</span>
 
             <div className="checkout-radio">

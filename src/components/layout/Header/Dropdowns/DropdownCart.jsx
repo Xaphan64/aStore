@@ -44,21 +44,19 @@ const DropdownCart = (props) => {
   // EVENT HANDLERS
   return (
     <div className="dropdown-header cart" ref={dropdownRef}>
-      {getCartList.length > 0 ? (
+      {getCartList?.length > 0 ? (
         <Fragment>
-          <div>
-            <div className="dropdown-icon">{dropdownUpIcon}</div>
+          <div className="dropdown-icon">{dropdownUpIcon}</div>
 
-            <div className="dropdown-options product">
-              <span className="dropdown-title">Products in cart</span>
+          <div className="dropdown-options product">
+            <span className="dropdown-title">Products in cart</span>
 
-              <div className="dropdown-redirects products">
-                <Cart isHeader={isHeader} />
-              </div>
+            <div className="dropdown-redirects products">
+              <Cart isHeader={isHeader} />
+            </div>
 
-              <div className="dropdown-not-logged">
-                <CustomButton type="button" name="Go to cart page" onClick={() => navigate("/cart")} />
-              </div>
+            <div className="dropdown-not-logged">
+              <CustomButton type="button" name="Go to cart page" onClick={() => navigate("/cart")} />
             </div>
           </div>
         </Fragment>

@@ -138,6 +138,7 @@ const ProductCard = (props) => {
 
           //add id, type and price in localCartList list
           localCartList.push({
+            name: product.name,
             price: product.price,
             id: product.id,
             type: product.type,
