@@ -7,7 +7,7 @@
       "type": "phones",
       "price": "999",
       "favorite": false,
-      "cart": true,
+      "cart": false,
       "ordered": false,
       "id": 2
     },
@@ -18,7 +18,7 @@
       "type": "phones",
       "price": "1099",
       "favorite": false,
-      "cart": true,
+      "cart": false,
       "ordered": false,
       "id": 4
     },
