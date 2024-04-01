@@ -23,6 +23,9 @@ const Checkout = () => {
   // PROPERTIES
 
   // API REQUESTS
+  const type = "phones";
+
+  const { data: products, setIsRerendering } = useFetch(`http://localhost:8000/${type}`);
 
   // LIBRARY CONSTANTS
   const cartProductList = JSON.parse(localStorage?.getItem("cartProductsList"));
@@ -102,65 +105,57 @@ const Checkout = () => {
     ) {
       const cartProductList = JSON.parse(localStorage?.getItem("cartProductsList"));
 
-      // PART 1 OF LOGIC
-      const currentOrderedProducts = JSON.parse(localStorage?.getItem("orderedProducts"));
+      console.log("cartProductList :>> ", cartProductList[0].type);
+      console.log("cartProductList :>> ", cartProductList[1].type);
+      // //disable for now
 
-      console.log("currentOrderedProducts :>> ", currentOrderedProducts);
+      // const currentOrderedProducts = JSON.parse(localStorage?.getItem("orderedProducts"));
+      // console.log("currentOrderedProducts :>> ", currentOrderedProducts);
+      // let updatedCartList = [];
+      // if (currentOrderedProducts) {
+      //   updatedCartList = [...currentOrderedProducts];
+      //   updatedCartList.push({
+      //     catergoryName: `Order ${updatedCartList.length + 1}`,
+      //     data: cartProductList,
+      //   });
+      // } else {
+      //   updatedCartList = [
+      //     {
+      //       catergoryName: "Order 1",
+      //       data: cartProductList,
+      //     },
+      //   ];
+      // }
+      // localStorage?.setItem("orderedProducts", JSON.stringify(updatedCartList));
+      // cartProductList?.forEach((product) => {
+      //   axios.get(`http://localhost:8000/${product.type}`).then((response) => {
+      //     const fetchedData = response.data;
+      //     console.log("response :>> ", fetchedData);
+      //     fetchedData?.forEach((fetchedProduct) => {
+      //       // if (fetchedProduct.id === product.id) {
+      //       const updatedProductList = {
+      //         ...fetchedProduct,
+      //         cart: false,
+      //       };
+      //       axios.put(`http://localhost:8000/${product.type}/${fetchedProduct.id}`, updatedProductList);
+      //       console.log("updatedProductList :>> ", updatedProductList);
+      //       // }
+      //     });
+      //     // fetchedData?.forEach((fetchedProduct) => {
+      //     //   if (fetchedProduct.id === product.id) {
+      //     //     return {
+      //     //       ...fetchedProduct,
+      //     //       cart: false,
+      //     //     };
+      //     //   } else return fetchedProduct;
+      //     // });
+      //     // axios.put(`http://localhost:8000/${product.type}`, updatedProductList);
+      //   });
+      // });
 
-      let updatedCartList = [];
-
-      if (currentOrderedProducts) {
-        updatedCartList = [...currentOrderedProducts];
-
-        updatedCartList.push({
-          catergoryName: `Order ${updatedCartList.length + 1}`,
-          data: cartProductList,
-        });
-      } else {
-        updatedCartList = [
-          {
-            catergoryName: "Order 1",
-            data: cartProductList,
-          },
-        ];
-      }
-
-      localStorage?.setItem("orderedProducts", JSON.stringify(updatedCartList));
-
-      cartProductList?.forEach((product) => {
-        axios.get(`http://localhost:8000/${product.type}`).then((response) => {
-          const fetchedData = response.data;
-          console.log("response :>> ", fetchedData);
-
-          // fetchedData?.forEach((fetchedProduct) => {
-          //   if (fetchedProduct.id === product.id) {
-          //     const updatedProductList = {
-          //       ...fetchedProduct,
-          //       cart: false,
-          //     };
-
-          //     axios.put(`http://localhost:8000/${product.type}/${fetchedProduct.id}`, updatedProductList);
-          //   }
-          // });
-
-          // fetchedData?.forEach((fetchedProduct) => {
-          //   if (fetchedProduct.id === product.id) {
-          //     return {
-          //       ...fetchedProduct,
-          //       cart: false,
-          //     };
-          //   } else return fetchedProduct;
-          // });
-
-          // axios.put(`http://localhost:8000/${product.type}`, updatedProductList);
-        });
-      });
-
-      // PART 3 OF LOGIC
-
-      localStorage?.removeItem("cartProductsList");
-
-      navigate("/orders");
+      //activate at the end
+      // localStorage?.removeItem("cartProductsList");
+      // navigate("/orders");
     }
   };
 

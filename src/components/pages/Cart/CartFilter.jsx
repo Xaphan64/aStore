@@ -32,7 +32,7 @@ const CartFilter = (props) => {
 
   // EVENT HANDLERS
   const handleMoveFavorite = (product) => {
-    const removeFromFavorite = {
+    const moveToFavorite = {
       ...product,
       cart: false,
       favorite: true,
@@ -51,7 +51,7 @@ const CartFilter = (props) => {
 
     if (productCategory && id) {
       axios
-        .put(`http://localhost:8000/${productCategory}/${id}`, removeFromFavorite)
+        .put(`http://localhost:8000/${productCategory}/${id}`, moveToFavorite)
         .then((response) => {
           console.log("Moved to favorite", response);
 
@@ -82,7 +82,7 @@ const CartFilter = (props) => {
   };
 
   const handleRemoveCart = (product) => {
-    const removeFromFavorite = {
+    const removeFromCart = {
       ...product,
       cart: false,
     };
@@ -92,7 +92,7 @@ const CartFilter = (props) => {
 
     if (productCategory && id) {
       axios
-        .put(`http://localhost:8000/${productCategory}/${id}`, removeFromFavorite)
+        .put(`http://localhost:8000/${productCategory}/${id}`, removeFromCart)
         .then((response) => {
           console.log("Removed from favorite", response);
 
@@ -105,10 +105,10 @@ const CartFilter = (props) => {
           }
         })
         .catch((error) => {
-          console.error("Error, could not remove from favorite", error);
+          console.error("Error, could not remove from cart", error);
         });
 
-      console.log("Remove from favorite clicked");
+      console.log("Remove from cart clicked");
     }
   };
 
