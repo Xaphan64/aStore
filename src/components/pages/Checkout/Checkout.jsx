@@ -105,12 +105,12 @@ const Checkout = () => {
     ) {
       const cartProductList = JSON.parse(localStorage?.getItem("cartProductsList"));
 
-      console.log("cartProductList :>> ", cartProductList[0].type);
-      console.log("cartProductList :>> ", cartProductList[1].type);
+      // console.log("cartProductList :>> ", cartProductList[0].type);
+      // console.log("cartProductList :>> ", cartProductList[1].type);
       // //disable for now
 
-      // const currentOrderedProducts = JSON.parse(localStorage?.getItem("orderedProducts"));
-      // console.log("currentOrderedProducts :>> ", currentOrderedProducts);
+      const currentOrderedProducts = JSON.parse(localStorage?.getItem("orderedProducts"));
+      console.log("currentOrderedProducts :>> ", currentOrderedProducts);
       // let updatedCartList = [];
       // if (currentOrderedProducts) {
       //   updatedCartList = [...currentOrderedProducts];
@@ -126,36 +126,37 @@ const Checkout = () => {
       //     },
       //   ];
       // }
+
       // localStorage?.setItem("orderedProducts", JSON.stringify(updatedCartList));
-      // cartProductList?.forEach((product) => {
-      //   axios.get(`http://localhost:8000/${product.type}`).then((response) => {
-      //     const fetchedData = response.data;
-      //     console.log("response :>> ", fetchedData);
-      //     fetchedData?.forEach((fetchedProduct) => {
-      //       // if (fetchedProduct.id === product.id) {
-      //       const updatedProductList = {
-      //         ...fetchedProduct,
-      //         cart: false,
-      //       };
-      //       axios.put(`http://localhost:8000/${product.type}/${fetchedProduct.id}`, updatedProductList);
-      //       console.log("updatedProductList :>> ", updatedProductList);
-      //       // }
-      //     });
-      //     // fetchedData?.forEach((fetchedProduct) => {
-      //     //   if (fetchedProduct.id === product.id) {
-      //     //     return {
-      //     //       ...fetchedProduct,
-      //     //       cart: false,
-      //     //     };
-      //     //   } else return fetchedProduct;
-      //     // });
-      //     // axios.put(`http://localhost:8000/${product.type}`, updatedProductList);
-      //   });
-      // });
+      cartProductList?.forEach((product) => {
+        axios.get(`http://localhost:8000/${product.type}`).then((response) => {
+          const fetchedData = response.data;
+          console.log("response :>> ", fetchedData);
+          fetchedData?.forEach((fetchedProduct) => {
+            if (fetchedProduct.id === product.id) {
+              const updatedProductList = {
+                ...fetchedProduct,
+                cart: false,
+              };
+              axios.put(`http://localhost:8000/${product.type}/${fetchedProduct.id}`, updatedProductList);
+              console.log("updatedProductList :>> ", updatedProductList);
+            }
+          });
+          // fetchedData?.forEach((fetchedProduct) => {
+          //   if (fetchedProduct.id === product.id) {
+          //     return {
+          //       ...fetchedProduct,
+          //       cart: false,
+          //     };
+          //   } else return fetchedProduct;
+          // });
+          // axios.put(`http://localhost:8000/${product.type}`, updatedProductList);
+        });
+      });
 
       //activate at the end
-      // localStorage?.removeItem("cartProductsList");
-      // navigate("/orders");
+      localStorage?.removeItem("cartProductsList");
+      navigate("/success");
     }
   };
 

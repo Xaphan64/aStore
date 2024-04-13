@@ -75,6 +75,8 @@ const ProductDetails = () => {
       .get(`http://localhost:8000/${state?.currentCategory}/${id}`)
       .then((response) => {
         setForm(response.data);
+
+        // console.log("response.data :>> ", response.data);
         setAddFavorite(response.data.favorite);
       })
       .catch((error) => console.log(error));
@@ -133,6 +135,7 @@ const ProductDetails = () => {
           setIsRerendering(response?.data);
           setIsRerendering(response?.data?.favorite);
           setIsRerendering(response?.data?.cart);
+          setForm(response.data);
 
           showAddFavorite();
         } else {
@@ -150,6 +153,7 @@ const ProductDetails = () => {
           setIsRerendering(response?.data);
           setIsRerendering(response?.data?.favorite);
           setIsRerendering(response?.data?.cart);
+          setForm(response.data);
 
           showRemoveFavorite();
         }
@@ -158,6 +162,8 @@ const ProductDetails = () => {
         console.error("Error updating favorite status", error);
       });
   };
+
+  // console.log("inputValues :>> ", inputValues);
 
   const handleAddCart = () => {
     //change the cart status of the product
@@ -195,6 +201,7 @@ const ProductDetails = () => {
         setIsRerendering(response?.data);
         setIsRerendering(response?.data?.favorite);
         setIsRerendering(response?.data?.cart);
+        setForm(response.data);
 
         showaddCart();
       })

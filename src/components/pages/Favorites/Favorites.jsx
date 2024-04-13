@@ -20,7 +20,7 @@ const Favorites = (props) => {
   const { isHeader } = props;
 
   // API REQUESTS
-  const { isLoading, error } = useFetch(`http://localhost:8000`);
+  const { isLoading, error } = useFetch(`http://localhost:8000/phones`);
 
   // LIBRARY CONSTANTS
   const category = [

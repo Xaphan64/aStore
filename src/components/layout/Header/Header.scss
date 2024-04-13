@@ -54,6 +54,7 @@
         color: $primary-white;
         cursor: pointer;
         display: flex;
+        gap: 8px;
         user-select: none;
         font-size: 14px;
         width: 100%;
@@ -104,7 +105,8 @@
       .dropdown-header {
         display: flex;
         flex-direction: column;
-        background-color: #292929;
+        //de schimbat aici ca sa nu mai am bugul cu punct pe header dropdown
+        // background-color: #292929;
         color: $primary-white;
         border-radius: 8px;
         position: absolute;

@@ -69,7 +69,7 @@ const ImageSlider = ({ slides }) => {
 
           {currentSlide === 1 && (
             <span>
-              This project is made in React JS using API and Axios library. Please note that this is not a real site and
+              This project is made in React using API and Axios library. Please note that this is not a real site and
               the products and prices are fictional.
             </span>
           )}

@@ -44,7 +44,7 @@ const DropdownFavorites = (props) => {
   // EVENT HANDLERS
   return (
     <div className="dropdown-header favorite" ref={dropdownRef}>
-      {getFavoriteList.length > 0 ? (
+      {getFavoriteList?.length > 0 ? (
         <Fragment>
           <div className="dropdown-icon">{dropdownUpIcon}</div>
 

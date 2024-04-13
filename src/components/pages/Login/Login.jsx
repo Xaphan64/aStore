@@ -55,8 +55,8 @@ const Login = () => {
       inputValues.email === localStorage.getItem("Email", inputValues.email) &&
       inputValues.password === localStorage.getItem("Password", inputValues.password)
     ) {
-      navigate(-1);
-
+      // navigate(-1);
+      navigate("/");
       isAdmin ? sessionStorage.setItem("adminToken", nanoid()) : sessionStorage.setItem("token", nanoid());
     } else console.log("login failed");
   };

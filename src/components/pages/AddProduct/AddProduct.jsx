@@ -48,7 +48,6 @@ const AddProduct = () => {
     price: "",
     favorite: false,
     cart: false,
-    ordered: false,
   });
 
   // LIFE CYCLE

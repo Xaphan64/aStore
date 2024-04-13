@@ -29,12 +29,12 @@ const Header = () => {
   const location = useLocation();
   const { id } = useParams();
   const isMobile = window.matchMedia("(max-width: 750px")?.matches;
-  const getCartList = JSON.parse(localStorage?.getItem("cartProductsList"));
-  const getFavoriteList = JSON.parse(localStorage?.getItem("favoriteList"));
+  // const getCartList = JSON.parse(localStorage?.getItem("cartProductsList"));
+  // const getFavoriteList = JSON.parse(localStorage?.getItem("favoriteList"));
 
   // STATE CONSTANTS
-  // const [favoriteList, setFavoriteList] = useState(getCartList?.length || 0);
-  // const [cartList, setCartList] = useState(getFavoriteList?.length || 0);
+  const [getFavoriteList, setFavoriteList] = useState(JSON.parse(localStorage?.getItem("favoriteList")));
+  const [getCartList, setCartList] = useState(JSON.parse(localStorage?.getItem("cartProductsList")));
 
   // const [cartLength, setCartLength] = useState(0);
   // const [favoritesLength, setFavoritesLength] = useState(0);
@@ -52,7 +52,7 @@ const Header = () => {
     if (
       location.pathname === "/" ||
       location.pathname === "/add-product" ||
-      location.pathname === "/orders" ||
+      location.pathname === "/success" ||
       location.pathname === "/favorites" ||
       location.pathname === `/product/${id}` ||
       location.pathname === "/cart" ||
@@ -63,6 +63,13 @@ const Header = () => {
 
     // eslint-disable-next-line
   }, [location]);
+
+  useEffect(() => {
+    setInterval(() => {
+      setFavoriteList(JSON.parse(localStorage?.getItem("favoriteList")));
+      setCartList(JSON.parse(localStorage?.getItem("cartProductsList")));
+    }, 1000);
+  }, []);
 
   // useEffect(() => {
   //   setCartLength(getCartList?.length || 0);
