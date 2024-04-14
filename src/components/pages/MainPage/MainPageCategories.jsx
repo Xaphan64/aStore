@@ -16,7 +16,7 @@ import ProductCard from "../../cards/ProductCard";
 
 const MainPageCategories = (props) => {
   // PROPERTIES
-  const { type = "", showAddFavorite, showRemoveFavorite, showaddCart } = props;
+  const { type = "", showAddFavorite, showRemoveFavorite, showaddCart, showAlreadyCart } = props;
 
   // API REQUESTS
   const { data: products, setIsRerendering } = useFetch(`http://localhost:8000/${type}`);
@@ -76,6 +76,7 @@ const MainPageCategories = (props) => {
                 showAddFavorite={showAddFavorite}
                 showRemoveFavorite={showRemoveFavorite}
                 showaddCart={showaddCart}
+                showAlreadyCart={showAlreadyCart}
                 setIsRerendering={setIsRerendering}
               />
             </div>

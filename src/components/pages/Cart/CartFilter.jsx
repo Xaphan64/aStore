@@ -62,10 +62,21 @@ const CartFilter = (props) => {
             setCartProductList(updatedCartList);
 
             //add id and type in localFavorite list
-            localFavoriteList.push({
-              id: product.id,
-              type: product.type,
-            });
+            if (localFavoriteList === 0) {
+              localFavoriteList.push({
+                id: product.id,
+              });
+            } else {
+              const productExist = listOfFavoriteItems.some((item) => item.id === product.id);
+
+              if (!productExist) {
+                localFavoriteList.push({
+                  id: product.id,
+                });
+              } else {
+                console.log("products already in favorite");
+              }
+            }
 
             //save id and type in localStorage
             localStorage.setItem("favoriteList", JSON.stringify(localFavoriteList));
@@ -127,7 +138,7 @@ const CartFilter = (props) => {
                 />
               )}
 
-              {isHeader && <DropdownCartCard product={product} type={type} handleRemoveCart={handleRemoveCart} />}
+              {isHeader && <DropdownCartCard product={product} type={type} />}
               {isCheckout && <CheckoutCard product={product} type={type} />}
             </div>
           ))}

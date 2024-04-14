@@ -17,7 +17,7 @@ import CustomButton from "../atoms/CustomButton";
 // CONFIGURATION
 const ProductCard = (props) => {
   // PROPERTIES
-  const { product, type, showAddFavorite, showRemoveFavorite, showaddCart, setIsRerendering } = props;
+  const { product, type, showAddFavorite, showRemoveFavorite, showaddCart, showAlreadyCart, setIsRerendering } = props;
 
   // API REQUESTS
 
@@ -136,40 +136,38 @@ const ProductCard = (props) => {
         .then((response) => {
           console.log("Added to cart", response);
 
-          //add id, type and price in localCartList list
-          // console.log("localCartList.length :>> ", localCartList.length);
+          //if cart list is empty, push name, id, type and price in localCartList
           if (localCartList.length === 0) {
-            // TOODO ADD SNACKBAR THAT THE PRODUCT WAS ADDED
             localCartList.push({
               name: product.name,
               price: product.price,
               id: product.id,
               type: product.type,
             });
+
+            showaddCart();
           } else {
             const productExist = listOfCartItems.some((item) => item.id === product.id && item.type === product.type);
 
+            //if id and type are not the same, push localCartList
             if (!productExist) {
-              // TOODO ADD SNACKBAR THAT THE PRODUCT WAS ADDED
               localCartList.push({
                 name: product.name,
                 price: product.price,
                 id: product.id,
                 type: product.type,
               });
+
+              showaddCart();
             } else {
-              // TOODO ADD SNACKBAR THAT THE PRODUCT ALREADY EXIST
+              showAlreadyCart();
             }
           }
-
-          console.log("localCartList :>> ", localCartList);
 
           //save data in localStorage
           localStorage.setItem("cartProductsList", JSON.stringify(localCartList));
 
           setIsRerendering(response?.data);
-
-          showaddCart();
         })
         .catch((error) => {
           console.error("Error, could not add to cart", error);

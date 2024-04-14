@@ -16,7 +16,7 @@ import DropdownFavoriteCard from "../../cards/DropdownFavoriteCard";
 // CONFIGURATION
 const FavoriteFilter = (props) => {
   // PROPERTIES
-  const { type = "", showaddCart, setFavoriteProductList = () => {}, isHeader } = props;
+  const { type = "", showaddCart, showAlreadyCart, setFavoriteProductList = () => {}, isHeader } = props;
 
   // API REQUESTS
   const { data: products, setIsRerendering } = useFetch(`http://localhost:8000/${type}`);
@@ -73,17 +73,13 @@ const FavoriteFilter = (props) => {
       {productsFavorite.map((product, index) => (
         <div className="favorite-map" key={`category-${index}-${product?.id}`}>
           {isHeader ? (
-            <DropdownFavoriteCard
-              product={product}
-              type={type}
-              showaddCart={showaddCart}
-              handleRemoveFavorite={handleRemoveFavorite}
-            />
+            <DropdownFavoriteCard product={product} type={type} />
           ) : (
             <FavoriteCard
               product={product}
               type={type}
               showaddCart={showaddCart}
+              showAlreadyCart={showAlreadyCart}
               handleRemoveFavorite={handleRemoveFavorite}
             />
           )}

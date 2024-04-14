@@ -43,11 +43,13 @@ const MainPage = () => {
     addFavorite: "addFavorite",
     removeFavorite: "removeFavorite",
     addCart: "addCart",
+    alreadyCart: "alreadyCart",
   };
 
   const snackbarRefAdd = useRef(null);
   const snackbarRefRemove = useRef(null);
   const snackbarRefCart = useRef(null);
+  const snackbarRefAlready = useRef(null);
 
   // API REQUESTS
   const { isLoading, error } = useFetch(`http://localhost:8000/phones`);
@@ -69,6 +71,10 @@ const MainPage = () => {
     snackbarRefCart.current.show();
   };
 
+  const showAlreadyCart = () => {
+    snackbarRefAlready.current.show();
+  };
+
   return (
     <div className="main-page-container">
       <Snackbar message="Product added to favorites" ref={snackbarRefAdd} type={snackbarType.addFavorite} />
@@ -76,6 +82,8 @@ const MainPage = () => {
       <Snackbar message="Product removed from favorites" ref={snackbarRefRemove} type={snackbarType.removeFavorite} />
 
       <Snackbar message="Product added to cart" ref={snackbarRefCart} type={snackbarType.addCart} />
+
+      <Snackbar message="Product already exists in cart" ref={snackbarRefAlready} type={snackbarType.alreadyCart} />
 
       <div className="ads-container">
         <ImageSlider slides={slides} />
@@ -93,6 +101,7 @@ const MainPage = () => {
               showAddFavorite={showAddFavorite}
               showRemoveFavorite={showRemoveFavorite}
               showaddCart={showaddCart}
+              showAlreadyCart={showAlreadyCart}
             />
           ))}
         </div>

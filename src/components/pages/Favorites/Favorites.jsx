@@ -35,8 +35,10 @@ const Favorites = (props) => {
   ];
 
   const snackbarRefCart = useRef(null);
+  const snackbarRefAlready = useRef(null);
   const snackbarType = {
     addCart: "addCart",
+    alreadyCart: "alreadyCart",
   };
 
   // STATE CONSTANTS
@@ -49,12 +51,17 @@ const Favorites = (props) => {
     snackbarRefCart.current.show();
   };
 
+  const showAlreadyCart = () => {
+    snackbarRefAlready.current.show();
+  };
+
   return (
     <div className="favorite-container">
       {error && <h2 className="error-message">{error}</h2>}
       {isLoading && <h2 className="error-message">Loading favorites...</h2>}
 
       <Snackbar message="Product added to cart" ref={snackbarRefCart} type={snackbarType.addCart} />
+      <Snackbar message="Product already exists in cart" ref={snackbarRefAlready} type={snackbarType.alreadyCart} />
 
       {!isLoading && !error && (
         <Fragment>
@@ -66,6 +73,7 @@ const Favorites = (props) => {
                 type={product.type}
                 key={`category-${index}-${product?.id}`}
                 showaddCart={showaddCart}
+                showAlreadyCart={showAlreadyCart}
                 setFavoriteProductList={setFavoriteProductList}
                 isHeader={isHeader}
               />

@@ -61,10 +61,6 @@ const DropdownAccount = (props) => {
           <span className="dropdown-title">Hello, {account}</span>
 
           <div className="dropdown-redirects">
-            <span className="dropdown-buttons" onClick={() => navigate("/orders")}>
-              My Orders
-            </span>
-
             <span className="dropdown-buttons" onClick={() => navigate("/favorites")}>
               My Favorites
             </span>

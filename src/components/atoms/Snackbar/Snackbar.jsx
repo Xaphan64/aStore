@@ -1,7 +1,7 @@
 // ASSETS
 
 // STYLES
-import { cartFilledIcon, favoriteAddedIcon, favoriteIcon } from "../../assets/MUI-icons";
+import { alreadyIcon, cartFilledIcon, favoriteAddedIcon, favoriteIcon } from "../../assets/MUI-icons";
 import "./Snackbar.scss";
 
 // LIBRARIES
@@ -39,6 +39,7 @@ const Snackbar = forwardRef((props, ref) => {
         {props.type === "addFavorite" && <div className="add-favorite">{favoriteAddedIcon}</div>}
         {props.type === "removeFavorite" && <div className="remove-favorite">{favoriteIcon}</div>}
         {props.type === "addCart" && <div className="add-cart">{cartFilledIcon}</div>}
+        {props.type === "alreadyCart" && <div className="add-favorite">{alreadyIcon}</div>}
       </div>
       <div className="message">{props.message}</div>
     </div>

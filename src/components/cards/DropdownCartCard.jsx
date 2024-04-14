@@ -1,5 +1,4 @@
 // ASSETS
-import { deleteIcon } from "../assets/MUI-icons";
 
 // STYLES
 
@@ -9,12 +8,11 @@ import { useNavigate } from "react-router-dom";
 // MISC
 
 // COMPONENTS
-import CustomButton from "../atoms/CustomButton";
 
 // CONFIGURATION
 const DropdownCartCard = (props) => {
   // PROPERTIES
-  const { product, type, handleRemoveCart } = props;
+  const { product, type } = props;
 
   // API REQUESTS
 
@@ -45,15 +43,6 @@ const DropdownCartCard = (props) => {
         </span>
 
         <span className="dropdown-favorite-card-price">{priceFormat(product.price)} Lei</span>
-      </div>
-
-      <div className="dropdown-favorite-card-footer">
-        <div className="dropdown-favorite-buttons">
-          <CustomButton type="button" onClick={() => handleRemoveCart(product)}>
-            <div>{deleteIcon}</div>
-            <span>Remove from cart</span>
-          </CustomButton>
-        </div>
       </div>
     </div>
   );

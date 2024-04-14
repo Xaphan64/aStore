@@ -38,11 +38,13 @@ const ProductDetails = () => {
     addFavorite: "addFavorite",
     removeFavorite: "removeFavorite",
     addCart: "addCart",
+    alreadyCart: "alreadyCart",
   };
 
   const snackbarRefAdd = useRef(null);
   const snackbarRefRemove = useRef(null);
   const snackbarRefCart = useRef(null);
+  const snackbarRefAlready = useRef(null);
 
   // STATE CONSTANTS
   const [editMode, setEditMode] = useState(false);
@@ -51,7 +53,6 @@ const ProductDetails = () => {
   const [nameError, setNameError] = useState("");
   const [priceError, setPriceError] = useState("");
   const [descError, setDescError] = useState("");
-  const [addFavorite, setAddFavorite] = useState(false);
   const { inputValues, setForm, handleInputChange, handleImageChange } = useForm({
     id: id,
     name: "",
@@ -68,6 +69,8 @@ const ProductDetails = () => {
     setData,
     setIsRerendering,
   } = useFetch(`http://localhost:8000/${state?.currentCategory}/${id}`);
+
+  const [addFavorite, setAddFavorite] = useState(product?.favorite || false);
 
   //useEffect to get the input data when pressing the edit
   useEffect(() => {
@@ -143,7 +146,7 @@ const ProductDetails = () => {
           // if list and length is not 0 delete the product with the same id and type
           if (getFavoriteList && getFavoriteList?.length > 0) {
             const updatedFavoriteList = getFavoriteList?.filter((product) => {
-              return !(product.id === parseInt(id) && product.type === type);
+              return !(product.id === id && product.type === type);
             });
 
             //update the data in localStorage
@@ -188,12 +191,33 @@ const ProductDetails = () => {
       .then((response) => {
         console.log("Added to cart", response);
 
-        //add id, type and price in localCartList list
-        localCartList.push({
-          price: product.price,
-          id: product.id,
-          type: product.type,
-        });
+        //if cart list is empty, push name, id, type and price in localCartList
+        if (localCartList.length === 0) {
+          localCartList.push({
+            name: product.name,
+            price: product.price,
+            id: product.id,
+            type: product.type,
+          });
+
+          showaddCart();
+        } else {
+          const productExist = listOfCartItems.some((item) => item.id === product.id && item.type === product.type);
+
+          //if id and type are not the same, push localCartList
+          if (!productExist) {
+            localCartList.push({
+              name: product.name,
+              price: product.price,
+              id: product.id,
+              type: product.type,
+            });
+
+            showaddCart();
+          } else {
+            showAlreadyCart();
+          }
+        }
 
         //save data in localStorage
         localStorage.setItem("cartProductsList", JSON.stringify(localCartList));
@@ -290,6 +314,10 @@ const ProductDetails = () => {
 
   const showaddCart = () => {
     snackbarRefCart.current.show();
+  };
+
+  const showAlreadyCart = () => {
+    snackbarRefAlready.current.show();
   };
 
   return (
@@ -391,6 +419,12 @@ const ProductDetails = () => {
               />
 
               <Snackbar message="Product added to cart" ref={snackbarRefCart} type={snackbarType.addCart} />
+
+              <Snackbar
+                message="Product already exists in cart"
+                ref={snackbarRefAlready}
+                type={snackbarType.alreadyCart}
+              />
               <div className="product-details-items">
                 <h2>{product.name}</h2>
                 <div className="product-details-body">

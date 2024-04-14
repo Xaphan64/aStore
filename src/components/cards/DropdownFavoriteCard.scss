@@ -13,6 +13,7 @@
     gap: 8px;
     font-size: 12px;
     justify-content: space-between;
+    padding-bottom: 8px;
 
     img {
       width: 48px;
@@ -40,40 +41,6 @@
       color: #59b7ff;
       width: 40%;
       text-align: end;
-    }
-  }
-
-  .dropdown-favorite-card-footer {
-    display: flex;
-    justify-content: space-between;
-
-    .dropdown-favorite-buttons {
-      button {
-        background-color: $secondary-black;
-        color: #59b7ff;
-        display: flex;
-        gap: 2px;
-
-        &:hover {
-          text-decoration: underline;
-          color: #59b7ff;
-        }
-
-        svg {
-          height: 16px;
-          width: 16px;
-        }
-      }
-
-      &.remove {
-        button {
-          color: $primary-white;
-
-          &:hover {
-            color: #59b7ff;
-          }
-        }
-      }
     }
   }
 }

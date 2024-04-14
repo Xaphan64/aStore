@@ -36,6 +36,9 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import CircleIcon from "@mui/icons-material/Circle";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 
+//snackbar
+import ErrorIcon from "@mui/icons-material/Error";
+
 //register export
 export const warningIcon = <InfoOutlinedIcon />;
 
@@ -73,3 +76,6 @@ export const leftArrowIcon = <ChevronLeftIcon />;
 export const rightArrowIcon = <ChevronRightIcon />;
 export const circleIcon = <CircleIcon />;
 export const circleEmptyIcon = <CircleOutlinedIcon />;
+
+// snackbar
+export const alreadyIcon = <ErrorIcon />;

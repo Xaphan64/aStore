@@ -7,6 +7,7 @@ import "./Checkout.scss";
 // LIBRARIES
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // MISC
 import { useForm } from "../../hooks/useForm";
@@ -15,17 +16,12 @@ import { useForm } from "../../hooks/useForm";
 import CustomButton from "../../atoms/CustomButton";
 import Cart from "../Cart/Cart";
 import CustomInput from "../../atoms/CustomInput";
-import { useFetch } from "../../hooks/useFetch";
-import axios from "axios";
 
 // CONFIGURATION
 const Checkout = () => {
   // PROPERTIES
 
   // API REQUESTS
-  const type = "phones";
-
-  const { data: products, setIsRerendering } = useFetch(`http://localhost:8000/${type}`);
 
   // LIBRARY CONSTANTS
   const cartProductList = JSON.parse(localStorage?.getItem("cartProductsList"));
@@ -95,7 +91,7 @@ const Checkout = () => {
       setCardError("");
     }
 
-    //if all of the above conditions are true, redirect to orders page
+    //if all of the above conditions are true, redirect to orders page and change all products in cart to false
     if (
       inputValues.name.trim() !== "" &&
       phoneRegex.test(inputValues.phone) &&
@@ -105,33 +101,11 @@ const Checkout = () => {
     ) {
       const cartProductList = JSON.parse(localStorage?.getItem("cartProductsList"));
 
-      // console.log("cartProductList :>> ", cartProductList[0].type);
-      // console.log("cartProductList :>> ", cartProductList[1].type);
-      // //disable for now
-
-      const currentOrderedProducts = JSON.parse(localStorage?.getItem("orderedProducts"));
-      console.log("currentOrderedProducts :>> ", currentOrderedProducts);
-      // let updatedCartList = [];
-      // if (currentOrderedProducts) {
-      //   updatedCartList = [...currentOrderedProducts];
-      //   updatedCartList.push({
-      //     catergoryName: `Order ${updatedCartList.length + 1}`,
-      //     data: cartProductList,
-      //   });
-      // } else {
-      //   updatedCartList = [
-      //     {
-      //       catergoryName: "Order 1",
-      //       data: cartProductList,
-      //     },
-      //   ];
-      // }
-
-      // localStorage?.setItem("orderedProducts", JSON.stringify(updatedCartList));
       cartProductList?.forEach((product) => {
         axios.get(`http://localhost:8000/${product.type}`).then((response) => {
           const fetchedData = response.data;
           console.log("response :>> ", fetchedData);
+
           fetchedData?.forEach((fetchedProduct) => {
             if (fetchedProduct.id === product.id) {
               const updatedProductList = {
@@ -142,19 +116,9 @@ const Checkout = () => {
               console.log("updatedProductList :>> ", updatedProductList);
             }
           });
-          // fetchedData?.forEach((fetchedProduct) => {
-          //   if (fetchedProduct.id === product.id) {
-          //     return {
-          //       ...fetchedProduct,
-          //       cart: false,
-          //     };
-          //   } else return fetchedProduct;
-          // });
-          // axios.put(`http://localhost:8000/${product.type}`, updatedProductList);
         });
       });
 
-      //activate at the end
       localStorage?.removeItem("cartProductsList");
       navigate("/success");
     }

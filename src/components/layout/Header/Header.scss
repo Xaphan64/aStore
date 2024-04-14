@@ -106,7 +106,7 @@
         display: flex;
         flex-direction: column;
         //de schimbat aici ca sa nu mai am bugul cu punct pe header dropdown
-        // background-color: #292929;
+        background-color: #292929;
         color: $primary-white;
         border-radius: 8px;
         position: absolute;
@@ -230,6 +230,7 @@
           background-color: #292929;
           padding: 8px 16px;
           border-radius: 8px;
+          padding: 0 8px 8px 8px;
 
           &.favorite {
             right: 40px;

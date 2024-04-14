@@ -16,7 +16,7 @@ import CustomButton from "../atoms/CustomButton";
 // CONFIGURATION
 const FavoriteCard = (props) => {
   // PROPERTIES
-  const { product, type, showaddCart, handleRemoveFavorite } = props;
+  const { product, type, showaddCart, showAlreadyCart, handleRemoveFavorite } = props;
 
   // API REQUESTS
 
@@ -48,15 +48,33 @@ const FavoriteCard = (props) => {
         .then((response) => {
           console.log("Added to cart", response);
 
-          localCartList.push({
-            price: product.price,
-            id: product.id,
-            type: product.type,
-          });
+          if (localCartList.length === 0) {
+            localCartList.push({
+              name: product.name,
+              price: product.price,
+              id: product.id,
+              type: product.type,
+            });
+
+            showaddCart();
+          } else {
+            const productExist = listOfCartItems.some((item) => item.id === product.id && item.type === product.type);
+
+            if (!productExist) {
+              localCartList.push({
+                name: product.name,
+                price: product.price,
+                id: product.id,
+                type: product.type,
+              });
+
+              showaddCart();
+            } else {
+              showAlreadyCart();
+            }
+          }
 
           localStorage.setItem("cartProductsList", JSON.stringify(localCartList));
-
-          showaddCart();
         })
         .catch((error) => {
           console.error("Error, could not add to cart", error);

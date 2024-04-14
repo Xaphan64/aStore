@@ -29,15 +29,10 @@ const Header = () => {
   const location = useLocation();
   const { id } = useParams();
   const isMobile = window.matchMedia("(max-width: 750px")?.matches;
-  // const getCartList = JSON.parse(localStorage?.getItem("cartProductsList"));
-  // const getFavoriteList = JSON.parse(localStorage?.getItem("favoriteList"));
 
   // STATE CONSTANTS
   const [getFavoriteList, setFavoriteList] = useState(JSON.parse(localStorage?.getItem("favoriteList")));
   const [getCartList, setCartList] = useState(JSON.parse(localStorage?.getItem("cartProductsList")));
-
-  // const [cartLength, setCartLength] = useState(0);
-  // const [favoritesLength, setFavoritesLength] = useState(0);
 
   const [isHeader, setIsHeader] = useState(false);
   const [active, setActive] = useState(null);
@@ -70,11 +65,6 @@ const Header = () => {
       setCartList(JSON.parse(localStorage?.getItem("cartProductsList")));
     }, 1000);
   }, []);
-
-  // useEffect(() => {
-  //   setCartLength(getCartList?.length || 0);
-  //   setFavoritesLength(getFavoriteList?.length || 0);
-  // }, [getCartList, getFavoriteList]);
 
   // EVENT HANDLERS
   const handleDropdown = (dropdownType) => {
