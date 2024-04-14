@@ -6,23 +6,22 @@ import "./FavoriteCard.scss";
 
 // LIBRARIES
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // MISC
 
 // COMPONENTS
 import CustomButton from "../atoms/CustomButton";
-import { useLocation, useParams } from "react-router-dom";
 
 // CONFIGURATION
 const FavoriteCard = (props) => {
   // PROPERTIES
-  const { product } = props;
+  const { product, type, showaddCart, showAlreadyCart, handleRemoveFavorite } = props;
 
   // API REQUESTS
 
   // LIBRARY CONSTANTS
-  const { id } = useParams();
-  const { state } = useLocation();
+  const navigate = useNavigate();
 
   // STATE CONSTANTS
 
@@ -30,37 +29,80 @@ const FavoriteCard = (props) => {
 
   // EVENT HANDLERS
   const handleAddCart = () => {
-    console.log("add to cart clicked");
+    const addToCart = {
+      ...product,
+      cart: true,
+    };
+
+    const productCategory = type || "";
+    const id = product.id || "";
+
+    const getProductsList = JSON.parse(localStorage?.getItem("cartProductsList"));
+    const listOfCartItems = getProductsList?.length > 0 ? getProductsList : [];
+
+    let localCartList = [...listOfCartItems];
+
+    if (productCategory && id) {
+      axios
+        .put(`http://localhost:8000/${productCategory}/${id}`, addToCart)
+        .then((response) => {
+          console.log("Added to cart", response);
+
+          if (localCartList.length === 0) {
+            localCartList.push({
+              name: product.name,
+              price: product.price,
+              id: product.id,
+              type: product.type,
+            });
+
+            showaddCart();
+          } else {
+            const productExist = listOfCartItems.some((item) => item.id === product.id && item.type === product.type);
+
+            if (!productExist) {
+              localCartList.push({
+                name: product.name,
+                price: product.price,
+                id: product.id,
+                type: product.type,
+              });
+
+              showaddCart();
+            } else {
+              showAlreadyCart();
+            }
+          }
+
+          localStorage.setItem("cartProductsList", JSON.stringify(localCartList));
+        })
+        .catch((error) => {
+          console.error("Error, could not add to cart", error);
+        });
+
+      console.log("Add to cart clicked");
+    }
   };
 
   const priceFormat = (number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   };
 
-  const handleRemoveFavorite = () => {
-    const removeFromFavorite = {
-      ...product,
-      favorite: false,
-    };
-
-    axios
-      .put(`http://localhost:8000/${state?.currentCategory}/${id}`, removeFromFavorite)
-      .then((response) => {
-        console.log("Removed from favorite", response);
-      })
-      .catch((error) => {
-        console.error("Error, could not remove from favorite", error);
-      });
-
-    console.log("Remove from favorite clicked");
-  };
-
   return (
     <div className="favorite-card">
       <div className="favorite-card-left">
-        <img src={product.image} alt="N/a" />
+        <img
+          onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: type } })}
+          src={product.image}
+          alt="N/a"
+        />
 
-        <span className="favorite-card-title">{product.name}</span>
+        <span
+          className="favorite-card-title"
+          onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: type } })}
+        >
+          {product.name}
+        </span>
       </div>
       <div className="favorite-card-right">
         <span className="favorite-card-price">{priceFormat(product.price)} Lei</span>
@@ -73,7 +115,7 @@ const FavoriteCard = (props) => {
         </div>
 
         <div className="favorite-card-remove-button">
-          <CustomButton type="button" onClick={handleRemoveFavorite}>
+          <CustomButton type="button" onClick={() => handleRemoveFavorite(product)}>
             <div>{deleteIcon}</div>
             <span>Remove</span>
           </CustomButton>

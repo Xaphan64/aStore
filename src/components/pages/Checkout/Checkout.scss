@@ -1,0 +1,120 @@
+@import "../../../index.scss";
+
+.checkout-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  padding: 24px;
+
+  .checkout-title {
+    text-align: center;
+  }
+
+  .checkout-form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+
+    .checkout-products {
+      border-bottom: 1px solid $primary-white;
+      padding-bottom: 8px;
+    }
+
+    .checkout-details {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      h2 {
+        text-align: center;
+      }
+
+      .checkout-fields {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .checkout-radio {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+
+          input,
+          label {
+            cursor: pointer;
+            user-select: none;
+          }
+        }
+
+        input {
+          background-color: $background-color;
+          color: $primary-white;
+          border: 1px solid $primary-blue;
+          height: 40px;
+          padding-left: 16px;
+          border-radius: 8px;
+
+          &:focus {
+            background-color: #003138;
+            outline: none;
+            border: 1px solid rgb(60, 206, 255);
+          }
+        }
+
+        &.radio {
+          .checkout-error {
+            color: red;
+            font-size: 14px;
+            font-style: italic;
+            display: flex;
+            gap: 2.5px;
+            align-items: center;
+
+            svg {
+              width: 18px;
+              height: 18px;
+            }
+          }
+        }
+
+        &.red {
+          input {
+            border: none;
+            outline: 1px ridge red;
+
+            &:focus {
+              background-color: $secondary-black;
+            }
+          }
+
+          .checkout-error {
+            color: red;
+            font-size: 14px;
+            font-style: italic;
+            display: flex;
+            gap: 2.5px;
+            align-items: center;
+
+            svg {
+              width: 18px;
+              height: 18px;
+            }
+          }
+        }
+      }
+    }
+
+    button {
+      height: 40px;
+      border-radius: 8px;
+      background-color: $primary-blue;
+      border: none;
+      color: $primary-white;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  }
+}

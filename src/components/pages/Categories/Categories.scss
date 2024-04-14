@@ -18,7 +18,7 @@
       display: grid;
       place-items: center;
       width: 100%;
-      gap: 16px;
+      gap: 8px;
 
       @media screen and (min-width: 550px) and (max-width: 820px) {
         grid-template-columns: 1fr 1fr;

@@ -105,6 +105,20 @@
     background-color: red;
   }
 
+  .no-access-error {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+
+    .link {
+      color: $primary-blue;
+
+      &:hover {
+        color: #59b7ff;
+      }
+    }
+  }
+
   @media screen and (min-width: 0px) and (max-width: 900px) {
     h1 {
       font-size: 24px;

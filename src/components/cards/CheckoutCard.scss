@@ -1,0 +1,30 @@
+@import "../../index.scss";
+
+.checkout-card-container {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid $primary-white;
+  width: 100%;
+
+  img {
+    height: 48px;
+    width: 48px;
+    border-radius: 4px;
+  }
+
+  .checkout-card-title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+  }
+
+  .checkout-card-price {
+    width: 10%;
+    color: #59b7ff;
+  }
+}

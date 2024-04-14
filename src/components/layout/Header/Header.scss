@@ -40,12 +40,24 @@
       display: flex;
       gap: 10px;
       padding: 0 10px;
+      align-items: center;
+      justify-content: center;
 
       button {
         background-color: $background-color;
         color: $primary-white;
         border: none;
         gap: 8px;
+      }
+
+      .header-dropdown-button {
+        color: $primary-white;
+        cursor: pointer;
+        display: flex;
+        gap: 8px;
+        user-select: none;
+        font-size: 14px;
+        width: 100%;
 
         .button-text {
           display: flex;
@@ -59,6 +71,21 @@
 
         .left-icon {
           color: $primary-blue;
+          position: relative;
+
+          .cart-length {
+            background-color: red;
+            color: $primary-white;
+            position: absolute;
+            left: 12px;
+            bottom: 16px;
+            width: 16px;
+            height: 16px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
         }
 
         &:hover {
@@ -68,29 +95,42 @@
 
       @media screen and (min-width: 0px) and (max-width: 1080px) {
         gap: 20px;
-        button {
+        .header-dropdown-button {
           .button-text {
             display: none;
           }
         }
       }
 
-      .dropdown-account {
+      .dropdown-header {
         display: flex;
         flex-direction: column;
+        //de schimbat aici ca sa nu mai am bugul cu punct pe header dropdown
         background-color: #292929;
         color: $primary-white;
         border-radius: 8px;
         position: absolute;
-        top: 45px;
+        top: 50px;
         padding: 0 8px 8px 8px;
         cursor: default;
         z-index: 2;
 
+        &.account {
+          right: 16px;
+        }
+
+        &.cart {
+          right: 38px;
+        }
+
+        &.favorite {
+          right: 140px;
+        }
+
         .dropdown-icon {
           display: flex;
           align-self: center;
-          margin-top: -5px;
+          margin-top: -4px;
         }
 
         .dropdown-options {
@@ -100,11 +140,15 @@
           margin-top: -5px;
           text-align: left;
           font-weight: bold;
+
+          &.product {
+            gap: 0;
+          }
         }
 
         .dropdown-title {
-          padding: 8px;
-          // line-height: 30px;
+          padding: 4px;
+          text-align: center;
         }
 
         .dropdown-redirects {
@@ -115,6 +159,13 @@
           border-bottom: 1px solid $primary-white;
           padding: 8px 0;
           font-weight: normal;
+
+          &.products {
+            border: none;
+            padding: 0;
+            overflow-y: scroll;
+            max-height: 300px;
+          }
 
           .dropdown-buttons {
             cursor: pointer;
@@ -144,9 +195,11 @@
           display: flex;
           flex-direction: column;
           gap: 8px;
+          border-top: 1px solid $primary-white;
+          padding-top: 8px;
 
           button {
-            padding: 4px;
+            padding: 8px;
             border-radius: 8px;
             background-color: $primary-blue;
             border: none;
@@ -157,7 +210,8 @@
 
           .dropdown-not-logged-register {
             display: flex;
-            gap: 3px;
+            gap: 8px;
+            align-items: center;
 
             .link {
               color: #59b7ff;
@@ -166,6 +220,29 @@
                 color: #ff9443;
               }
             }
+          }
+        }
+
+        .dropdown-empty {
+          display: flex;
+          flex-direction: column;
+          position: absolute;
+          background-color: #292929;
+          padding: 8px 16px;
+          border-radius: 8px;
+          padding: 0 8px 8px 8px;
+
+          &.favorite {
+            right: 40px;
+          }
+
+          &.cart {
+            right: 80px;
+          }
+
+          .dropdown-empty-message {
+            margin-top: -4px;
+            white-space: nowrap;
           }
         }
       }

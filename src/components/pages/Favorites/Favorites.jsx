@@ -2,50 +2,93 @@
 
 // STYLES
 import "./Favorites.scss";
+
 // LIBRARIES
+import { Fragment, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 // MISC
 import { useFetch } from "../../hooks/useFetch";
 
 // COMPONENTS
-import FavoriteCard from "../../cards/FavoriteCard";
-import { Fragment } from "react";
+import FavoriteFilter from "./FavoriteFilter";
+import Snackbar from "../../atoms/Snackbar/Snackbar";
 
 // CONFIGURATION
-const Favorites = () => {
+const Favorites = (props) => {
   // PROPERTIES
+  const { isHeader } = props;
 
   // API REQUESTS
-  const { data: phones, isLoading, error } = useFetch(`http://localhost:8000/phones`);
+  const { isLoading, error } = useFetch(`http://localhost:8000/phones`);
 
   // LIBRARY CONSTANTS
-  const phonesFavorite = phones.filter((product) => product.favorite === true);
+  const category = [
+    { type: "phones" },
+    { type: "laptops" },
+    { type: "tv" },
+    { type: "gaming" },
+    { type: "books" },
+    { type: "food" },
+    { type: "toys" },
+    { type: "furniture" },
+  ];
+
+  const snackbarRefCart = useRef(null);
+  const snackbarRefAlready = useRef(null);
+  const snackbarType = {
+    addCart: "addCart",
+    alreadyCart: "alreadyCart",
+  };
 
   // STATE CONSTANTS
+  const [favoriteProducList, setFavoriteProductList] = useState(JSON.parse(localStorage?.getItem("favoriteList")));
 
   // LIFE CYCLE
 
   // EVENT HANDLERS
+  const showaddCart = () => {
+    snackbarRefCart.current.show();
+  };
+
+  const showAlreadyCart = () => {
+    snackbarRefAlready.current.show();
+  };
+
   return (
     <div className="favorite-container">
       {error && <h2 className="error-message">{error}</h2>}
-      {isLoading && <h2 className="error-message">Loading data...</h2>}
+      {isLoading && <h2 className="error-message">Loading favorites...</h2>}
+
+      <Snackbar message="Product added to cart" ref={snackbarRefCart} type={snackbarType.addCart} />
+      <Snackbar message="Product already exists in cart" ref={snackbarRefAlready} type={snackbarType.alreadyCart} />
 
       {!isLoading && !error && (
         <Fragment>
-          {phones.length > 0 && (
-            <Fragment>
-              <h2 className="favorite-title">My favorites</h2>
+          {!isHeader && <h2 className="favorite-title">My favorites</h2>}
 
-              <div className="favorite-category">
-                {phonesFavorite.map((product, index) => (
-                  <div className="favorite-map" key={`phones-${index}-${product?.id}`}>
-                    <FavoriteCard product={product} />
-                  </div>
-                ))}
-              </div>
-            </Fragment>
-          )}
+          <div className="favorite-category">
+            {category?.map((product, index) => (
+              <FavoriteFilter
+                type={product.type}
+                key={`category-${index}-${product?.id}`}
+                showaddCart={showaddCart}
+                showAlreadyCart={showAlreadyCart}
+                setFavoriteProductList={setFavoriteProductList}
+                isHeader={isHeader}
+              />
+            ))}
+
+            {!favoriteProducList ||
+              (favoriteProducList?.length === 0 && (
+                <div className="favorite-message">
+                  There are no products added to favorites. If you want to add products go to{" "}
+                  <Link to="/" className="link">
+                    main page
+                  </Link>
+                </div>
+              ))}
+          </div>
         </Fragment>
       )}
     </div>

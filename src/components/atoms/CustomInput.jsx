@@ -3,7 +3,6 @@
 // STYLES
 
 // LIBRARIES
-import PropTypes from "prop-types";
 
 // MISC
 
@@ -33,18 +32,9 @@ const CustomInput = (props) => {
       maxLength={props.maxLength}
       minLength={props.minLength}
       required={props.required}
+      checked={props.checked}
     />
   );
-};
-
-CustomInput.propTypes = {
-  type: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string,
-  onChange: PropTypes.func,
-  value: PropTypes.string,
-  maxLength: PropTypes.number,
-  minLength: PropTypes.number,
 };
 
 export default CustomInput;

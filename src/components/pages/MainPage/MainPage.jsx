@@ -7,13 +7,15 @@ import mountainImage from "../../assets/carousel/mountainImage.jpg";
 import "./MainPage.scss";
 
 // LIBRARIES
+import { useRef } from "react";
 
 // MISC
 import { useFetch } from "../../hooks/useFetch";
 
 // COMPONENTS
 import ImageSlider from "./AdsContainer";
-import CustomScroll from "./CustomScroll";
+import MainPageCategories from "./MainPageCategories";
+import Snackbar from "../../atoms/Snackbar/Snackbar";
 
 // CONFIGURATION
 const MainPage = () => {
@@ -26,16 +28,7 @@ const MainPage = () => {
     { url: mountainImage, title: "Mountain" },
   ];
 
-  // API REQUESTS
-  const { isLoading, error } = useFetch(`http://localhost:8000`);
-
-  // STATE CONSTANTS
-
-  // LIFE CYCLE
-
-  // EVENT HANDLERS
-
-  const products = [
+  const categories = [
     { type: "phones" },
     { type: "laptops" },
     { type: "tv" },
@@ -46,8 +39,52 @@ const MainPage = () => {
     { type: "furniture" },
   ];
 
+  const snackbarType = {
+    addFavorite: "addFavorite",
+    removeFavorite: "removeFavorite",
+    addCart: "addCart",
+    alreadyCart: "alreadyCart",
+  };
+
+  const snackbarRefAdd = useRef(null);
+  const snackbarRefRemove = useRef(null);
+  const snackbarRefCart = useRef(null);
+  const snackbarRefAlready = useRef(null);
+
+  // API REQUESTS
+  const { isLoading, error } = useFetch(`http://localhost:8000/phones`);
+
+  // STATE CONSTANTS
+
+  // LIFE CYCLE
+
+  // EVENT HANDLERS
+  const showAddFavorite = () => {
+    snackbarRefAdd.current.show();
+  };
+
+  const showRemoveFavorite = () => {
+    snackbarRefRemove.current.show();
+  };
+
+  const showaddCart = () => {
+    snackbarRefCart.current.show();
+  };
+
+  const showAlreadyCart = () => {
+    snackbarRefAlready.current.show();
+  };
+
   return (
     <div className="main-page-container">
+      <Snackbar message="Product added to favorites" ref={snackbarRefAdd} type={snackbarType.addFavorite} />
+
+      <Snackbar message="Product removed from favorites" ref={snackbarRefRemove} type={snackbarType.removeFavorite} />
+
+      <Snackbar message="Product added to cart" ref={snackbarRefCart} type={snackbarType.addCart} />
+
+      <Snackbar message="Product already exists in cart" ref={snackbarRefAlready} type={snackbarType.alreadyCart} />
+
       <div className="ads-container">
         <ImageSlider slides={slides} />
       </div>
@@ -57,8 +94,15 @@ const MainPage = () => {
 
       {!isLoading && !error && (
         <div className="main-page-categories-container">
-          {products.map((product, index) => (
-            <CustomScroll type={product.type} key={`category-${index}-${product?.id}`} />
+          {categories?.map((product, index) => (
+            <MainPageCategories
+              type={product.type}
+              key={`category-${index}-${product?.id}`}
+              showAddFavorite={showAddFavorite}
+              showRemoveFavorite={showRemoveFavorite}
+              showaddCart={showaddCart}
+              showAlreadyCart={showAlreadyCart}
+            />
           ))}
         </div>
       )}

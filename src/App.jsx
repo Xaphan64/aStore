@@ -12,12 +12,14 @@ import MainPage from "./components/pages/MainPage/MainPage";
 import Login from "./components/pages/Login/Login";
 import Register from "./components/pages/Register/Register";
 import Layout from "./components/layout/Layout/Layout";
-import Orders from "./components/pages/Orders/Orders";
 import Favorites from "./components/pages/Favorites/Favorites";
 import ProductDetails from "./components/pages/ProductDetails/ProductDetails";
 import AddProduct from "./components/pages/AddProduct/AddProduct";
 import ErrorPage from "./components/config/errorPage";
 import Categories from "./components/pages/Categories/Categories";
+import Cart from "./components/pages/Cart/Cart";
+import Checkout from "./components/pages/Checkout/Checkout";
+import Success from "./components/pages/Success/Success";
 
 // CONFIGURATION
 const App = () => {
@@ -40,8 +42,10 @@ const App = () => {
 
         <Route element={<Layout />}>
           <Route path="/" element={<MainPage />} />
-          <Route path="/orders" element={<Orders />} />
+          <Route path="/success" element={<Success />} />
           <Route path="/favorites" element={<Favorites />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/add-product" element={<AddProduct />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/categories/:id" element={<Categories />} />

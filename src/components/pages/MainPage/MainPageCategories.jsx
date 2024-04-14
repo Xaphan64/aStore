@@ -14,12 +14,12 @@ import ProductCard from "../../cards/ProductCard";
 
 // CONFIGURATION
 
-const CustomScroll = (props) => {
+const MainPageCategories = (props) => {
   // PROPERTIES
-  const { type = "" } = props;
+  const { type = "", showAddFavorite, showRemoveFavorite, showaddCart, showAlreadyCart } = props;
 
   // API REQUESTS
-  const { data: products } = useFetch(`http://localhost:8000/${type}`);
+  const { data: products, setIsRerendering } = useFetch(`http://localhost:8000/${type}`);
 
   // LIBRARY CONSTANTS
   let scroll = useRef(null);
@@ -70,7 +70,15 @@ const CustomScroll = (props) => {
         <div className="main-page-category" ref={scroll} onScroll={() => scrollCheck(scroll)}>
           {products?.map((product, index) => (
             <div className="main-page-category-map" key={`category-${index}-${product?.id}`}>
-              <ProductCard product={product} type={type} />
+              <ProductCard
+                product={product}
+                type={type}
+                showAddFavorite={showAddFavorite}
+                showRemoveFavorite={showRemoveFavorite}
+                showaddCart={showaddCart}
+                showAlreadyCart={showAlreadyCart}
+                setIsRerendering={setIsRerendering}
+              />
             </div>
           ))}
         </div>
@@ -85,4 +93,4 @@ const CustomScroll = (props) => {
     </div>
   );
 };
-export default CustomScroll;
+export default MainPageCategories;

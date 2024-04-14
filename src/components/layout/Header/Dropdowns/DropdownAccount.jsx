@@ -1,57 +1,79 @@
 // ASSETS
-import { dropdownUpIcon } from "../../assets/MUI-icons";
+import { dropdownUpIcon } from "../../../assets/MUI-icons";
 
 // STYLES
 
 // LIBRARIES
 import { Link, useNavigate } from "react-router-dom";
-import CustomButton from "../../atoms/CustomButton";
+import { useEffect, useRef } from "react";
 
 // MISC
 
 // COMPONENTS
+import CustomButton from "../../../atoms/CustomButton";
 
 // CONFIGURATION
-const DropdownAccount = () => {
+const DropdownAccount = (props) => {
   // PROPERTIES
+  const { setIsDropdownVisible } = props;
 
   // API REQUESTS
 
   // LIBRARY CONSTANTS
   const account = localStorage.getItem("Username");
   const navigate = useNavigate();
+  let dropdownRef = useRef();
 
   // STATE CONSTANTS
 
   // LIFE CYCLE
+  useEffect(() => {
+    let handler = (event) => {
+      if (!dropdownRef.current.contains(event.target)) {
+        setIsDropdownVisible(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+
+    // eslint-disable-next-line
+  }, []);
 
   // EVENT HANDLERS
   const handleLogout = () => {
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("adminToken");
   };
 
   const user = sessionStorage.getItem("token");
+  const admin = sessionStorage.getItem("adminToken");
 
   return (
-    <div className="dropdown-account">
+    <div className="dropdown-header account" ref={dropdownRef}>
       <div className="dropdown-icon">{dropdownUpIcon}</div>
 
-      {user ? (
+      {user || admin ? (
         <div className="dropdown-options">
           <span className="dropdown-title">Hello, {account}</span>
 
           <div className="dropdown-redirects">
-            <span className="dropdown-buttons" onClick={() => navigate("/orders")}>
-              My Orders
-            </span>
-
             <span className="dropdown-buttons" onClick={() => navigate("/favorites")}>
               My Favorites
             </span>
 
-            <span className="dropdown-buttons" onClick={() => navigate("/add-product")}>
-              Add Product
+            <span className="dropdown-buttons" onClick={() => navigate("/cart")}>
+              My Cart
             </span>
+
+            {admin && (
+              <span className="dropdown-buttons" onClick={() => navigate("/add-product")}>
+                Add Product
+              </span>
+            )}
           </div>
 
           <span onClick={handleLogout} className="dropdown-logout">

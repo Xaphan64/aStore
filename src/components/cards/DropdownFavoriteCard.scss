@@ -1,0 +1,46 @@
+@import "../../index.scss";
+
+.dropdown-favorite-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid $primary-white;
+  width: 260px;
+
+  .dropdown-favorite-card-header {
+    display: flex;
+    gap: 8px;
+    font-size: 12px;
+    justify-content: space-between;
+    padding-bottom: 8px;
+
+    img {
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .dropdown-favorite-card-title {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow-y: hidden;
+      height: 48px;
+      text-overflow: ellipsis;
+      width: 100%;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .dropdown-favorite-card-price {
+      color: #59b7ff;
+      width: 40%;
+      text-align: end;
+    }
+  }
+}

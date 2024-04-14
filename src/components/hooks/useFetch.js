@@ -17,9 +17,9 @@ export const useFetch = (url) => {
   // API REQUESTS
 
   // LIBRARY CONSTANTS
-
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isRerendering, setIsRerendering] = useState(false);
   const [error, setError] = useState(null);
 
   // STATE CONSTANTS
@@ -32,20 +32,21 @@ export const useFetch = (url) => {
         setData(response.data);
         setIsLoading(false);
         setError(false);
+        setIsRerendering(true);
       })
       .catch((error) => {
         console.log(error);
         setError(error.message);
         setIsLoading(false);
       });
-  }, [url]);
+  }, [url, isRerendering]);
 
   // EVENT HANDLERS
-
   return {
     data,
     isLoading,
     error,
     setData,
+    setIsRerendering,
   };
 };

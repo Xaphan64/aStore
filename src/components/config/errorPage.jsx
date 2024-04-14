@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 // STYLES
 
 // LIBRARIES
+import "../pages/Success/Success.scss";
 
 // MISC
 
@@ -24,10 +25,12 @@ const ErrorPage = () => {
 
   // EVENT HANDLERS
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: 10, gap: 10 }}>
+    <div className="success-container">
       <h1>Sorry</h1>
       <span>This page cannot be found or doest not exist</span>
-      <Link to="/">Go back to homepage...</Link>
+      <Link className="link" to="/">
+        Go back to homepage...
+      </Link>
     </div>
   );
 };

@@ -20,6 +20,7 @@ import WeekendIcon from "@mui/icons-material/Weekend";
 
 //dropdown
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import CloseIcon from "@mui/icons-material/Close";
 
 //card
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
@@ -34,6 +35,9 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import CircleIcon from "@mui/icons-material/Circle";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
+
+//snackbar
+import ErrorIcon from "@mui/icons-material/Error";
 
 //register export
 export const warningIcon = <InfoOutlinedIcon />;
@@ -57,6 +61,7 @@ export const furnitureIcon = <WeekendIcon />;
 
 //dropdown export
 export const dropdownUpIcon = <ArrowDropUpIcon />;
+export const removeIcon = <CloseIcon />;
 
 //card export
 export const favoriteAddedIcon = <FavoriteOutlinedIcon />;
@@ -71,3 +76,6 @@ export const leftArrowIcon = <ChevronLeftIcon />;
 export const rightArrowIcon = <ChevronRightIcon />;
 export const circleIcon = <CircleIcon />;
 export const circleEmptyIcon = <CircleOutlinedIcon />;
+
+// snackbar
+export const alreadyIcon = <ErrorIcon />;

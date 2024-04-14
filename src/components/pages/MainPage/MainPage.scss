@@ -4,6 +4,19 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  position: relative;
+
+  .main-page-notification {
+    color: $primary-white;
+
+    background-color: black;
+    position: fixed;
+    z-index: 1;
+    top: 15%;
+    left: 92.5%;
+    transform: translateX(-50%);
+    width: 200px;
+  }
 
   .ads-container {
     padding-top: 8px;
@@ -12,12 +25,7 @@
       position: relative;
       margin: 0 auto;
       width: clamp(350px, 80%, 1800px);
-      // height: clamp(250px, 60vh, 600px);
       height: 600px;
-
-      @media screen and (min-width: 0px) and (max-width: 500px) {
-        height: 250px;
-      }
 
       .ads-slide {
         width: 100%;
@@ -52,10 +60,6 @@
         display: flex;
 
         svg {
-          //   max-width: 48px;
-          //   max-height: 48px;
-          //   min-width: 24px;
-          //   min-height: 24px;
           width: 48px;
           height: 48px;
         }
@@ -78,10 +82,37 @@
           cursor: pointer;
           svg {
             width: clamp(16px, 100%, 24px);
-            // height: 24px;
-            // width: 50%;
           }
         }
+      }
+
+      @media screen and (min-width: 0px) and (max-width: 500px) {
+        height: 250px;
+
+        .ads-slide {
+          .ads-text {
+            font-size: 16px;
+          }
+        }
+
+        .ads-carousel-arrow {
+          svg {
+            width: 24px;
+            height: 24px;
+          }
+        }
+
+        .ads-dots-container {
+          .ads-dots {
+            svg {
+              width: 16px;
+            }
+          }
+        }
+      }
+
+      @media screen and (min-width: 501px) and (max-width: 1200px) {
+        height: 400px;
       }
     }
   }
@@ -97,6 +128,10 @@
     gap: 8px;
     padding: 0 24px;
 
+    @media screen and (min-width: 0px) and (max-width: 500px) {
+      padding: 8px;
+    }
+
     .main-page-category-container {
       display: flex;
       flex-direction: column;
@@ -105,6 +140,10 @@
       .main-page-category-title {
         padding-left: 40px;
         text-transform: capitalize;
+
+        @media screen and (min-width: 0px) and (max-width: 500px) {
+          font-size: 20px;
+        }
       }
 
       .main-page-category-body {

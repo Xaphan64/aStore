@@ -19,6 +19,7 @@ import CustomButton from "../../atoms/CustomButton";
 import CustomInput from "../../atoms/CustomInput";
 import CustomTextArea from "../../atoms/CustomTextArea";
 import ConfirmationModal from "./ConfirmationModal/ConfirmationModal";
+import Snackbar from "../../atoms/Snackbar/Snackbar";
 
 // CONFIGURATION
 const ProductDetails = () => {
@@ -31,6 +32,19 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const fileInput = useRef(null);
+  const admin = sessionStorage.getItem("adminToken");
+
+  const snackbarType = {
+    addFavorite: "addFavorite",
+    removeFavorite: "removeFavorite",
+    addCart: "addCart",
+    alreadyCart: "alreadyCart",
+  };
+
+  const snackbarRefAdd = useRef(null);
+  const snackbarRefRemove = useRef(null);
+  const snackbarRefCart = useRef(null);
+  const snackbarRefAlready = useRef(null);
 
   // STATE CONSTANTS
   const [editMode, setEditMode] = useState(false);
@@ -39,14 +53,12 @@ const ProductDetails = () => {
   const [nameError, setNameError] = useState("");
   const [priceError, setPriceError] = useState("");
   const [descError, setDescError] = useState("");
-  const [addFavorite, setAddFavorite] = useState(false);
   const { inputValues, setForm, handleInputChange, handleImageChange } = useForm({
     id: id,
     name: "",
     description: "",
     image: "",
     price: "",
-    // favorite: false,
   });
 
   // LIFE CYCLE
@@ -55,7 +67,10 @@ const ProductDetails = () => {
     isLoading,
     error,
     setData,
+    setIsRerendering,
   } = useFetch(`http://localhost:8000/${state?.currentCategory}/${id}`);
+
+  const [addFavorite, setAddFavorite] = useState(product?.favorite || false);
 
   //useEffect to get the input data when pressing the edit
   useEffect(() => {
@@ -63,6 +78,8 @@ const ProductDetails = () => {
       .get(`http://localhost:8000/${state?.currentCategory}/${id}`)
       .then((response) => {
         setForm(response.data);
+
+        // console.log("response.data :>> ", response.data);
         setAddFavorite(response.data.favorite);
       })
       .catch((error) => console.log(error));
@@ -81,27 +98,142 @@ const ProductDetails = () => {
   }, [editMode]);
 
   // EVENT HANDLERS
-
   const handleFavorite = (favStatus) => {
     setAddFavorite(favStatus);
 
+    //change the favorite status of the inputValues
     const updatedFavorite = {
       ...inputValues,
       favorite: favStatus,
     };
 
+    console.log("updatedFavorite Cart:>> ", updatedFavorite.cart);
+    console.log("updatedFavorite Favorite:>> ", updatedFavorite.favorite);
+
+    const type = state?.currentCategory;
+
+    //get data from localStorage
+    const getFavoriteList = JSON.parse(localStorage?.getItem("favoriteList"));
+
+    //if the localStorage is populated get the data otherwise create an empty array
+    const listOfFavoriteItems = getFavoriteList?.length > 0 ? getFavoriteList : [];
+
+    let localFavoriteList = [...listOfFavoriteItems];
+
     axios
       .put(`http://localhost:8000/${state?.currentCategory}/${id}`, updatedFavorite)
       .then((response) => {
         if (favStatus) {
-          console.log("Removed from favorites", response);
-        } else {
           console.log("Added to favorites", response);
+
+          //add id and type in localFavorite list
+          localFavoriteList.push({
+            id: inputValues.id,
+            type: inputValues.type,
+          });
+
+          //save id and type in localStorage
+          localStorage.setItem("favoriteList", JSON.stringify(localFavoriteList));
+
+          setIsRerendering(response?.data);
+          setIsRerendering(response?.data?.favorite);
+          setIsRerendering(response?.data?.cart);
+          setForm(response.data);
+
+          showAddFavorite();
+        } else {
+          console.log("Removed from favorites", response);
+          // if list and length is not 0 delete the product with the same id and type
+          if (getFavoriteList && getFavoriteList?.length > 0) {
+            const updatedFavoriteList = getFavoriteList?.filter((product) => {
+              return !(product.id === id && product.type === type);
+            });
+
+            //update the data in localStorage
+            localStorage.setItem("favoriteList", JSON.stringify(updatedFavoriteList));
+          }
+
+          setIsRerendering(response?.data);
+          setIsRerendering(response?.data?.favorite);
+          setIsRerendering(response?.data?.cart);
+          setForm(response.data);
+
+          showRemoveFavorite();
         }
       })
       .catch((error) => {
         console.error("Error updating favorite status", error);
       });
+  };
+
+  // console.log("inputValues :>> ", inputValues);
+
+  const handleAddCart = () => {
+    //change the cart status of the product
+    const addToCart = {
+      ...inputValues,
+      cart: true,
+    };
+
+    console.log("addToCart Cart:>> ", addToCart.cart);
+    console.log("addToCart Favorite:>> ", addToCart.favorite);
+
+    //get data from localStorage
+    const getProductsList = JSON.parse(localStorage?.getItem("cartProductsList"));
+
+    //if the localStorage is populated get the data otherwise create an empty array
+    const listOfCartItems = getProductsList?.length > 0 ? getProductsList : [];
+
+    let localCartList = [...listOfCartItems];
+
+    axios
+      .put(`http://localhost:8000/${state?.currentCategory}/${id}`, addToCart)
+      .then((response) => {
+        console.log("Added to cart", response);
+
+        //if cart list is empty, push name, id, type and price in localCartList
+        if (localCartList.length === 0) {
+          localCartList.push({
+            name: product.name,
+            price: product.price,
+            id: product.id,
+            type: product.type,
+          });
+
+          showaddCart();
+        } else {
+          const productExist = listOfCartItems.some((item) => item.id === product.id && item.type === product.type);
+
+          //if id and type are not the same, push localCartList
+          if (!productExist) {
+            localCartList.push({
+              name: product.name,
+              price: product.price,
+              id: product.id,
+              type: product.type,
+            });
+
+            showaddCart();
+          } else {
+            showAlreadyCart();
+          }
+        }
+
+        //save data in localStorage
+        localStorage.setItem("cartProductsList", JSON.stringify(localCartList));
+
+        setIsRerendering(response?.data);
+        setIsRerendering(response?.data?.favorite);
+        setIsRerendering(response?.data?.cart);
+        setForm(response.data);
+
+        showaddCart();
+      })
+      .catch((error) => {
+        console.error("Error, could not add to cart", error);
+      });
+
+    console.log("Add to cart clicked");
   };
 
   const handleImageClick = () => {
@@ -152,7 +284,6 @@ const ProductDetails = () => {
     if (inputValues.name.trim() !== "" && priceRegex.test(inputValues.price) && inputValues.description.trim() !== "") {
       axios.put(`http://localhost:8000/${state?.currentCategory}/${id}`, inputValues).then((response) => {
         console.log("product edited sucesfully", response);
-        // navigate(`/product/${product.id}`);
         setIsPending(false);
         setEditMode(false);
       });
@@ -171,6 +302,22 @@ const ProductDetails = () => {
 
   const priceFormat = (number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  };
+
+  const showAddFavorite = () => {
+    snackbarRefAdd.current.show();
+  };
+
+  const showRemoveFavorite = () => {
+    snackbarRefRemove.current.show();
+  };
+
+  const showaddCart = () => {
+    snackbarRefCart.current.show();
+  };
+
+  const showAlreadyCart = () => {
+    snackbarRefAlready.current.show();
   };
 
   return (
@@ -263,6 +410,21 @@ const ProductDetails = () => {
             </div>
           ) : (
             <div className="product-details-container">
+              <Snackbar message="Product added to favorites" ref={snackbarRefAdd} type={snackbarType.addFavorite} />
+
+              <Snackbar
+                message="Product removed from favorites"
+                ref={snackbarRefRemove}
+                type={snackbarType.removeFavorite}
+              />
+
+              <Snackbar message="Product added to cart" ref={snackbarRefCart} type={snackbarType.addCart} />
+
+              <Snackbar
+                message="Product already exists in cart"
+                ref={snackbarRefAlready}
+                type={snackbarType.alreadyCart}
+              />
               <div className="product-details-items">
                 <h2>{product.name}</h2>
                 <div className="product-details-body">
@@ -270,7 +432,7 @@ const ProductDetails = () => {
                   <div className="product-details-buttons">
                     <span className="product-details-price">{priceFormat(product.price)} Lei</span>
 
-                    <CustomButton type="button">
+                    <CustomButton type="button" onClick={handleAddCart}>
                       <div>{cartFilledIcon}</div>
                       <span>Add to cart</span>
                     </CustomButton>
@@ -291,15 +453,19 @@ const ProductDetails = () => {
                       </CustomButton>
                     )}
 
-                    <CustomButton type="button" onClick={() => setEditMode(true)}>
-                      <div>{editIcon}</div>
-                      <span>Edit Product</span>
-                    </CustomButton>
+                    {admin && (
+                      <CustomButton type="button" onClick={() => setEditMode(true)}>
+                        <div>{editIcon}</div>
+                        <span>Edit Product</span>
+                      </CustomButton>
+                    )}
 
-                    <CustomButton type="button" className="button-red" onClick={() => setModal(true)}>
-                      <div>{deleteIcon}</div>
-                      <span>Delete Product</span>
-                    </CustomButton>
+                    {admin && (
+                      <CustomButton type="button" className="button-red" onClick={() => setModal(true)}>
+                        <div>{deleteIcon}</div>
+                        <span>Delete Product</span>
+                      </CustomButton>
+                    )}
                   </div>
                 </div>
                 <div className="product-details-description">

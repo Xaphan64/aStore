@@ -3,7 +3,6 @@
 // STYLES
 
 // LIBRARIES
-import PropTypes from "prop-types";
 
 // MISC
 
@@ -35,13 +34,6 @@ const CustomDropdown = (props) => {
       })}
     </select>
   );
-};
-
-CustomDropdown.propTypes = {
-  name: PropTypes.string.isRequired,
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-  options: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default CustomDropdown;

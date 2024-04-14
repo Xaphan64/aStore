@@ -3,7 +3,6 @@
 // STYLES
 
 // LIBRARIES
-import PropTypes from "prop-types";
 
 // MISC
 
@@ -35,17 +34,6 @@ const CustomTextArea = (props) => {
       cols={props.cols}
     />
   );
-};
-
-CustomTextArea.propTypes = {
-  type: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  placeholder: PropTypes.any,
-  onChange: PropTypes.func,
-  value: PropTypes.string,
-  defaultValue: PropTypes.string,
-  rows: PropTypes.number,
-  cols: PropTypes.number,
 };
 
 export default CustomTextArea;

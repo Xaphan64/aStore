@@ -38,7 +38,7 @@ const Register = () => {
   // LIFE CYCLE
 
   // EVENT HANDLERS
-  const handleSubmit = (event) => {
+  const handleRegister = (event) => {
     event.preventDefault();
 
     // if name is empty show error else show nothing
@@ -99,7 +99,7 @@ const Register = () => {
         aStore
       </h1>
 
-      <form onSubmit={handleSubmit} className="register-form">
+      <form onSubmit={handleRegister} className="register-form">
         <div className="register-inputs">
           <h1>Create account</h1>
 
