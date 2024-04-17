@@ -17,6 +17,7 @@ import LunchDiningOutlinedIcon from "@mui/icons-material/LunchDiningOutlined";
 import ExtensionIcon from "@mui/icons-material/Extension";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import WeekendIcon from "@mui/icons-material/Weekend";
+import SearchIcon from "@mui/icons-material/Search";
 
 //dropdown
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
@@ -58,6 +59,7 @@ export const booksIcon = <ImportContactsOutlinedIcon />;
 export const foodIcon = <LunchDiningOutlinedIcon />;
 export const toysIcon = <ExtensionIcon />;
 export const furnitureIcon = <WeekendIcon />;
+export const searchIcon = <SearchIcon />;
 
 //dropdown export
 export const dropdownUpIcon = <ArrowDropUpIcon />;
