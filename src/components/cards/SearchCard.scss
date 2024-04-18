@@ -14,18 +14,34 @@
     cursor: pointer;
   }
 
-  .search-card-title {
+  .search-card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     width: 85%;
-    cursor: pointer;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 7;
-    line-height: 20px;
-    height: 140px;
-    overflow: hidden;
 
-    &:hover {
-      text-decoration: underline;
+    .search-card-title {
+      cursor: pointer;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-height: 20px;
+      height: 40px;
+      overflow: hidden;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .search-card-description {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-height: 20px;
+      height: 80px;
+      overflow: hidden;
+      color: gray;
     }
   }
 
@@ -33,9 +49,45 @@
     color: red;
     font-weight: bold;
     font-size: 24px;
-    width: 7.5%;
-    // width: 120px;
+    width: 100px;
     text-align: right;
     text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 500px) {
+  .search-card-container {
+    gap: 8px;
+    img {
+      width: 100px;
+      height: 100px;
+    }
+
+    .search-card-text {
+      gap: 0;
+      .search-card-description {
+        height: 60px;
+      }
+    }
+
+    .search-card-price {
+      font-size: 16px;
+    }
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 330px) {
+  .search-card-container {
+    img {
+      width: 80px;
+      height: 80px;
+    }
+
+    .search-card-text {
+      .search-card-description {
+        height: 40px;
+      }
+    }
   }
 }

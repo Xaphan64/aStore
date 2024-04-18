@@ -47,7 +47,10 @@ const SearchBar = ({ placeholder, data }) => {
       </div>
 
       {filteredData.length !== 0 && (
-        <div className="search-results" style={{ display: "flex", gap: 16, flexDirection: "column", paddingTop: 16 }}>
+        <div
+          className="search-results"
+          style={{ display: "flex", gap: 16, flexDirection: "column", paddingTop: 16, paddingBottom: 16 }}
+        >
           {filteredData.map((product, index) => {
             return <SearchCard product={product} />;
           })}

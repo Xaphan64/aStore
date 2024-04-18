@@ -38,13 +38,16 @@ const SearchCard = ({ product }) => {
         src={product.image}
         alt="N/a"
       />
+      <div className="search-card-text">
+        <span
+          className="search-card-title"
+          onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: type } })}
+        >
+          {product.name}
+        </span>
 
-      <span
-        className="search-card-title"
-        onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: type } })}
-      >
-        {product.name}
-      </span>
+        <span className="search-card-description">{product.description}</span>
+      </div>
 
       <span className="search-card-price">{priceFormat(product.price)} Lei</span>
     </div>
