@@ -21,6 +21,9 @@ import Snackbar from "../../atoms/Snackbar/Snackbar";
 const MainPage = () => {
   // PROPERTIES
 
+  // API REQUESTS
+  const { isLoading, error } = useFetch(`http://localhost:8000/phones`);
+
   // LIBRARY CONSTANTS
   const slides = [
     { url: beachImage, title: "Beach" },
@@ -50,9 +53,6 @@ const MainPage = () => {
   const snackbarRefRemove = useRef(null);
   const snackbarRefCart = useRef(null);
   const snackbarRefAlready = useRef(null);
-
-  // API REQUESTS
-  const { isLoading, error } = useFetch(`http://localhost:8000/phones`);
 
   // STATE CONSTANTS
 

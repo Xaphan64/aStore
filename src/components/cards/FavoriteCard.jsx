@@ -22,7 +22,7 @@ const FavoriteCard = (props) => {
 
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
-
+  const isMobile = window.matchMedia("(max-width: 500px")?.matches;
   // STATE CONSTANTS
 
   // LIFE CYCLE
@@ -104,23 +104,44 @@ const FavoriteCard = (props) => {
           {product.name}
         </span>
       </div>
-      <div className="favorite-card-right">
-        <span className="favorite-card-price">{priceFormat(product.price)} Lei</span>
 
-        <div className="favorite-card-add-button">
-          <CustomButton type="button" onClick={handleAddCart}>
-            <div>{cartFilledIcon}</div>
-            <span>Add to cart</span>
-          </CustomButton>
-        </div>
+      {isMobile ? (
+        <div className="favorite-card-right">
+          <div className="favorite-card-add-button">
+            <CustomButton type="button" onClick={handleAddCart}>
+              <div>{cartFilledIcon}</div>
+              <span>Add to cart</span>
+            </CustomButton>
+          </div>
 
-        <div className="favorite-card-remove-button">
-          <CustomButton type="button" onClick={() => handleRemoveFavorite(product)}>
-            <div>{deleteIcon}</div>
-            <span>Remove</span>
-          </CustomButton>
+          <div className="favorite-card-remove-button">
+            <CustomButton type="button" onClick={() => handleRemoveFavorite(product)}>
+              <div>{deleteIcon}</div>
+              <span>Remove</span>
+            </CustomButton>
+          </div>
+
+          <span className="favorite-card-price">{priceFormat(product.price)} Lei</span>
         </div>
-      </div>
+      ) : (
+        <div className="favorite-card-right">
+          <span className="favorite-card-price">{priceFormat(product.price)} Lei</span>
+
+          <div className="favorite-card-add-button">
+            <CustomButton type="button" onClick={handleAddCart}>
+              <div>{cartFilledIcon}</div>
+              <span>Add to cart</span>
+            </CustomButton>
+          </div>
+
+          <div className="favorite-card-remove-button">
+            <CustomButton type="button" onClick={() => handleRemoveFavorite(product)}>
+              <div>{deleteIcon}</div>
+              <span>Remove</span>
+            </CustomButton>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

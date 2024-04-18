@@ -6,17 +6,37 @@
   gap: 8px;
   padding: 8px;
 
-  input {
-    color: $primary-white;
-    background-color: $background-color;
-    border: 1px solid $primary-blue;
-    border-radius: 16px;
-    padding: 10px 24px;
+  form {
     width: 100%;
+    display: flex;
 
-    &:focus {
-      outline: none;
-      background-color: #003138;
+    input {
+      color: $primary-white;
+      background-color: $background-color;
+      border: 1px solid $primary-blue;
+      border-radius: 16px 0 0 16px;
+      padding: 10px 24px;
+      width: 95%;
+
+      &:focus {
+        outline: none;
+        background-color: #003138;
+      }
+    }
+
+    button {
+      color: $primary-white;
+      background-color: $background-color;
+      border: 1px solid $primary-blue;
+      border-left: none;
+      border-radius: 0 16px 16px 0;
+      width: 5%;
+      min-width: 40px;
+      transition: 0.5s;
+
+      &:hover {
+        background-color: #1942bb;
+      }
     }
   }
 
@@ -34,6 +54,7 @@
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      user-select: none;
     }
 
     .login-right-buttons {
@@ -105,7 +126,7 @@
       .dropdown-header {
         display: flex;
         flex-direction: column;
-        //de schimbat aici ca sa nu mai am bugul cu punct pe header dropdown
+        //TODO:de schimbat aici ca sa nu mai am bugul cu punct pe header dropdown
         background-color: #292929;
         color: $primary-white;
         border-radius: 8px;
@@ -117,6 +138,10 @@
 
         &.account {
           right: 16px;
+
+          @media screen and (min-width: 0px) and (max-width: 1080px) {
+            right: 64px;
+          }
         }
 
         &.cart {

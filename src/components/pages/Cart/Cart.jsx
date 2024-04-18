@@ -73,7 +73,7 @@ const Cart = (props) => {
 
             {!cartProductList || cartProductList?.length === 0 ? (
               <div className="favorite-message">
-                There are no products in cart. If you want to add products go to{" "}
+                There are no products in cart. You can browse through products in{" "}
                 <Link to="/" className="link">
                   main page
                 </Link>
@@ -86,14 +86,16 @@ const Cart = (props) => {
                   }
                 >
                   <div className="cart-total-price">
-                    <div className="cart-text">
-                      Total:
-                      {isHeader && (
+                    {isHeader ? (
+                      <div className="cart-text">
+                        Total
                         <span className="dropdown-cart-length">
                           {cartProductList?.length} {cartProductList?.length === 1 ? "product" : "products"}
                         </span>
-                      )}
-                    </div>
+                      </div>
+                    ) : (
+                      <div className="cart-text">Total price:</div>
+                    )}
 
                     <div className="cart-price">{priceFormat()} Lei</div>
                   </div>

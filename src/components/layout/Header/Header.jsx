@@ -1,13 +1,13 @@
 // ASSETS
 import { profileIcon, favoriteIcon, cartIcon, dropdownIcon, phoneIcon, laptopIcon } from "../../assets/MUI-icons";
-import { tvIcon, gamingIcon, booksIcon, foodIcon, toysIcon, furnitureIcon } from "../../assets/MUI-icons";
+import { tvIcon, gamingIcon, booksIcon, foodIcon, toysIcon, furnitureIcon, searchIcon } from "../../assets/MUI-icons";
 
 // STYLES
 import "./Header.scss";
 
 // LIBRARIES
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 // MISC
 
@@ -29,6 +29,7 @@ const Header = () => {
   const location = useLocation();
   const { id } = useParams();
   const isMobile = window.matchMedia("(max-width: 750px")?.matches;
+  const isTablet = window.matchMedia("(max-width: 1080px")?.matches;
 
   // STATE CONSTANTS
   const [getFavoriteList, setFavoriteList] = useState(JSON.parse(localStorage?.getItem("favoriteList")));
@@ -51,7 +52,8 @@ const Header = () => {
       location.pathname === "/favorites" ||
       location.pathname === `/product/${id}` ||
       location.pathname === "/cart" ||
-      location.pathname === "/checkout"
+      location.pathname === "/checkout" ||
+      location.pathname === "/search"
     ) {
       setActive(false);
     }
@@ -82,6 +84,11 @@ const Header = () => {
     navigate(`/categories/${category}`);
   };
 
+  const handleSearch = (event) => {
+    event.preventDefault();
+    navigate("/search");
+  };
+
   return (
     <div className="header-container">
       <div className="header-mobile">
@@ -90,17 +97,38 @@ const Header = () => {
             aStore
           </h1>
 
-          {!isMobile && <CustomInput type="text" name="search" placeholder="Type here to search for something" />}
+          {!isMobile && (
+            <Fragment>
+              <form className="input-form">
+                <CustomInput type="text" name="search" placeholder="Type here to search for something" />
+                <CustomButton type="submit" onClick={handleSearch}>
+                  {searchIcon}
+                </CustomButton>
+              </form>
+            </Fragment>
+          )}
 
           <div className="login-right-buttons">
-            <div className="header-dropdown-button" onClick={() => handleDropdown("favorites")}>
+            {/* {isTablet && (
+              <div className="header-dropdown-button" type="button" onClick={() => handleDropdown("account")}>
+                <div className="left-icon">{profileIcon}</div>
+                <div className="button-text">Account {dropdownIcon}</div>
+
+                {isDropdownVisible.account && <DropdownAccount setIsDropdownVisible={setIsDropdownVisible} />}
+              </div>
+            )} */}
+
+            <div
+              className="header-dropdown-button"
+              onClick={isTablet ? () => navigate("/favorites") : () => handleDropdown("favorites")}
+            >
               <div className="left-icon">
                 {getFavoriteList?.length > 0 && <span className="cart-length">{getFavoriteList?.length}</span>}
                 {favoriteIcon}
               </div>
               <div className="button-text">Favorites {dropdownIcon}</div>
 
-              {isDropdownVisible.favorites && (
+              {isDropdownVisible.favorites && !isTablet && (
                 <DropdownFavorites
                   setIsDropdownVisible={setIsDropdownVisible}
                   isHeader={isHeader}
@@ -109,14 +137,17 @@ const Header = () => {
               )}
             </div>
 
-            <div className="header-dropdown-button" onClick={() => handleDropdown("cart")}>
+            <div
+              className="header-dropdown-button"
+              onClick={isTablet ? () => navigate("/cart") : () => handleDropdown("cart")}
+            >
               <div className="left-icon">
                 {getCartList?.length > 0 && <span className="cart-length">{getCartList?.length}</span>}
                 {cartIcon}
               </div>
               <div className="button-text">Cart {dropdownIcon}</div>
 
-              {isDropdownVisible.cart && (
+              {isDropdownVisible.cart && !isTablet && (
                 <DropdownCart
                   setIsDropdownVisible={setIsDropdownVisible}
                   isHeader={isHeader}
@@ -125,16 +156,27 @@ const Header = () => {
               )}
             </div>
 
-            <div className="header-dropdown-button" type="button" onClick={() => handleDropdown("account")}>
-              <div className="left-icon">{profileIcon}</div>
-              <div className="button-text">Account {dropdownIcon}</div>
+            {!isTablet && (
+              <div className="header-dropdown-button" type="button" onClick={() => handleDropdown("account")}>
+                <div className="left-icon">{profileIcon}</div>
+                <div className="button-text">Account {dropdownIcon}</div>
 
-              {isDropdownVisible.account && <DropdownAccount setIsDropdownVisible={setIsDropdownVisible} />}
-            </div>
+                {isDropdownVisible.account && <DropdownAccount setIsDropdownVisible={setIsDropdownVisible} />}
+              </div>
+            )}
           </div>
         </div>
 
-        {isMobile && <CustomInput type="text" name="search" placeholder="Type here to search for something" />}
+        {isMobile && (
+          <Fragment>
+            <form className="input-form">
+              <CustomInput type="text" name="search" placeholder="Type here to search for something" />
+              <CustomButton type="submit" onClick={handleSearch}>
+                {searchIcon}
+              </CustomButton>
+            </form>
+          </Fragment>
+        )}
       </div>
 
       <div className="header-row two">

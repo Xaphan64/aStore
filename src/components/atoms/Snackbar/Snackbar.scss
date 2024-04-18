@@ -2,17 +2,20 @@
 
 .snackbar {
   position: fixed;
-  left: 90%;
-  top: 20%;
-  transform: translate(-50%, -50%);
+  right: 16px;
+  top: 120px;
   width: 310px;
   height: 56px;
   border-radius: 8px;
   display: flex;
   align-items: center;
   text-align: center;
-  z-index: 1;
+  z-index: 2;
   background-color: black;
+
+  @media screen and (min-width: 0px) and (max-width: 750px) {
+    top: 150px;
+  }
 
   &.show {
     visibility: visible;
@@ -47,6 +50,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    user-select: none;
   }
 }
 
@@ -71,5 +75,25 @@
   to {
     bottom: 0;
     opacity: 0;
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 350px) {
+  .snackbar {
+    width: 270px;
+    height: 40px;
+
+    .symbol {
+      flex: 20%;
+      svg {
+        width: 32px;
+        height: 32px;
+      }
+    }
+
+    .message {
+      font-size: 14px;
+      flex: 90%;
+    }
   }
 }

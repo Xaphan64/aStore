@@ -32,6 +32,13 @@
       .modal-product {
         color: $primary-blue;
         font-weight: bold;
+
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+        line-height: 30px;
+        max-height: 120px;
+        overflow: hidden;
       }
     }
 

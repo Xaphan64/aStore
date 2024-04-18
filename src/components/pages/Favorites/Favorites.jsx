@@ -82,7 +82,7 @@ const Favorites = (props) => {
             {!favoriteProducList ||
               (favoriteProducList?.length === 0 && (
                 <div className="favorite-message">
-                  There are no products added to favorites. If you want to add products go to{" "}
+                  There are no products added to favorites. You can browse through products in{" "}
                   <Link to="/" className="link">
                     main page
                   </Link>

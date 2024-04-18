@@ -20,6 +20,8 @@ import Categories from "./components/pages/Categories/Categories";
 import Cart from "./components/pages/Cart/Cart";
 import Checkout from "./components/pages/Checkout/Checkout";
 import Success from "./components/pages/Success/Success";
+// import Search from "./components/pages/Search/Search";
+import SearchPage from "./components/pages/SearchPage/SearchPage";
 
 // CONFIGURATION
 const App = () => {
@@ -43,6 +45,8 @@ const App = () => {
         <Route element={<Layout />}>
           <Route path="/" element={<MainPage />} />
           <Route path="/success" element={<Success />} />
+          {/* <Route path="/search" element={<Search />} /> */}
+          <Route path="/search" element={<SearchPage />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />

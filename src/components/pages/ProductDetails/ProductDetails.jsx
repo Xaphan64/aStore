@@ -79,7 +79,6 @@ const ProductDetails = () => {
       .then((response) => {
         setForm(response.data);
 
-        // console.log("response.data :>> ", response.data);
         setAddFavorite(response.data.favorite);
       })
       .catch((error) => console.log(error));
@@ -165,8 +164,6 @@ const ProductDetails = () => {
         console.error("Error updating favorite status", error);
       });
   };
-
-  // console.log("inputValues :>> ", inputValues);
 
   const handleAddCart = () => {
     //change the cart status of the product

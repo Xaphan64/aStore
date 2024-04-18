@@ -1,0 +1,41 @@
+@import "../../index.scss";
+
+.search-card-container {
+  display: flex;
+  width: 100%;
+  gap: 16px;
+  background-color: $secondary-black;
+  padding: 8px 16px;
+  border-radius: 8px;
+
+  img {
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+  }
+
+  .search-card-title {
+    width: 85%;
+    cursor: pointer;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 7;
+    line-height: 20px;
+    height: 140px;
+    overflow: hidden;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .search-card-price {
+    color: red;
+    font-weight: bold;
+    font-size: 24px;
+    width: 7.5%;
+    // width: 120px;
+    text-align: right;
+    text-overflow: ellipsis;
+  }
+}

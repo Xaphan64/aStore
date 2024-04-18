@@ -106,3 +106,24 @@
     }
   }
 }
+
+@media screen and (min-width: 0px) and (max-width: 400px) {
+  .product-card {
+    width: 200px;
+
+    .product-card-body {
+      .product-card-image {
+        img {
+          width: 180px;
+          height: 180px;
+        }
+      }
+    }
+
+    .product-card-footer {
+      button {
+        padding-right: 35px;
+      }
+    }
+  }
+}

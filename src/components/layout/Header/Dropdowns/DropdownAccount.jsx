@@ -21,6 +21,8 @@ const DropdownAccount = (props) => {
 
   // LIBRARY CONSTANTS
   const account = localStorage.getItem("Username");
+  const user = sessionStorage.getItem("token");
+  const admin = sessionStorage.getItem("adminToken");
   const navigate = useNavigate();
   let dropdownRef = useRef();
 
@@ -48,9 +50,6 @@ const DropdownAccount = (props) => {
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("adminToken");
   };
-
-  const user = sessionStorage.getItem("token");
-  const admin = sessionStorage.getItem("adminToken");
 
   return (
     <div className="dropdown-header account" ref={dropdownRef}>

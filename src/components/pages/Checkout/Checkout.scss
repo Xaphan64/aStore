@@ -14,6 +14,7 @@
 
   .checkout-form {
     width: 50%;
+    min-width: 280px;
     display: flex;
     flex-direction: column;
 
@@ -115,6 +116,15 @@
       color: $primary-white;
       font-size: 18px;
       cursor: pointer;
+    }
+  }
+}
+@media screen and (min-width: 0px) and (max-width: 1000px) {
+  .checkout-container {
+    padding: 8px;
+
+    .checkout-form {
+      width: 90%;
     }
   }
 }
