@@ -18,8 +18,14 @@
     }
 
     .favorite-card-title {
-      max-width: 68vw;
-      height: 0;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 7;
+      line-height: 20px;
+      max-height: 140px;
+      overflow: hidden;
+      width: 95%;
+      padding-right: 16px;
 
       &:hover {
         cursor: pointer;
@@ -35,6 +41,7 @@
     border-left: 1px solid $primary-white;
     padding-left: 16px;
     justify-content: center;
+    min-width: 150px;
 
     .favorite-card-price {
       color: red;
@@ -83,6 +90,87 @@
         &:hover {
           text-decoration: underline;
           color: #59b7ff;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 750px) {
+  .favorite-card {
+    padding: 8px;
+    .favorite-card-left {
+      img {
+        width: 120px;
+        height: 120px;
+      }
+
+      .favorite-card-title {
+        -webkit-line-clamp: 6;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 500px) {
+  .favorite-card {
+    flex-direction: column;
+    gap: 8px;
+
+    .favorite-card-right {
+      border-top: 1px solid gray;
+      border-left: none;
+      padding-left: 0;
+      padding-top: 8px;
+      align-items: center;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .favorite-card-price {
+        align-self: center;
+        font-size: 14px;
+      }
+
+      .favorite-card-remove-button {
+        align-self: center;
+      }
+
+      .favorite-card-add-button {
+        button {
+          div {
+            padding: 2px;
+
+            svg {
+              width: 20px;
+              height: 20px;
+            }
+          }
+
+          span {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 330px) {
+  .favorite-card {
+    .favorite-card-right {
+      .favorite-card-price {
+        font-size: 12px;
+      }
+
+      .favorite-card-add-button {
+        width: 120px;
+        button {
+          div {
+            padding: 0px;
+          }
+          span {
+            font-size: 12px;
+          }
         }
       }
     }

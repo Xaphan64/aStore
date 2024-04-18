@@ -30,8 +30,6 @@ const Header = () => {
   const { id } = useParams();
   const isMobile = window.matchMedia("(max-width: 750px")?.matches;
   const isTablet = window.matchMedia("(max-width: 1080px")?.matches;
-  const user = sessionStorage.getItem("token");
-  const admin = sessionStorage.getItem("adminToken");
 
   // STATE CONSTANTS
   const [getFavoriteList, setFavoriteList] = useState(JSON.parse(localStorage?.getItem("favoriteList")));
@@ -111,14 +109,14 @@ const Header = () => {
           )}
 
           <div className="login-right-buttons">
-            {isTablet && (
+            {/* {isTablet && (
               <div className="header-dropdown-button" type="button" onClick={() => handleDropdown("account")}>
                 <div className="left-icon">{profileIcon}</div>
                 <div className="button-text">Account {dropdownIcon}</div>
 
                 {isDropdownVisible.account && <DropdownAccount setIsDropdownVisible={setIsDropdownVisible} />}
               </div>
-            )}
+            )} */}
 
             <div
               className="header-dropdown-button"
