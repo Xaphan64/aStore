@@ -1,7 +1,7 @@
 // ASSETS
-import beachImage from "../../assets/carousel/beachImage.jpg";
-import forestImage from "../../assets/carousel/forestImage.jpg";
-import mountainImage from "../../assets/carousel/mountainImage.jpg";
+import slideOne from "../../assets/carousel/slideOne.jpg";
+import slideTwo from "../../assets/carousel/slideTwo.png";
+import slideThree from "../../assets/carousel/slideThree.jpg";
 
 // STYLES
 import "./MainPage.scss";
@@ -26,9 +26,9 @@ const MainPage = () => {
 
   // LIBRARY CONSTANTS
   const slides = [
-    { url: beachImage, title: "Beach" },
-    { url: forestImage, title: "Forest" },
-    { url: mountainImage, title: "Mountain" },
+    { url: slideOne, title: "slideOne" },
+    { url: slideTwo, title: "slideTwo" },
+    { url: slideThree, title: "slideThree" },
   ];
 
   const categories = [

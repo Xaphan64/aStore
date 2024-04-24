@@ -10,6 +10,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Fragment, useEffect, useState } from "react";
 
 // MISC
+import { useForm } from "../../hooks/useForm";
 
 // COMPONENTS
 import CustomInput from "../../atoms/CustomInput";
@@ -34,13 +35,17 @@ const Header = () => {
   // STATE CONSTANTS
   const [getFavoriteList, setFavoriteList] = useState(JSON.parse(localStorage?.getItem("favoriteList")));
   const [getCartList, setCartList] = useState(JSON.parse(localStorage?.getItem("cartProductsList")));
-
   const [isHeader, setIsHeader] = useState(false);
   const [active, setActive] = useState(null);
+  const [isEmpty, setIsEmpty] = useState(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState({
     account: false,
     favorites: false,
     cart: false,
+  });
+
+  const { inputValues, handleInputChange } = useForm({
+    search: "",
   });
 
   // LIFE CYCLE
@@ -86,7 +91,18 @@ const Header = () => {
 
   const handleSearch = (event) => {
     event.preventDefault();
-    navigate("/search");
+
+    if (inputValues.search.trim() === "") {
+      // navigate("/");
+      setIsEmpty(true);
+    } else {
+      navigate("/search", {
+        state: {
+          search: inputValues.search,
+        },
+      });
+      setIsEmpty(false);
+    }
   };
 
   return (
@@ -99,8 +115,14 @@ const Header = () => {
 
           {!isMobile && (
             <Fragment>
-              <form className="input-form">
-                <CustomInput type="text" name="search" placeholder="Type here to search for something" />
+              <form className={isEmpty ? "input-form red" : "input-form"}>
+                <CustomInput
+                  type="text"
+                  name="search"
+                  value={inputValues.search}
+                  onChange={handleInputChange}
+                  placeholder={isEmpty ? "Type here to search for something" : "Search for something..."}
+                />
                 <CustomButton type="submit" onClick={handleSearch}>
                   {searchIcon}
                 </CustomButton>
@@ -168,14 +190,12 @@ const Header = () => {
         </div>
 
         {isMobile && (
-          <Fragment>
-            <form className="input-form">
-              <CustomInput type="text" name="search" placeholder="Type here to search for something" />
-              <CustomButton type="submit" onClick={handleSearch}>
-                {searchIcon}
-              </CustomButton>
-            </form>
-          </Fragment>
+          <form className="input-form">
+            <CustomInput type="text" name="search" placeholder="Type here to search for something" />
+            <CustomButton type="submit" onClick={handleSearch}>
+              {searchIcon}
+            </CustomButton>
+          </form>
         )}
       </div>
 

@@ -11,16 +11,13 @@ import { useNavigate } from "react-router-dom";
 // COMPONENTS
 
 // CONFIGURATION
-const SearchCard = ({ product }) => {
+const SearchCard = ({ product, type }) => {
   // PROPERTIES
 
   // API REQUESTS
 
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
-
-  //TODO: de schimbat mai taziu
-  const type = "phones";
 
   // STATE CONSTANTS
 

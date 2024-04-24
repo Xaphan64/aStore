@@ -6,7 +6,7 @@
   gap: 8px;
   padding: 8px;
 
-  form {
+  .input-form {
     width: 100%;
     display: flex;
 
@@ -21,6 +21,17 @@
       &:focus {
         outline: none;
         background-color: #003138;
+        border: 1px solid rgb(60, 206, 255);
+      }
+    }
+
+    &.red {
+      input {
+        border: 1px solid red;
+
+        &:focus {
+          background-color: $secondary-black;
+        }
       }
     }
 
