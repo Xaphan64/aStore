@@ -93,7 +93,6 @@ const Header = () => {
     event.preventDefault();
 
     if (inputValues.search.trim() === "") {
-      // navigate("/");
       setIsEmpty(true);
     } else {
       navigate("/search", {
@@ -190,12 +189,20 @@ const Header = () => {
         </div>
 
         {isMobile && (
-          <form className="input-form">
-            <CustomInput type="text" name="search" placeholder="Type here to search for something" />
-            <CustomButton type="submit" onClick={handleSearch}>
-              {searchIcon}
-            </CustomButton>
-          </form>
+          <Fragment>
+            <form className={isEmpty ? "input-form red" : "input-form"}>
+              <CustomInput
+                type="text"
+                name="search"
+                value={inputValues.search}
+                onChange={handleInputChange}
+                placeholder={isEmpty ? "Type here to search for something" : "Search for something..."}
+              />
+              <CustomButton type="submit" onClick={handleSearch}>
+                {searchIcon}
+              </CustomButton>
+            </form>
+          </Fragment>
         )}
       </div>
 

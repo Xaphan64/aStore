@@ -49,7 +49,8 @@ const FavoriteFilter = (props) => {
           // if list and length is not 0 delete the product with the same id and type
           if (getFavoriteList && getFavoriteList?.length > 0) {
             const updatedFavoriteList = getFavoriteList?.filter(
-              (product) => !(product.id === id && product.type === type)
+              // (product) => !(product.id === id && product.type === type)
+              (product) => product.id !== id
             );
 
             //update the data in localStorage

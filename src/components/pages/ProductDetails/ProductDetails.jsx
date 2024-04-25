@@ -106,9 +106,6 @@ const ProductDetails = () => {
       favorite: favStatus,
     };
 
-    console.log("updatedFavorite Cart:>> ", updatedFavorite.cart);
-    console.log("updatedFavorite Favorite:>> ", updatedFavorite.favorite);
-
     const type = state?.currentCategory;
 
     //get data from localStorage
@@ -171,9 +168,6 @@ const ProductDetails = () => {
       ...inputValues,
       cart: true,
     };
-
-    console.log("addToCart Cart:>> ", addToCart.cart);
-    console.log("addToCart Favorite:>> ", addToCart.favorite);
 
     //get data from localStorage
     const getProductsList = JSON.parse(localStorage?.getItem("cartProductsList"));

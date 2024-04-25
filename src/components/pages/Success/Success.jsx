@@ -24,8 +24,8 @@ const Success = () => {
   // EVENT HANDLERS
   return (
     <div className="success-container">
-      <h1>Thank you for buying from aStore</h1>
-      <h2>Your order was registered, we will contact you as soon as possible to schedule the delivery date.</h2>
+      <h2>Thank you for buying from aStore</h2>
+      <h3>Your order was registered, we will contact you as soon as possible to schedule the delivery date.</h3>
       <span>
         You can go back to{" "}
         <Link className="link" to="/">

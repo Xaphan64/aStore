@@ -1,9 +1,10 @@
 // ASSETS
 
 // STYLES
+import "./SearchPage.scss";
 
 // LIBRARIES
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import axios from "axios";
 
 // MISC
@@ -33,6 +34,7 @@ const SearchPage = () => {
   ];
 
   const { state } = useLocation();
+  const searchFilter = productsList?.filter((value) => value.name.toLowerCase().includes(state.search.toLowerCase()));
 
   // STATE CONSTANTS
 
@@ -48,16 +50,22 @@ const SearchPage = () => {
 
   // EVENT HANDLERS
   return (
-    <div>
-      <h1>Search results:</h1>
-
-      {productsList
-        ?.filter((value) => value.name.toLowerCase().includes(state.search.toLowerCase()))
-        .map((filteredProduct, index, type) => (
-          <div key={index} style={{ display: "flex", flexDirection: "column", paddingTop: 4, paddingBottom: 4 }}>
-            <SearchCard product={filteredProduct} type={filteredProduct.type} />
-          </div>
-        ))}
+    <div className="search-container">
+      {searchFilter.length === 0 ? (
+        <div className="search-zero-results">
+          <h2>The product that you are searching for does not exist.</h2>
+          <h2>Please search for another product.</h2>
+        </div>
+      ) : (
+        <Fragment>
+          <h2>Search results:</h2>
+          {searchFilter.map((filteredProduct, index) => (
+            <div className="search-results" key={index}>
+              <SearchCard product={filteredProduct} type={filteredProduct.type} />
+            </div>
+          ))}
+        </Fragment>
+      )}
     </div>
   );
 };

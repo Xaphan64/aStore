@@ -52,9 +52,6 @@ const ProductCard = (props) => {
       favorite: favStatus,
     };
 
-    console.log("updatedFavorite Cart:>> ", updatedFavorite.cart);
-    console.log("updatedFavorite Favorite:>> ", updatedFavorite.favorite);
-
     const productCategory = type || "";
     const id = product.id || "";
 
@@ -115,9 +112,6 @@ const ProductCard = (props) => {
       ...product,
       cart: true,
     };
-
-    console.log("addToCart Cart:>> ", addToCart.cart);
-    console.log("addToCart Favorite:>> ", addToCart.favorite);
 
     const productCategory = type || "";
     const id = product.id || "";

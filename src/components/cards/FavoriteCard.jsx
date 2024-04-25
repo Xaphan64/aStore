@@ -50,20 +50,17 @@ const FavoriteCard = (props) => {
 
           if (localCartList.length === 0) {
             localCartList.push({
-              name: product.name,
-              price: product.price,
               id: product.id,
               type: product.type,
             });
 
             showaddCart();
           } else {
-            const productExist = listOfCartItems.some((item) => item.id === product.id && item.type === product.type);
+            // const productExist = listOfCartItems.some((item) => item.id === product.id && item.type === product.type);
+            const productExist = listOfCartItems.some((item) => item.id === product.id);
 
             if (!productExist) {
               localCartList.push({
-                name: product.name,
-                price: product.price,
                 id: product.id,
                 type: product.type,
               });

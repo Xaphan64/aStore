@@ -1,5 +1,5 @@
 // ASSETS
-import slideOne from "../../assets/carousel/slideOne.jpg";
+import slideOne from "../../assets/carousel/slideOne.webp";
 import slideTwo from "../../assets/carousel/slideTwo.png";
 import slideThree from "../../assets/carousel/slideThree.jpg";
 
