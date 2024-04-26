@@ -4,7 +4,7 @@
 
 // LIBRARIES
 import axios from "axios";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
 // MISC
 import { useFetch } from "../../hooks/useFetch";
@@ -25,6 +25,7 @@ const FavoriteFilter = (props) => {
   const productsFavorite = products.filter((product) => product.favorite === true);
 
   // STATE CONSTANTS
+  const [isPending, setIsPending] = useState(false);
 
   // LIFE CYCLE
 
@@ -41,15 +42,18 @@ const FavoriteFilter = (props) => {
     const getFavoriteList = JSON.parse(localStorage?.getItem("favoriteList"));
 
     if (productCategory && id) {
+      setIsPending(true);
+
       axios
         .put(`http://localhost:8000/${productCategory}/${id}`, removeFromFavorite)
         .then((response) => {
           console.log("Removed from favorite", response);
 
-          // if list and length is not 0 delete the product with the same id and type
+          // if list and length is not 0 delete the product with the same id
           if (getFavoriteList && getFavoriteList?.length > 0) {
             const updatedFavoriteList = getFavoriteList?.filter(
-              (product) => !(product.id === id && product.type === type)
+              // (product) => !(product.id === id && product.type === type)
+              (product) => product.id !== id
             );
 
             //update the data in localStorage
@@ -59,12 +63,15 @@ const FavoriteFilter = (props) => {
           }
 
           setIsRerendering(response?.data?.favorite);
+          setIsRerendering(response?.data?.cart);
+          setIsRerendering(response?.data);
         })
         .catch((error) => {
           console.error("Error, could not remove from favorite", error);
+        })
+        .finally(() => {
+          setIsPending(false);
         });
-
-      console.log("Remove from favorite clicked");
     }
   };
 
@@ -80,7 +87,10 @@ const FavoriteFilter = (props) => {
               type={type}
               showaddCart={showaddCart}
               showAlreadyCart={showAlreadyCart}
+              isPending={isPending}
+              setIsPending={setIsPending}
               handleRemoveFavorite={handleRemoveFavorite}
+              setIsRerendering={setIsRerendering}
             />
           )}
         </div>

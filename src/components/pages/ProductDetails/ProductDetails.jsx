@@ -106,9 +106,6 @@ const ProductDetails = () => {
       favorite: favStatus,
     };
 
-    console.log("updatedFavorite Cart:>> ", updatedFavorite.cart);
-    console.log("updatedFavorite Favorite:>> ", updatedFavorite.favorite);
-
     const type = state?.currentCategory;
 
     //get data from localStorage
@@ -172,9 +169,6 @@ const ProductDetails = () => {
       cart: true,
     };
 
-    console.log("addToCart Cart:>> ", addToCart.cart);
-    console.log("addToCart Favorite:>> ", addToCart.favorite);
-
     //get data from localStorage
     const getProductsList = JSON.parse(localStorage?.getItem("cartProductsList"));
 
@@ -229,8 +223,6 @@ const ProductDetails = () => {
       .catch((error) => {
         console.error("Error, could not add to cart", error);
       });
-
-    console.log("Add to cart clicked");
   };
 
   const handleImageClick = () => {

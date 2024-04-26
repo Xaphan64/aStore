@@ -11,16 +11,13 @@ import { useNavigate } from "react-router-dom";
 // COMPONENTS
 
 // CONFIGURATION
-const SearchCard = ({ product }) => {
+const SearchCard = ({ product, type }) => {
   // PROPERTIES
 
   // API REQUESTS
 
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
-
-  //TODO: de schimbat mai taziu
-  const type = "phones";
 
   // STATE CONSTANTS
 
@@ -38,13 +35,16 @@ const SearchCard = ({ product }) => {
         src={product.image}
         alt="N/a"
       />
+      <div className="search-card-text">
+        <span
+          className="search-card-title"
+          onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: type } })}
+        >
+          {product.name}
+        </span>
 
-      <span
-        className="search-card-title"
-        onClick={() => navigate(`/product/${product.id}`, { state: { currentCategory: type } })}
-      >
-        {product.name}
-      </span>
+        <span className="search-card-description">{product.description}</span>
+      </div>
 
       <span className="search-card-price">{priceFormat(product.price)} Lei</span>
     </div>

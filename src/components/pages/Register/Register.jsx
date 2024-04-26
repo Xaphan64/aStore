@@ -90,7 +90,7 @@ const Register = () => {
       localStorage.setItem("Confirm Password", inputValues.confirmPassword);
 
       navigate("/login");
-    } else console.log("register failed");
+    }
   };
 
   return (

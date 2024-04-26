@@ -15,6 +15,7 @@
       height: 180px;
       cursor: pointer;
       border-radius: 8px;
+      background-color: $primary-white;
     }
 
     .favorite-card-title {
@@ -72,6 +73,10 @@
           font-size: 16px;
           padding-right: 8px;
         }
+
+        &:disabled {
+          cursor: wait;
+        }
       }
     }
 
@@ -90,6 +95,15 @@
         &:hover {
           text-decoration: underline;
           color: #59b7ff;
+        }
+
+        &:disabled {
+          cursor: wait;
+
+          &:hover {
+            text-decoration: none;
+            color: $primary-blue;
+          }
         }
       }
     }
@@ -160,16 +174,17 @@
     .favorite-card-right {
       .favorite-card-price {
         font-size: 12px;
+        white-space: nowrap;
       }
 
       .favorite-card-add-button {
-        width: 120px;
         button {
           div {
             padding: 0px;
           }
           span {
             font-size: 12px;
+            white-space: nowrap;
           }
         }
       }

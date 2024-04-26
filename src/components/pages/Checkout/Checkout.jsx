@@ -104,7 +104,6 @@ const Checkout = () => {
       cartProductList?.forEach((product) => {
         axios.get(`http://localhost:8000/${product.type}`).then((response) => {
           const fetchedData = response.data;
-          console.log("response :>> ", fetchedData);
 
           fetchedData?.forEach((fetchedProduct) => {
             if (fetchedProduct.id === product.id) {
@@ -113,7 +112,6 @@ const Checkout = () => {
                 cart: false,
               };
               axios.put(`http://localhost:8000/${product.type}/${fetchedProduct.id}`, updatedProductList);
-              console.log("updatedProductList :>> ", updatedProductList);
             }
           });
         });

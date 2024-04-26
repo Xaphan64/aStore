@@ -3,7 +3,7 @@
 // STYLES
 
 // LIBRARIES
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import axios from "axios";
 
 // MISC
@@ -27,6 +27,7 @@ const CartFilter = (props) => {
   const getProductsList = JSON.parse(localStorage?.getItem("cartProductsList"));
 
   // STATE CONSTANTS
+  const [isPending, setIsPending] = useState(false);
 
   // LIFE CYCLE
 
@@ -50,13 +51,16 @@ const CartFilter = (props) => {
     let localFavoriteList = [...listOfFavoriteItems];
 
     if (productCategory && id) {
+      setIsPending(true);
+
       axios
         .put(`http://localhost:8000/${productCategory}/${id}`, moveToFavorite)
         .then((response) => {
           console.log("Moved to favorite", response);
 
           if (getProductsList && getProductsList?.length > 0) {
-            const updatedCartList = getProductsList?.filter((product) => !(product.id === id && product.type === type));
+            // const updatedCartList = getProductsList?.filter((product) => !(product.id === id && product.type === type));
+            const updatedCartList = getProductsList?.filter((product) => product.id !== id);
 
             localStorage.setItem("cartProductsList", JSON.stringify(updatedCartList));
             setCartProductList(updatedCartList);
@@ -69,16 +73,15 @@ const CartFilter = (props) => {
             } else {
               const productExist = listOfFavoriteItems.some((item) => item.id === product.id);
 
+              //if product doesn't exist, push id in localStorage
               if (!productExist) {
                 localFavoriteList.push({
                   id: product.id,
                 });
-              } else {
-                console.log("products already in favorite");
               }
             }
 
-            //save id and type in localStorage
+            //save id in localStorage
             localStorage.setItem("favoriteList", JSON.stringify(localFavoriteList));
 
             setIsRerendering(response?.data?.cart);
@@ -86,9 +89,10 @@ const CartFilter = (props) => {
         })
         .catch((error) => {
           console.error("Error, could not move to favorite", error);
+        })
+        .finally(() => {
+          setIsPending(false);
         });
-
-      console.log("Move to favorite clicked");
     }
   };
 
@@ -102,13 +106,16 @@ const CartFilter = (props) => {
     const id = product.id || "";
 
     if (productCategory && id) {
+      setIsPending(true);
+
       axios
         .put(`http://localhost:8000/${productCategory}/${id}`, removeFromCart)
         .then((response) => {
           console.log("Removed from favorite", response);
 
           if (getProductsList && getProductsList?.length > 0) {
-            const updatedCartList = getProductsList?.filter((product) => !(product.id === id && product.type === type));
+            // const updatedCartList = getProductsList?.filter((product) => !(product.id === id && product.type === type));
+            const updatedCartList = getProductsList?.filter((product) => product.id !== id);
 
             localStorage.setItem("cartProductsList", JSON.stringify(updatedCartList));
             setCartProductList(updatedCartList);
@@ -117,9 +124,10 @@ const CartFilter = (props) => {
         })
         .catch((error) => {
           console.error("Error, could not remove from cart", error);
+        })
+        .finally(() => {
+          setIsPending(false);
         });
-
-      console.log("Remove from cart clicked");
     }
   };
 
@@ -133,6 +141,7 @@ const CartFilter = (props) => {
                 <CartCard
                   product={product}
                   type={type}
+                  isPending={isPending}
                   handleMoveFavorite={handleMoveFavorite}
                   handleRemoveCart={handleRemoveCart}
                 />
