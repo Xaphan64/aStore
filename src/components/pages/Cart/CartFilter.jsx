@@ -114,7 +114,6 @@ const CartFilter = (props) => {
           console.log("Removed from favorite", response);
 
           if (getProductsList && getProductsList?.length > 0) {
-            // const updatedCartList = getProductsList?.filter((product) => !(product.id === id && product.type === type));
             const updatedCartList = getProductsList?.filter((product) => product.id !== id);
 
             localStorage.setItem("cartProductsList", JSON.stringify(updatedCartList));

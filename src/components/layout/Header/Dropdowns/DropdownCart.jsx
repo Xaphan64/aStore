@@ -4,7 +4,7 @@ import { dropdownUpIcon } from "../../../assets/MUI-icons";
 // STYLES
 
 // LIBRARIES
-import { Fragment, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 // MISC
@@ -28,6 +28,7 @@ const DropdownCart = (props) => {
 
   // LIFE CYCLE
   useEffect(() => {
+    //useEffect to dissapear the dropdown when not clicking on it
     let handler = (event) => {
       if (!dropdownRef.current.contains(event.target)) {
         setIsDropdownVisible(false);

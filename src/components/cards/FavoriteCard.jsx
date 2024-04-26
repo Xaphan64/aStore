@@ -61,7 +61,6 @@ const FavoriteCard = (props) => {
 
             showaddCart();
           } else {
-            // const productExist = listOfCartItems.some((item) => item.id === product.id && item.type === product.type);
             const productExist = listOfCartItems.some((item) => item.id === product.id);
 
             if (!productExist) {

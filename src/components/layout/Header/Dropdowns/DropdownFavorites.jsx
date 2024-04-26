@@ -28,6 +28,7 @@ const DropdownFavorites = (props) => {
 
   // LIFE CYCLE
   useEffect(() => {
+    //useEffect to dissapear the dropdown when not clicking on it
     let handler = (event) => {
       if (!dropdownRef.current.contains(event.target)) {
         setIsDropdownVisible(false);

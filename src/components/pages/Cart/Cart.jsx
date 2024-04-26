@@ -24,7 +24,6 @@ const Cart = (props) => {
 
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
-
   const user = sessionStorage.getItem("token");
   const admin = sessionStorage.getItem("adminToken");
 
