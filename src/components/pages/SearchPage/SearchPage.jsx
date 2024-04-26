@@ -40,7 +40,7 @@ const SearchPage = () => {
   // LIFE CYCLE
   useEffect(() => {
     categories.forEach((category) => {
-      axios.get(`http://localhost:8000/${category.type}`).then((response) => {
+      axios.get(`https://blog-data-9hab.onrender.com/${category.type}`).then((response) => {
         setProductList((prev) => [...prev, ...response.data]);
       });
     });

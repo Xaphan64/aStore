@@ -108,8 +108,7 @@ const AddProduct = () => {
       inputValues.description.trim() !== "" &&
       inputValues.image.trim() !== ""
     ) {
-      axios.post(`http://localhost:8000/${inputValues.type}`, inputValues).then((response) => {
-        console.log("product added sucesfully", response);
+      axios.post(`https://blog-data-9hab.onrender.com/${inputValues.type}`, inputValues).then(() => {
         setIsPending(false);
         navigate("/");
       });

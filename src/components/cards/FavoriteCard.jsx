@@ -47,7 +47,7 @@ const FavoriteCard = (props) => {
     if (productCategory && id) {
       setIsPending(true);
       axios
-        .put(`http://localhost:8000/${productCategory}/${id}`, addToCart)
+        .put(`https://blog-data-9hab.onrender.com/${productCategory}/${id}`, addToCart)
         .then((response) => {
           setIsRerendering(response?.data);
 

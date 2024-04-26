@@ -19,7 +19,7 @@ const FavoriteFilter = (props) => {
   const { type = "", showaddCart, showAlreadyCart, setFavoriteProductList = () => {}, isHeader } = props;
 
   // API REQUESTS
-  const { data: products, setIsRerendering } = useFetch(`http://localhost:8000/${type}`);
+  const { data: products, setIsRerendering } = useFetch(`https://blog-data-9hab.onrender.com/${type}`);
 
   // LIBRARY CONSTANTS
   const productsFavorite = products.filter((product) => product.favorite === true);
@@ -45,10 +45,8 @@ const FavoriteFilter = (props) => {
       setIsPending(true);
 
       axios
-        .put(`http://localhost:8000/${productCategory}/${id}`, removeFromFavorite)
+        .put(`https://blog-data-9hab.onrender.com/${productCategory}/${id}`, removeFromFavorite)
         .then((response) => {
-          console.log("Removed from favorite", response);
-
           // if list and length is not 0 delete the product with the same id
           if (getFavoriteList && getFavoriteList?.length > 0) {
             const updatedFavoriteList = getFavoriteList?.filter((product) => product.id !== id);
@@ -64,7 +62,7 @@ const FavoriteFilter = (props) => {
           setIsRerendering(response?.data);
         })
         .catch((error) => {
-          console.error("Error, could not remove from favorite", error);
+          console.error(error);
         })
         .finally(() => {
           setIsPending(false);

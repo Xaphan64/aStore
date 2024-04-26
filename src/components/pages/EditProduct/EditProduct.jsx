@@ -26,7 +26,7 @@ const EditProduct = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { data: product } = useFetch(`http://localhost:8000/products/${id}`);
+  const { data: product } = useFetch(`https://blog-data-9hab.onrender.com/products/${id}`);
 
   // STATE CONSTANTS
   const { inputValues, setForm, handleInputChange, handleImageChange } = useForm({
@@ -40,7 +40,7 @@ const EditProduct = () => {
   // LIFE CYCLE
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/products/${id}`)
+      .get(`https://blog-data-9hab.onrender.com/products/${id}`)
       .then((response) => setForm(response.data))
       .catch((error) => console.log(error));
 
@@ -51,8 +51,7 @@ const EditProduct = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios.put(`http://localhost:8000/products/${id}`, inputValues).then((response) => {
-      console.log("product edited sucesfully", response);
+    axios.put(`https://blog-data-9hab.onrender.com/${id}`, inputValues).then(() => {
       navigate(`/product/${product.id}`);
     });
   };
