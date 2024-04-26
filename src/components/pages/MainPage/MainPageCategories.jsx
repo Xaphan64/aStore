@@ -19,7 +19,7 @@ const MainPageCategories = (props) => {
   const { type = "", showAddFavorite, showRemoveFavorite, showaddCart, showAlreadyCart } = props;
 
   // API REQUESTS
-  const { data: products, setIsRerendering } = useFetch(`http://localhost:8000/${type}`);
+  const { data: products, setIsRerendering } = useFetch(`https://blog-data-9hab.onrender.com/${type}`);
 
   // LIBRARY CONSTANTS
   let scroll = useRef(null);

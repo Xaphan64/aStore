@@ -31,14 +31,17 @@ const Categories = () => {
     addCart: "addCart",
   };
   // API REQUESTS
-  const { data: products, isLoading, error, setIsRerendering } = useFetch(`http://localhost:8000/${category}`);
+  const {
+    data: products,
+    isLoading,
+    error,
+    setIsRerendering,
+  } = useFetch(`https://blog-data-9hab.onrender.com/${category}`);
 
   // STATE CONSTANTS
 
   // LIFE CYCLE
-  useEffect(() => {
-    console.log(category);
-  }, [category]);
+  useEffect(() => {}, [category]);
 
   // EVENT HANDLERS
   const showAddFavorite = () => {

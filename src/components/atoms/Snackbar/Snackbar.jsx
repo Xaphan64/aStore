@@ -1,7 +1,7 @@
 // ASSETS
+import { alreadyIcon, cartFilledIcon, favoriteAddedIcon, favoriteIcon } from "../../assets/MUI-icons";
 
 // STYLES
-import { alreadyIcon, cartFilledIcon, favoriteAddedIcon, favoriteIcon } from "../../assets/MUI-icons";
 import "./Snackbar.scss";
 
 // LIBRARIES

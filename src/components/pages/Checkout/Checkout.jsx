@@ -102,7 +102,7 @@ const Checkout = () => {
       const cartProductList = JSON.parse(localStorage?.getItem("cartProductsList"));
 
       cartProductList?.forEach((product) => {
-        axios.get(`http://localhost:8000/${product.type}`).then((response) => {
+        axios.get(`https://blog-data-9hab.onrender.com/${product.type}`).then((response) => {
           const fetchedData = response.data;
 
           fetchedData?.forEach((fetchedProduct) => {
@@ -111,7 +111,7 @@ const Checkout = () => {
                 ...fetchedProduct,
                 cart: false,
               };
-              axios.put(`http://localhost:8000/${product.type}/${fetchedProduct.id}`, updatedProductList);
+              axios.put(`https://blog-data-9hab.onrender.com/${product.type}/${fetchedProduct.id}`, updatedProductList);
             }
           });
         });

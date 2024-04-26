@@ -7,7 +7,7 @@ import "./Header.scss";
 
 // LIBRARIES
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 // MISC
 import { useForm } from "../../hooks/useForm";
@@ -50,6 +50,7 @@ const Header = () => {
 
   // LIFE CYCLE
   useEffect(() => {
+    //for category buttons to not be activated when on other pages
     if (
       location.pathname === "/" ||
       location.pathname === "/add-product" ||
@@ -67,6 +68,7 @@ const Header = () => {
   }, [location]);
 
   useEffect(() => {
+    //refresh every 1 second cart and favorite operations
     setInterval(() => {
       setFavoriteList(JSON.parse(localStorage?.getItem("favoriteList")));
       setCartList(JSON.parse(localStorage?.getItem("cartProductsList")));
@@ -84,6 +86,7 @@ const Header = () => {
     setIsDropdownVisible(prevDropdown);
   };
 
+  //switch tab function
   const handleCategory = (category) => {
     setActive(category);
     navigate(`/categories/${category}`);
@@ -92,9 +95,11 @@ const Header = () => {
   const handleSearch = (event) => {
     event.preventDefault();
 
+    //if input is empty change color and text
     if (inputValues.search.trim() === "") {
       setIsEmpty(true);
     } else {
+      //navigate to search and pass value in search page
       navigate("/search", {
         state: {
           search: inputValues.search,
@@ -113,32 +118,21 @@ const Header = () => {
           </h1>
 
           {!isMobile && (
-            <Fragment>
-              <form className={isEmpty ? "input-form red" : "input-form"}>
-                <CustomInput
-                  type="text"
-                  name="search"
-                  value={inputValues.search}
-                  onChange={handleInputChange}
-                  placeholder={isEmpty ? "Type here to search for something" : "Search for something..."}
-                />
-                <CustomButton type="submit" onClick={handleSearch}>
-                  {searchIcon}
-                </CustomButton>
-              </form>
-            </Fragment>
+            <form className={isEmpty ? "input-form red" : "input-form"}>
+              <CustomInput
+                type="text"
+                name="search"
+                value={inputValues.search}
+                onChange={handleInputChange}
+                placeholder={isEmpty ? "Type here to search for something" : "Search for something..."}
+              />
+              <CustomButton type="submit" onClick={handleSearch}>
+                {searchIcon}
+              </CustomButton>
+            </form>
           )}
 
           <div className="login-right-buttons">
-            {/* {isTablet && (
-              <div className="header-dropdown-button" type="button" onClick={() => handleDropdown("account")}>
-                <div className="left-icon">{profileIcon}</div>
-                <div className="button-text">Account {dropdownIcon}</div>
-
-                {isDropdownVisible.account && <DropdownAccount setIsDropdownVisible={setIsDropdownVisible} />}
-              </div>
-            )} */}
-
             <div
               className="header-dropdown-button"
               onClick={isTablet ? () => navigate("/favorites") : () => handleDropdown("favorites")}
@@ -189,20 +183,18 @@ const Header = () => {
         </div>
 
         {isMobile && (
-          <Fragment>
-            <form className={isEmpty ? "input-form red" : "input-form"}>
-              <CustomInput
-                type="text"
-                name="search"
-                value={inputValues.search}
-                onChange={handleInputChange}
-                placeholder={isEmpty ? "Type here to search for something" : "Search for something..."}
-              />
-              <CustomButton type="submit" onClick={handleSearch}>
-                {searchIcon}
-              </CustomButton>
-            </form>
-          </Fragment>
+          <form className={isEmpty ? "input-form red" : "input-form"}>
+            <CustomInput
+              type="text"
+              name="search"
+              value={inputValues.search}
+              onChange={handleInputChange}
+              placeholder={isEmpty ? "Type here to search for something" : "Search for something..."}
+            />
+            <CustomButton type="submit" onClick={handleSearch}>
+              {searchIcon}
+            </CustomButton>
+          </form>
         )}
       </div>
 

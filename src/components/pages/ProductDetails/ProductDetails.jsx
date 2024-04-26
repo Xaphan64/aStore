@@ -68,14 +68,14 @@ const ProductDetails = () => {
     error,
     setData,
     setIsRerendering,
-  } = useFetch(`http://localhost:8000/${state?.currentCategory}/${id}`);
+  } = useFetch(`https://blog-data-9hab.onrender.com/${state?.currentCategory}/${id}`);
 
   const [addFavorite, setAddFavorite] = useState(product?.favorite || false);
 
   //useEffect to get the input data when pressing the edit
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/${state?.currentCategory}/${id}`)
+      .get(`https://blog-data-9hab.onrender.com/${state?.currentCategory}/${id}`)
       .then((response) => {
         setForm(response.data);
 
@@ -89,7 +89,7 @@ const ProductDetails = () => {
   //useEffect for not having to refresh the page after edit
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/${state?.currentCategory}/${id}`)
+      .get(`https://blog-data-9hab.onrender.com/${state?.currentCategory}/${id}`)
       .then((response) => setData(response.data))
       .catch((error) => console.log(error));
 
@@ -117,11 +117,9 @@ const ProductDetails = () => {
     let localFavoriteList = [...listOfFavoriteItems];
 
     axios
-      .put(`http://localhost:8000/${state?.currentCategory}/${id}`, updatedFavorite)
+      .put(`https://blog-data-9hab.onrender.com/${state?.currentCategory}/${id}`, updatedFavorite)
       .then((response) => {
         if (favStatus) {
-          console.log("Added to favorites", response);
-
           //add id and type in localFavorite list
           localFavoriteList.push({
             id: inputValues.id,
@@ -138,7 +136,6 @@ const ProductDetails = () => {
 
           showAddFavorite();
         } else {
-          console.log("Removed from favorites", response);
           // if list and length is not 0 delete the product with the same id and type
           if (getFavoriteList && getFavoriteList?.length > 0) {
             const updatedFavoriteList = getFavoriteList?.filter((product) => {
@@ -178,10 +175,8 @@ const ProductDetails = () => {
     let localCartList = [...listOfCartItems];
 
     axios
-      .put(`http://localhost:8000/${state?.currentCategory}/${id}`, addToCart)
+      .put(`https://blog-data-9hab.onrender.com/${state?.currentCategory}/${id}`, addToCart)
       .then((response) => {
-        console.log("Added to cart", response);
-
         //if cart list is empty, push name, id, type and price in localCartList
         if (localCartList.length === 0) {
           localCartList.push({
@@ -271,8 +266,7 @@ const ProductDetails = () => {
 
     //if conditions are met edit the product
     if (inputValues.name.trim() !== "" && priceRegex.test(inputValues.price) && inputValues.description.trim() !== "") {
-      axios.put(`http://localhost:8000/${state?.currentCategory}/${id}`, inputValues).then((response) => {
-        console.log("product edited sucesfully", response);
+      axios.put(`https://blog-data-9hab.onrender.com/${state?.currentCategory}/${id}`, inputValues).then((response) => {
         setIsPending(false);
         setEditMode(false);
       });
@@ -282,8 +276,7 @@ const ProductDetails = () => {
   const handleDelete = (id) => {
     setIsPending(true);
 
-    axios.delete(`http://localhost:8000/${state?.currentCategory}/${id}`).then((response) => {
-      console.log("Product deleted", response);
+    axios.delete(`https://blog-data-9hab.onrender.com/${state?.currentCategory}/${id}`).then(() => {
       navigate("/");
       setIsPending(false);
     });

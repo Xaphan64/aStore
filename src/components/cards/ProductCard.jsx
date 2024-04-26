@@ -33,7 +33,7 @@ const ProductCard = (props) => {
     const id = product.id || "";
 
     axios
-      .get(`http://localhost:8000/${productCategory}/${id}`)
+      .get(`https://blog-data-9hab.onrender.com/${productCategory}/${id}`)
       .then((response) => {
         setAddFavorite(response.data.favorite);
       })
@@ -65,11 +65,9 @@ const ProductCard = (props) => {
 
     if (productCategory && id) {
       axios
-        .put(`http://localhost:8000/${productCategory}/${id}`, updatedFavorite)
+        .put(`https://blog-data-9hab.onrender.com/${productCategory}/${id}`, updatedFavorite)
         .then((response) => {
           if (favStatus) {
-            console.log("Added to favorite", response);
-
             //add id and type in localFavorite list
             localFavoriteList.push({
               id: product.id,
@@ -83,8 +81,6 @@ const ProductCard = (props) => {
 
             showAddFavorite();
           } else {
-            console.log("Removed from favorite", response);
-
             // if list and length is not 0 delete the product with the same id and type
             if (getFavoriteList && getFavoriteList?.length > 0) {
               const updatedFavoriteList = getFavoriteList?.filter(
@@ -101,7 +97,7 @@ const ProductCard = (props) => {
           }
         })
         .catch((error) => {
-          console.error("Error updating favorite status", error);
+          console.error(error);
         });
     }
   };
@@ -126,10 +122,8 @@ const ProductCard = (props) => {
 
     if (productCategory && id) {
       axios
-        .put(`http://localhost:8000/${productCategory}/${id}`, addToCart)
+        .put(`https://blog-data-9hab.onrender.com/${productCategory}/${id}`, addToCart)
         .then((response) => {
-          console.log("Added to cart", response);
-
           //if cart list is empty, push name, id, type and price in localCartList
           if (localCartList.length === 0) {
             localCartList.push({
@@ -157,11 +151,10 @@ const ProductCard = (props) => {
               showAlreadyCart();
             }
           }
+          setIsRerendering(response?.data);
 
           //save data in localStorage
           localStorage.setItem("cartProductsList", JSON.stringify(localCartList));
-
-          setIsRerendering(response?.data);
         })
         .catch((error) => {
           console.error("Error, could not add to cart", error);

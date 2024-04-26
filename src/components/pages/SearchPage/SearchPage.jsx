@@ -19,9 +19,9 @@ const SearchPage = () => {
 
   // API REQUESTS
 
-  const [productsList, setProductList] = useState([]);
-
   // LIBRARY CONSTANTS
+  const { state } = useLocation();
+
   const categories = [
     { type: "phones" },
     { type: "laptops" },
@@ -33,15 +33,14 @@ const SearchPage = () => {
     { type: "furniture" },
   ];
 
-  const { state } = useLocation();
-  const searchFilter = productsList?.filter((value) => value.name.toLowerCase().includes(state.search.toLowerCase()));
-
   // STATE CONSTANTS
+  const [productsList, setProductList] = useState([]);
+  const searchFilter = productsList?.filter((value) => value.name.toLowerCase().includes(state.search.toLowerCase()));
 
   // LIFE CYCLE
   useEffect(() => {
     categories.forEach((category) => {
-      axios.get(`http://localhost:8000/${category.type}`).then((response) => {
+      axios.get(`https://blog-data-9hab.onrender.com/${category.type}`).then((response) => {
         setProductList((prev) => [...prev, ...response.data]);
       });
     });

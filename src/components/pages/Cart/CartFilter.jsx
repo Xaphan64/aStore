@@ -20,7 +20,7 @@ const CartFilter = (props) => {
   const { type = "", setCartProductList = () => {}, isHeader, isCheckout } = props;
 
   // API REQUESTS
-  const { data: products, setIsRerendering } = useFetch(`http://localhost:8000/${type}`);
+  const { data: products, setIsRerendering } = useFetch(`https://blog-data-9hab.onrender.com/${type}`);
 
   // LIBRARY CONSTANTS
   const productsCart = products.filter((product) => product.cart === true);
@@ -54,10 +54,8 @@ const CartFilter = (props) => {
       setIsPending(true);
 
       axios
-        .put(`http://localhost:8000/${productCategory}/${id}`, moveToFavorite)
+        .put(`https://blog-data-9hab.onrender.com/${productCategory}/${id}`, moveToFavorite)
         .then((response) => {
-          console.log("Moved to favorite", response);
-
           if (getProductsList && getProductsList?.length > 0) {
             // const updatedCartList = getProductsList?.filter((product) => !(product.id === id && product.type === type));
             const updatedCartList = getProductsList?.filter((product) => product.id !== id);
@@ -88,7 +86,7 @@ const CartFilter = (props) => {
           }
         })
         .catch((error) => {
-          console.error("Error, could not move to favorite", error);
+          console.error(error);
         })
         .finally(() => {
           setIsPending(false);
@@ -109,12 +107,9 @@ const CartFilter = (props) => {
       setIsPending(true);
 
       axios
-        .put(`http://localhost:8000/${productCategory}/${id}`, removeFromCart)
+        .put(`https://blog-data-9hab.onrender.com/${productCategory}/${id}`, removeFromCart)
         .then((response) => {
-          console.log("Removed from favorite", response);
-
           if (getProductsList && getProductsList?.length > 0) {
-            // const updatedCartList = getProductsList?.filter((product) => !(product.id === id && product.type === type));
             const updatedCartList = getProductsList?.filter((product) => product.id !== id);
 
             localStorage.setItem("cartProductsList", JSON.stringify(updatedCartList));

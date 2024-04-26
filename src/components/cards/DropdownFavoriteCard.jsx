@@ -4,11 +4,11 @@
 import "./DropdownFavoriteCard.scss";
 
 // LIBRARIES
+import { useNavigate } from "react-router-dom";
 
 // MISC
 
 // COMPONENTS
-import { useNavigate } from "react-router-dom";
 
 // CONFIGURATION
 const DropdownFavoriteCard = (props) => {

@@ -3,7 +3,7 @@
 // STYLES
 
 // LIBRARIES
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // MISC
 
@@ -36,7 +36,7 @@ const App = () => {
 
   // EVENT HANDLERS
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -54,7 +54,7 @@ const App = () => {
           <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 };
 

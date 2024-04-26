@@ -20,11 +20,10 @@ const Cart = (props) => {
   const { isHeader, isCheckout } = props;
 
   // API REQUESTS
-  const { isLoading, error } = useFetch(`http://localhost:8000/phones`);
+  const { isLoading, error } = useFetch(`https://blog-data-9hab.onrender.com/phones`);
 
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
-
   const user = sessionStorage.getItem("token");
   const admin = sessionStorage.getItem("adminToken");
 

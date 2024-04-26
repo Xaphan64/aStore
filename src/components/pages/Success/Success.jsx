@@ -2,6 +2,7 @@
 
 // STYLES
 import "./Success.scss";
+
 // LIBRARIES
 import { Link } from "react-router-dom";
 

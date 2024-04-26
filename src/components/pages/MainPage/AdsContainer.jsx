@@ -65,19 +65,24 @@ const ImageSlider = ({ slides }) => {
       </div>
       <div className="ads-slide" style={slideBackground}>
         <span className="ads-text">
-          {currentSlide === 0 && <span>This is a Ecommerce project made by Alexandru-Daniel Sarbu.</span>}
+          {currentSlide === 0 && (
+            <span>
+              This is a Ecommerce project made by Alexandru-Daniel Sarbu. This project is made in React using API and
+              Axios library.
+            </span>
+          )}
 
           {currentSlide === 1 && (
             <span>
-              This project is made in React using API and Axios library. Please note that this is not a real site and
-              the products and prices are fictional.
+              In this project you can create, add, delete and edit a product only if you are an admin. If you are a
+              normal user you can add to favorites, add to card and buy one or multiple products.
             </span>
           )}
 
           {currentSlide === 2 && (
             <span>
-              In this project you can create, add, delete and edit a product only if you are an admin. If you are a
-              normal user you can add to favorites, add to card and buy one or multiple products.
+              Please note that if the products are not loading refresh the page some times, sometimes the API fetch
+              works very slowly.
             </span>
           )}
         </span>
