@@ -137,8 +137,6 @@
       .dropdown-header {
         display: flex;
         flex-direction: column;
-        //TODO:de schimbat aici ca sa nu mai am bugul cu punct pe header dropdown
-        background-color: #292929;
         color: $primary-white;
         border-radius: 8px;
         position: absolute;
@@ -148,24 +146,29 @@
         z-index: 2;
 
         &.account {
-          right: 16px;
-
-          @media screen and (min-width: 0px) and (max-width: 1080px) {
-            right: 64px;
-          }
+          right: 0px;
+          background-color: #292929;
         }
 
-        &.cart {
-          right: 38px;
+        .dropdown-header-favorite {
+          background-color: #292929;
+          position: absolute;
+          right: -200px;
+          padding: 0 8px 8px 8px;
+          border-radius: 8px;
         }
 
-        &.favorite {
-          right: 140px;
+        .dropdown-header-cart {
+          background-color: #292929;
+          position: absolute;
+          right: -180px;
+          padding: 0 8px 8px 8px;
+          border-radius: 8px;
         }
 
         .dropdown-icon {
           display: flex;
-          align-self: center;
+          justify-content: center;
           margin-top: -4px;
         }
 
@@ -269,11 +272,11 @@
           padding: 0 8px 8px 8px;
 
           &.favorite {
-            right: 40px;
+            right: -165px;
           }
 
           &.cart {
-            right: 80px;
+            right: -100px;
           }
 
           .dropdown-empty-message {

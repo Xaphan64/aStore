@@ -166,8 +166,6 @@ const ProductCard = (props) => {
         .catch((error) => {
           console.error("Error, could not add to cart", error);
         });
-
-      console.log("Add to cart clicked");
     }
   };
 

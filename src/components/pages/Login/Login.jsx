@@ -26,6 +26,7 @@ const Login = () => {
 
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
+  const isMobile = window.matchMedia("(max-width: 1080px")?.matches;
 
   // STATE CONSTANTS
   const [emailError, setEmailError] = useState("");
@@ -58,7 +59,7 @@ const Login = () => {
       // navigate(-1);
       navigate("/");
       isAdmin ? sessionStorage.setItem("adminToken", nanoid()) : sessionStorage.setItem("token", nanoid());
-    } else console.log("login failed");
+    }
   };
 
   const signInWithGoogle = async () => {
@@ -104,7 +105,9 @@ const Login = () => {
         <div className="login-inputs">
           <CustomButton type="submit" name="Login" />
 
-          <CustomButton type="button" name="Login as Administrator" onClick={(event) => handleLogin(event, true)} />
+          {!isMobile && (
+            <CustomButton type="button" name="Login as Administrator" onClick={(event) => handleLogin(event, true)} />
+          )}
 
           <div className="login-bottom-text">
             <span>New to aStore? </span>

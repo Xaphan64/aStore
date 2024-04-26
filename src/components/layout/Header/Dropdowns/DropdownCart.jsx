@@ -43,9 +43,9 @@ const DropdownCart = (props) => {
 
   // EVENT HANDLERS
   return (
-    <div className="dropdown-header cart" ref={dropdownRef}>
+    <div className="dropdown-header" ref={dropdownRef}>
       {getCartList?.length > 0 ? (
-        <Fragment>
+        <div className="dropdown-header-cart">
           <div className="dropdown-icon">{dropdownUpIcon}</div>
 
           <div className="dropdown-options product">
@@ -59,14 +59,12 @@ const DropdownCart = (props) => {
               <CustomButton type="button" name="Go to cart page" onClick={() => navigate("/cart")} />
             </div>
           </div>
-        </Fragment>
+        </div>
       ) : (
-        <Fragment>
-          <div className="dropdown-empty cart">
-            <div className="dropdown-icon">{dropdownUpIcon}</div>
-            <span className="dropdown-empty-message">The cart is empty</span>
-          </div>
-        </Fragment>
+        <div className="dropdown-empty cart">
+          <div className="dropdown-icon">{dropdownUpIcon}</div>
+          <span className="dropdown-empty-message">The cart is empty</span>
+        </div>
       )}
     </div>
   );

@@ -15,7 +15,7 @@ import CustomButton from "../atoms/CustomButton";
 // CONFIGURATION
 const CartCard = (props) => {
   // PROPERTIES
-  const { product, type, handleMoveFavorite, handleRemoveCart } = props;
+  const { product, type, isPending, handleMoveFavorite, handleRemoveCart } = props;
 
   // API REQUESTS
 
@@ -52,17 +52,31 @@ const CartCard = (props) => {
       {isMobile ? (
         <div className="favorite-card-right">
           <div className="favorite-card-remove-button">
-            <CustomButton type="button" onClick={() => handleMoveFavorite(product)}>
-              <div>{cartFilledIcon}</div>
-              <span>Move to Favorite</span>
-            </CustomButton>
+            {isPending ? (
+              <CustomButton type="button" disabled>
+                <div>{cartFilledIcon}</div>
+                <span>Move to Favorite</span>
+              </CustomButton>
+            ) : (
+              <CustomButton type="button" onClick={() => handleMoveFavorite(product)}>
+                <div>{cartFilledIcon}</div>
+                <span>Move to Favorite</span>
+              </CustomButton>
+            )}
           </div>
 
           <div className="favorite-card-remove-button">
-            <CustomButton type="button" onClick={() => handleRemoveCart(product)}>
-              <div>{deleteIcon}</div>
-              <span>Remove</span>
-            </CustomButton>
+            {isPending ? (
+              <CustomButton type="button" disabled>
+                <div>{deleteIcon}</div>
+                <span>Remove</span>
+              </CustomButton>
+            ) : (
+              <CustomButton type="button" onClick={() => handleRemoveCart(product)}>
+                <div>{deleteIcon}</div>
+                <span>Remove</span>
+              </CustomButton>
+            )}
           </div>
 
           <span className="favorite-card-price">{priceFormat(product.price)} Lei</span>
@@ -72,17 +86,31 @@ const CartCard = (props) => {
           <span className="favorite-card-price">{priceFormat(product.price)} Lei</span>
 
           <div className="favorite-card-remove-button">
-            <CustomButton type="button" onClick={() => handleMoveFavorite(product)}>
-              <div>{cartFilledIcon}</div>
-              <span>Move to Favorite</span>
-            </CustomButton>
+            {isPending ? (
+              <CustomButton type="button" disabled>
+                <div>{cartFilledIcon}</div>
+                <span>Move to Favorite</span>
+              </CustomButton>
+            ) : (
+              <CustomButton type="button" onClick={() => handleMoveFavorite(product)}>
+                <div>{cartFilledIcon}</div>
+                <span>Move to Favorite</span>
+              </CustomButton>
+            )}
           </div>
 
           <div className="favorite-card-remove-button">
-            <CustomButton type="button" onClick={() => handleRemoveCart(product)}>
-              <div>{deleteIcon}</div>
-              <span>Remove</span>
-            </CustomButton>
+            {isPending ? (
+              <CustomButton type="button" disabled>
+                <div>{deleteIcon}</div>
+                <span>Remove</span>
+              </CustomButton>
+            ) : (
+              <CustomButton type="button" onClick={() => handleRemoveCart(product)}>
+                <div>{deleteIcon}</div>
+                <span>Remove</span>
+              </CustomButton>
+            )}
           </div>
         </div>
       )}

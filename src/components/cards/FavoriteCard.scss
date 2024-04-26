@@ -73,6 +73,10 @@
           font-size: 16px;
           padding-right: 8px;
         }
+
+        &:disabled {
+          cursor: wait;
+        }
       }
     }
 
@@ -91,6 +95,15 @@
         &:hover {
           text-decoration: underline;
           color: #59b7ff;
+        }
+
+        &:disabled {
+          cursor: wait;
+
+          &:hover {
+            text-decoration: none;
+            color: $primary-blue;
+          }
         }
       }
     }
@@ -165,13 +178,13 @@
       }
 
       .favorite-card-add-button {
-        width: 120px;
         button {
           div {
             padding: 0px;
           }
           span {
             font-size: 12px;
+            white-space: nowrap;
           }
         }
       }

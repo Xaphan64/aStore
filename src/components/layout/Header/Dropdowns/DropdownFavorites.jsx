@@ -4,7 +4,7 @@ import { dropdownUpIcon } from "../../../assets/MUI-icons";
 // STYLES
 
 // LIBRARIES
-import { Fragment, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 // MISC
@@ -43,9 +43,9 @@ const DropdownFavorites = (props) => {
 
   // EVENT HANDLERS
   return (
-    <div className="dropdown-header favorite" ref={dropdownRef}>
+    <div className="dropdown-header" ref={dropdownRef}>
       {getFavoriteList?.length > 0 ? (
-        <Fragment>
+        <div className="dropdown-header-favorite">
           <div className="dropdown-icon">{dropdownUpIcon}</div>
 
           <div className="dropdown-options product">
@@ -59,14 +59,12 @@ const DropdownFavorites = (props) => {
               <CustomButton type="button" name="Go to favorite page" onClick={() => navigate("/favorites")} />
             </div>
           </div>
-        </Fragment>
+        </div>
       ) : (
-        <Fragment>
-          <div className="dropdown-empty favorite">
-            <div className="dropdown-icon">{dropdownUpIcon}</div>
-            <span className="dropdown-empty-message">There are no favorite products</span>
-          </div>
-        </Fragment>
+        <div className="dropdown-empty favorite">
+          <div className="dropdown-icon">{dropdownUpIcon}</div>
+          <span className="dropdown-empty-message">There are no favorite products</span>
+        </div>
       )}
     </div>
   );

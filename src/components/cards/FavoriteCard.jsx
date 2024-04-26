@@ -5,8 +5,8 @@ import { cartFilledIcon, deleteIcon } from "../assets/MUI-icons";
 import "./FavoriteCard.scss";
 
 // LIBRARIES
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // MISC
 
@@ -16,13 +16,15 @@ import CustomButton from "../atoms/CustomButton";
 // CONFIGURATION
 const FavoriteCard = (props) => {
   // PROPERTIES
-  const { product, type, showaddCart, showAlreadyCart, handleRemoveFavorite } = props;
+  const { product, type, showaddCart, showAlreadyCart } = props;
+  const { handleRemoveFavorite, setIsRerendering, setIsPending, isPending } = props;
 
   // API REQUESTS
 
   // LIBRARY CONSTANTS
   const navigate = useNavigate();
   const isMobile = window.matchMedia("(max-width: 500px")?.matches;
+
   // STATE CONSTANTS
 
   // LIFE CYCLE
@@ -43,13 +45,16 @@ const FavoriteCard = (props) => {
     let localCartList = [...listOfCartItems];
 
     if (productCategory && id) {
+      setIsPending(true);
       axios
         .put(`http://localhost:8000/${productCategory}/${id}`, addToCart)
         .then((response) => {
-          console.log("Added to cart", response);
+          setIsRerendering(response?.data);
 
           if (localCartList.length === 0) {
             localCartList.push({
+              name: product.name,
+              price: product.price,
               id: product.id,
               type: product.type,
             });
@@ -61,6 +66,8 @@ const FavoriteCard = (props) => {
 
             if (!productExist) {
               localCartList.push({
+                name: product.name,
+                price: product.price,
                 id: product.id,
                 type: product.type,
               });
@@ -73,11 +80,13 @@ const FavoriteCard = (props) => {
 
           localStorage.setItem("cartProductsList", JSON.stringify(localCartList));
         })
+
         .catch((error) => {
           console.error("Error, could not add to cart", error);
+        })
+        .finally(() => {
+          setIsPending(false);
         });
-
-      console.log("Add to cart clicked");
     }
   };
 
@@ -105,17 +114,31 @@ const FavoriteCard = (props) => {
       {isMobile ? (
         <div className="favorite-card-right">
           <div className="favorite-card-add-button">
-            <CustomButton type="button" onClick={handleAddCart}>
-              <div>{cartFilledIcon}</div>
-              <span>Add to cart</span>
-            </CustomButton>
+            {isPending ? (
+              <CustomButton type="button" disabled>
+                <div>{cartFilledIcon}</div>
+                <span>Add to cart</span>
+              </CustomButton>
+            ) : (
+              <CustomButton type="button" onClick={handleAddCart}>
+                <div>{cartFilledIcon}</div>
+                <span>Add to cart</span>
+              </CustomButton>
+            )}
           </div>
 
           <div className="favorite-card-remove-button">
-            <CustomButton type="button" onClick={() => handleRemoveFavorite(product)}>
-              <div>{deleteIcon}</div>
-              <span>Remove</span>
-            </CustomButton>
+            {isPending ? (
+              <CustomButton type="button" disabled>
+                <div>{deleteIcon}</div>
+                <span>Remove</span>
+              </CustomButton>
+            ) : (
+              <CustomButton type="button" onClick={() => handleRemoveFavorite(product)}>
+                <div>{deleteIcon}</div>
+                <span>Remove</span>
+              </CustomButton>
+            )}
           </div>
 
           <span className="favorite-card-price">{priceFormat(product.price)} Lei</span>
@@ -125,17 +148,31 @@ const FavoriteCard = (props) => {
           <span className="favorite-card-price">{priceFormat(product.price)} Lei</span>
 
           <div className="favorite-card-add-button">
-            <CustomButton type="button" onClick={handleAddCart}>
-              <div>{cartFilledIcon}</div>
-              <span>Add to cart</span>
-            </CustomButton>
+            {isPending ? (
+              <CustomButton type="button" disabled>
+                <div>{cartFilledIcon}</div>
+                <span>Add to cart</span>
+              </CustomButton>
+            ) : (
+              <CustomButton type="button" onClick={handleAddCart}>
+                <div>{cartFilledIcon}</div>
+                <span>Add to cart</span>
+              </CustomButton>
+            )}
           </div>
 
           <div className="favorite-card-remove-button">
-            <CustomButton type="button" onClick={() => handleRemoveFavorite(product)}>
-              <div>{deleteIcon}</div>
-              <span>Remove</span>
-            </CustomButton>
+            {isPending ? (
+              <CustomButton type="button" disabled>
+                <div>{deleteIcon}</div>
+                <span>Remove</span>
+              </CustomButton>
+            ) : (
+              <CustomButton type="button" onClick={() => handleRemoveFavorite(product)}>
+                <div>{deleteIcon}</div>
+                <span>Remove</span>
+              </CustomButton>
+            )}
           </div>
         </div>
       )}
