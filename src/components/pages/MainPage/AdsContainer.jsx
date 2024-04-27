@@ -24,10 +24,6 @@ const ImageSlider = ({ slides }) => {
   // STATE CONSTANTS
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // const slideBackground = {
-  //   backgroundImage: `url(${slides[currentSlide].url})`,
-  // };
-
   // LIFE CYCLE
   useEffect(() => {
     const changeSlide = setInterval(() => {
@@ -68,7 +64,6 @@ const ImageSlider = ({ slides }) => {
         {rightArrowIcon}
       </div>
 
-      {/* <div className="ads-slides"> */}
       {currentSlide === 0 && (
         <div className="ads-slide">
           <img src={slideOne} alt="slideOne" />
@@ -84,7 +79,7 @@ const ImageSlider = ({ slides }) => {
           <img src={slideTwo} alt="slideTwo" />
           <span>
             As a user, in this project you can add products to favorite, add products to cart and buy multiple products.
-            As an admin you can even create, delete and edit products.
+            As an admin you can create, delete and edit products.
           </span>
         </div>
       )}
@@ -98,7 +93,6 @@ const ImageSlider = ({ slides }) => {
           </span>
         </div>
       )}
-      {/* </div> */}
 
       <div className="ads-dots-container">
         {currentSlide === 0 ? (

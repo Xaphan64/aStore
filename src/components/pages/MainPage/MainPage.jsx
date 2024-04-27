@@ -1,7 +1,4 @@
 // ASSETS
-import slideOne from "../../assets/carousel/slideOne.webp";
-import slideTwo from "../../assets/carousel/slideTwo.png";
-import slideThree from "../../assets/carousel/slideThree.jpg";
 
 // STYLES
 import "./MainPage.scss";
@@ -25,11 +22,7 @@ const MainPage = () => {
   const { isLoading, error } = useFetch(`https://blog-data-9hab.onrender.com/phones`);
 
   // LIBRARY CONSTANTS
-  const slides = [
-    { url: slideOne, title: "slideOne" },
-    { url: slideTwo, title: "slideTwo" },
-    { url: slideThree, title: "slideThree" },
-  ];
+  const slides = [{ title: "slideOne" }, { title: "slideTwo" }, { title: "slideThree" }];
 
   const categories = [
     { type: "phones" },
