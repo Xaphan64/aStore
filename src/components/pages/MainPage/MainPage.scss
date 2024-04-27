@@ -21,46 +21,198 @@
   .ads-container {
     padding-top: 8px;
 
+    // .ads-carousel-container {
+    //   position: relative;
+    //   margin: 0 auto;
+    //   width: clamp(250px, 80%, 1800px);
+    //   // height: 700px;
+    //   // width: 100%;
+    //   height: 100%;
+    //   max-height: 700px;
+    //   background-size: cover;
+    //   background-position: center;
+
+    //   .ads-slides {
+    //     .ads-slide {
+    //       img {
+    //         // width: clamp(250px, 100%, 1800px);
+    //         // height: 700px;
+
+    //         width: 100%;
+    //         height: 100%;
+    //         max-height: 700px;
+    //         object-fit: center;
+    //         object-position: center;
+    //         border-radius: 8px;
+    //         z-index: 1;
+    //       }
+
+    //       span {
+    //         display: none;
+    //         position: absolute;
+    //         top: 50%;
+    //         left: 50%;
+    //         transform: translate(-50%, -50%);
+    //         background-color: rgb(0, 0, 0, 0.7);
+    //         padding: 8px;
+    //         border-radius: 8px;
+    //         text-align: center;
+    //         font-size: 24px;
+    //         z-index: 2;
+
+    //         @media screen and (max-width: 550px) {
+    //           font-size: 20px;
+    //         }
+    //       }
+    //     }
+    //   }
+
+    //   // .ads-slide {
+    //   //   width: 100%;
+    //   //   height: 100%;
+    //   //   border-radius: 8px;
+    //   //   background-size: cover;
+    //   //   background-position: center;
+    //   //   position: relative;
+    //   //   z-index: 1;
+
+    //   //   .ads-text {
+    //   //     position: absolute;
+    //   //     top: 50%;
+    //   //     left: 50%;
+    //   //     transform: translate(-50%, -50%);
+    //   //     background-color: rgb(0, 0, 0, 0.6);
+    //   //     padding: 8px;
+    //   //     border-radius: 8px;
+    //   //     text-align: center;
+    //   //     font-size: 24px;
+    //   //     z-index: 2;
+
+    //   //     .ads-slide {
+    //   //       img {
+    //   //         width: 100px;
+    //   //         height: 100px;
+    //   //         border-radius: 8px;
+    //   //         background-size: cover;
+    //   //         background-position: center;
+    //   //         position: relative;
+    //   //         z-index: 1;
+    //   //       }
+    //   //     }
+
+    //   //   }
+    //   // }
+
+    //   .ads-carousel-arrow {
+    //     position: absolute;
+    //     top: 50%;
+    //     transform: translate(0, -50%);
+    //     color: $primary-white;
+    //     background-color: rgb(0, 0, 0, 0.4);
+    //     border-radius: 24px;
+    //     z-index: 2;
+    //     cursor: pointer;
+    //     display: flex;
+
+    //     svg {
+    //       width: 48px;
+    //       height: 48px;
+    //     }
+
+    //     &.left {
+    //       left: 24px;
+    //     }
+
+    //     &.right {
+    //       right: 24px;
+    //     }
+    //   }
+
+    //   .ads-dots-container {
+    //     display: flex;
+    //     justify-content: center;
+
+    //     .ads-dots {
+    //       margin: 8px;
+    //       cursor: pointer;
+    //       svg {
+    //         width: clamp(16px, 100%, 24px);
+    //       }
+    //     }
+    //   }
+
+    //   @media screen and (min-width: 0px) and (max-width: 500px) {
+    //     height: 250px;
+
+    //     .ads-slide {
+    //       .ads-text {
+    //         padding: 4px 8px;
+    //         font-size: 16px;
+
+    //         @media screen and (max-width: 350px) {
+    //           font-size: 14px;
+    //         }
+    //       }
+    //     }
+
+    //     .ads-carousel-arrow {
+    //       svg {
+    //         width: 24px;
+    //         height: 24px;
+    //       }
+    //     }
+
+    //     .ads-dots-container {
+    //       .ads-dots {
+    //         svg {
+    //           width: 16px;
+    //         }
+    //       }
+    //     }
+    //   }
+
+    //   @media screen and (min-width: 501px) and (max-width: 1200px) {
+    //     height: 400px;
+    //   }
+    // }
+
     .ads-carousel-container {
+      // background-color: red;
       position: relative;
-      margin: 0 auto;
-      width: clamp(250px, 80%, 1800px);
-      height: 600px;
+
+      width: 100%;
+      height: 100%;
+      // display: flex;
+      // flex-direction: column;
+      // justify-content: center;
 
       .ads-slide {
-        width: 100%;
-        height: 100%;
-        border-radius: 8px;
-        background-size: cover;
-        background-position: center;
-        position: relative;
-        z-index: 1;
+        // background-color: red;
 
-        // .ads-text {
-        //   position: absolute;
-        //   top: 50%;
-        //   left: 50%;
-        //   transform: translate(-50%, -50%);
-        //   background-color: rgb(0, 0, 0, 0.6);
-        //   padding: 8px;
-        //   border-radius: 8px;
-        //   text-align: center;
-        //   font-size: 24px;
-        //   z-index: 2;
-        // }
-      }
+        img {
+          width: clamp(250px, 100%, 1800px);
+          height: auto;
+          max-height: 700px;
+          object-fit: cover;
+          z-index: 1;
+        }
 
-      .ads-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: rgb(0, 0, 0, 0.6);
-        padding: 8px;
-        border-radius: 8px;
-        text-align: center;
-        font-size: 24px;
-        z-index: 2;
+        span {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background-color: rgb(0, 0, 0, 0.7);
+          padding: 8px;
+          border-radius: 8px;
+          text-align: center;
+          font-size: 24px;
+          z-index: 2;
+
+          @media screen and (max-width: 550px) {
+            font-size: 20px;
+          }
+        }
       }
 
       .ads-carousel-arrow {
@@ -100,97 +252,67 @@
           }
         }
       }
-
-      @media screen and (min-width: 0px) and (max-width: 500px) {
-        height: 250px;
-
-        .ads-slide {
-          .ads-text {
-            padding: 4px 8px;
-            font-size: 14px;
-          }
-        }
-
-        .ads-carousel-arrow {
-          svg {
-            width: 24px;
-            height: 24px;
-          }
-        }
-
-        .ads-dots-container {
-          .ads-dots {
-            svg {
-              width: 16px;
-            }
-          }
-        }
-      }
-
-      @media screen and (min-width: 501px) and (max-width: 1200px) {
-        height: 400px;
-      }
     }
   }
+}
 
-  .error-message {
-    text-align: center;
-    padding-top: 16px;
+.error-message {
+  text-align: center;
+  padding-top: 16px;
+}
+
+.main-page-categories-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 24px;
+
+  @media screen and (min-width: 0px) and (max-width: 500px) {
+    padding: 8px 4px;
   }
 
-  .main-page-categories-container {
+  .main-page-category-container {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding: 0 24px;
 
-    @media screen and (min-width: 0px) and (max-width: 500px) {
-      padding: 8px 4px;
+    .main-page-category-title {
+      padding-left: 40px;
+      text-transform: capitalize;
+
+      @media screen and (min-width: 0px) and (max-width: 500px) {
+        font-size: 20px;
+      }
     }
 
-    .main-page-category-container {
+    .main-page-category-body {
       display: flex;
-      flex-direction: column;
-      gap: 8px;
+      align-items: center;
 
-      .main-page-category-title {
-        padding-left: 40px;
-        text-transform: capitalize;
+      .left-arrow-left,
+      .right-arrow-right {
+        display: flex;
+        cursor: pointer;
 
-        @media screen and (min-width: 0px) and (max-width: 500px) {
-          font-size: 20px;
+        svg {
+          width: 40px;
+          height: 40px;
         }
       }
+      .is-disabled-hide {
+        visibility: hidden;
+      }
 
-      .main-page-category-body {
+      .main-page-category {
         display: flex;
-        align-items: center;
+        flex-direction: row;
+        gap: 16px;
+        overflow-y: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
 
-        .left-arrow-left,
-        .right-arrow-right {
+        .main-page-category-map {
           display: flex;
-          cursor: pointer;
-
-          svg {
-            width: 40px;
-            height: 40px;
-          }
-        }
-        .is-disabled-hide {
-          visibility: hidden;
-        }
-
-        .main-page-category {
-          display: flex;
-          flex-direction: row;
-          gap: 16px;
-          overflow-y: auto;
-          scrollbar-width: none;
-          -ms-overflow-style: none;
-
-          .main-page-category-map {
-            display: flex;
-          }
         }
       }
     }
